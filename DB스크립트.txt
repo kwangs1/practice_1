@@ -1,0 +1,9 @@
+create user gallery identified by gallery;
+grant connect, resource, dba to gallery;
+
+create tablespace gallery datafile 'gallery'
+size 2048m autoextend on next 4m maxsize unlimited
+logging permanent extent management local autoallocate
+blocksize 8k segment space management manual
+flashback on;
+
