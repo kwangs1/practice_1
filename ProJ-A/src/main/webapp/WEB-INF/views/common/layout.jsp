@@ -20,9 +20,6 @@
 				   <tiles:insertAttribute name="header" />
 			</header>
 			<div class="clear"></div>
-<%-- 			<aside>
-				 <tiles:insertAttribute name="side" />
-			</aside> --%>
 			<article>
 			 	<tiles:insertAttribute name="body" />
 			</article>

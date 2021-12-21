@@ -22,7 +22,7 @@ div#title{
    
     text-align:right;
     margin:10px;
-    font-size:1.1em;
+    font-size:0.8em;
     display:block;
     color:white;
  
@@ -30,7 +30,7 @@ div#title{
  
 /*logindisplay영역의 링크 스타일 지정*/
 #logindisplay a:link{
-    color:white;
+    color:black;
     text-decoration:none;
  
 }
@@ -54,18 +54,17 @@ div#title{
 #menucontainer{
     /*clear:both;*/
     margin-top:40px;
-   
-   
+  
 }
  
 /*메뉴 모양 정의 */
  
 ul#menu{
-   
-    text-align:right;
-    margin:0;
-    border-bottom: 1px #5c87b2 solid;
-    position: relative;
+    text-align:center;
+    list-style-type: none;
+  	margin: 0;
+  	padding: 0;
+  	overflow: hidden;
 }
  
 ul#menu li{
@@ -74,11 +73,10 @@ ul#menu li{
 }
 ul#menu li a{
     padding:10px 20px;
-    background-color:#e8eef4;
     font-weight: bold;
     text-decoration:none;
     line-height:2.8em;
-    color:#034af3;
+    color:#000;
 }
 ul#menu li a:hover{
    
@@ -86,8 +84,6 @@ ul#menu li a:hover{
     text-decoration:none;
 }
 ul#menu li a:active{
-   
-    background-color:#a6e2a6;
     text-decoration:none;
 }
  
@@ -95,6 +91,43 @@ ul#menu li a:active{
 h1, h2, h3, h4, h5, h6
 {
     font-size: 1.5em;
+}
+
+/* dropdown */
+li a, .dropbtn {
+  display: inline-block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li.dropdown {
+  display: block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-content a:hover {background-color: #f1f1f1;}
+
+.dropdown:hover .dropdown-content {
+  display: inline;
+  top: 0px;
 }
 </style>
 </head>
@@ -105,7 +138,9 @@ h1, h2, h3, h4, h5, h6
 
 		<!-- Site title Or logo -->
 		<div id="title">
-			<h1>KS Gallery</h1>
+		<a href="${contextPath }/main/main.do">
+		<img alt="logo" src="${contextPath }/resources/image/logo.png" style="height:150px">
+		</a>
 		</div>
 
 		<!-- 로그인 영역 -->
@@ -120,8 +155,20 @@ h1, h2, h3, h4, h5, h6
 		<!-- 메뉴 영역-->
 		<div id="menucontainer">
 			<ul id="menu">
-				<li><a href="/">Home</a></li>
-				<li><a href="/About">About</a></li>
+				<li class="dropdown">
+				<a href="javascript:void(0)" class="dropbtn">이용안내</a>
+				<div class="dropdown-content">
+				<a href="${contextPath }/information/preview.do">관람안내</a>
+				<a href="${contextPath }/information/navigator.do">오시는길</a>
+				<a href="${contextPath }/information/grouptour.do">단체관람 안내</a>
+				</div>
+				<li><a href="#">전시</a></li>
+				<li><a href="#">책그림섬</a></li>
+				<li><a href="#">교육프로그램</a></li>
+				<li><a href="#">소장품</a></li>
+				<li><a href="#">소식/참여</a></li>
+				<li><a href="#">미술관소개</a></li>
+				<li><a href="#">온라인예약</a></li>
 			</ul>
 		</div>
 

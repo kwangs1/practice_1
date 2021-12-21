@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+
+<tiles-definitions>
+	<definition name="/information/preview" extends="baseLayout">
+		<put-attribute name="title" value="관람안내" />
+		<put-attribute name="body" value="/WEB-INF/views/information/preview.jsp" />
+	</definition>
+	
+	<definition name="/information/navigator" extends="baseLayout">
+		<put-attribute name="title" value="오시는길" />
+		<put-attribute name="body" value="/WEB-INF/views/information/navigator.jsp" />
+	</definition>
+	
+	<definition name="/information/grouptour" extends="baseLayout">
+		<put-attribute name="title" value="오시는길" />
+		<put-attribute name="body" value="/WEB-INF/views/information/grouptour.jsp" />
+	</definition>
+</tiles-definitions>
