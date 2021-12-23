@@ -15,7 +15,7 @@
 	</definition>
 	
 	<definition name="/information/grouptour" extends="baseLayout">
-		<put-attribute name="title" value="오시는길" />
+		<put-attribute name="title" value="관람예절" />
 		<put-attribute name="body" value="/WEB-INF/views/information/grouptour.jsp" />
 	</definition>
 </tiles-definitions>

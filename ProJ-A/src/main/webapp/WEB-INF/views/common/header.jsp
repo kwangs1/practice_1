@@ -145,10 +145,9 @@ li.dropdown {
 
 		<!-- 로그인 영역 -->
 		<div id="logindisplay">
-			<a href="#">로그인 |</a> 
-			<a href="#">회원가입|</a> 
+			<a href="${contextPath }/member/login.do">로그인 |</a> 
+			<a href="#">회원가입 |</a> 
 			<a href="#">새소식 |</a> 
-			<a href="#">멤버쉽 |</a> 
 			<a href="#">사이트맵</a>
 		</div>
 
