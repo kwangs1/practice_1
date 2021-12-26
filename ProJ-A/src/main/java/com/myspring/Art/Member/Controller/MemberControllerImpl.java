@@ -44,9 +44,9 @@ public class MemberControllerImpl implements MemberController{
 			session.setAttribute("isLogOn", true);
 			session.setAttribute("memberInfo", memberVO);
 			
-			//상품 주문 과정에서 로그인했으면 로그인 후 다시 주문 화면으로 진행하고 그 외에는 메인페이지를 표시
+	
 			String action=(String)session.getAttribute("action");
-			if(action!=null && action.equals("/order/orderEachGoods.do")) {
+			if(action!=null && action.equals("/")) {
 				mav.setViewName("forword:" + action);
 			}else {
 				mav.setViewName("redirect:/main/main.do");

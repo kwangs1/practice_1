@@ -23,8 +23,6 @@ public interface MemberController {
 
 	ResponseEntity overlapped(String id, HttpServletRequest request, HttpServletResponse response) throws Exception;
 
-	ModelAndView logout(HttpServletRequest request, HttpServletResponse response) throws Exception;
-
 	String logout(HttpSession session) throws Exception;
 
 }
