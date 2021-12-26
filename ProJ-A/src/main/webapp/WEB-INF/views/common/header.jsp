@@ -8,6 +8,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <title>header</title>
 <style>
 
@@ -106,7 +108,7 @@ li.dropdown {
   display: block;
 }
 
-.dropdown-content {
+.dropdown-content{
   display: none;
   position: absolute;
   background-color: #f9f9f9;
@@ -145,14 +147,27 @@ li.dropdown {
 
 		<!-- 로그인 영역 -->
 		<div id="logindisplay">
-			<a href="${contextPath }/member/login.do">로그인 |</a> 
-			<a href="#">회원가입 |</a> 
+		<c:choose>
+			<c:when test="${isLogOn == true and not empty memberInfo }">
+				<a href="${contextPath}/member/logout.do" onClick="window.location.reload()">로그아웃 |</a>
+				<a href="#">마이페이지 |</a>
+				<a href="#">새소식 |</a> 
+				<a href="#">사이트맵</a>
+			</c:when>
+			<c:otherwise>
+			<a href="${contextPath }/member/loginForm.do">로그인 |</a> 
+			<a href="${contextPath }/member/memberForm.do">회원가입 |</a> 
 			<a href="#">새소식 |</a> 
 			<a href="#">사이트맵</a>
+			</c:otherwise>
+		</c:choose>
+		<c:if test="${isLogOn == true and memberInfo.member_id =='admin' }">
+			<a href="#">|관리자 페이지</a>
+		</c:if>
 		</div>
 
 		<!-- 메뉴 영역-->
-		<div id="menucontainer">
+	<div id="menucontainer">
 			<ul id="menu">
 				<li class="dropdown">
 				<a href="javascript:void(0)" class="dropbtn">이용안내</a>

@@ -3,10 +3,10 @@
 	"http://mybatis.org/dtd/mybatis-3-config.dtd">
 
 <configuration>
-  <settings>
+    <settings>
         <setting name="jdbcTypeForNull" value="NULL"/>
     </settings>
 <typeAliases>
-	<typeAlias type="com.myspring.Art.Member.VO.MemberVO" alias="MemberVO" />
-</typeAliases>    
+		<typeAlias type="com.myspring.Art.Member.VO.MemberVO" alias="MemberVO" />
+</typeAliases>       
 </configuration>

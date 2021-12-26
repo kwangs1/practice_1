@@ -35,6 +35,7 @@ public class MemberVO {
 	public void setMember_id(String member_id) {
 		this.member_id = member_id;
 	}
+	
 	public String getMember_pw() {
 		return member_pw;
 	}
@@ -53,6 +54,8 @@ public class MemberVO {
 	public void setMember_gender(String member_gender) {
 		this.member_gender = member_gender;
 	}
+	
+	
 	public String getMember_birth_y() {
 		return member_birth_y;
 	}
@@ -113,12 +116,7 @@ public class MemberVO {
 	public void setHp3(String hp3) {
 		this.hp3 = hp3;
 	}
-	public String getSmssts_yn() {
-		return smssts_yn;
-	}
-	public void setSmssts_yn(String smssts_yn) {
-		this.smssts_yn = smssts_yn;
-	}
+	
 	public String getEmail1() {
 		return email1;
 	}
@@ -130,6 +128,14 @@ public class MemberVO {
 	}
 	public void setEmail2(String email2) {
 		this.email2 = email2;
+	}
+	
+	
+	public String getSmssts_yn() {
+		return smssts_yn;
+	}
+	public void setSmssts_yn(String smssts_yn) {
+		this.smssts_yn = smssts_yn;
 	}
 	public String getEmailsts_yn() {
 		return emailsts_yn;
@@ -143,6 +149,8 @@ public class MemberVO {
 	public void setZipcode(String zipcode) {
 		this.zipcode = zipcode;
 	}
+	
+	
 	public String getRoadAddress() {
 		return roadAddress;
 	}
@@ -155,6 +163,8 @@ public class MemberVO {
 	public void setJibunAddress(String jibunAddress) {
 		this.jibunAddress = jibunAddress;
 	}
+    
+	
 	public String getNamujiAddress() {
 		return namujiAddress;
 	}
@@ -173,6 +183,5 @@ public class MemberVO {
 	public void setDel_yn(String del_yn) {
 		this.del_yn = del_yn;
 	}
-	
 	
 }

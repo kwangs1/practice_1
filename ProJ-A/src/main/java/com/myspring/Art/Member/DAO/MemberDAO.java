@@ -10,4 +10,8 @@ public interface MemberDAO {
 
 	MemberVO login(Map loginMap) throws DataAccessException;
 
+	void insertNewMember(MemberVO memberVO) throws DataAccessException;
+
+	String selectOverlappedID(String id) throws DataAccessException;
+
 }

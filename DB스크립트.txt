@@ -1,5 +1,5 @@
 create user gallery identified by gallery;
-grant connect, resource, dba to gallery;
+grant DBA, resource, connect to gallery WITH ADMIN OPTION;;
 
 create tablespace gallery datafile 'gallery'
 size 2048m autoextend on next 4m maxsize unlimited
@@ -7,3 +7,30 @@ logging permanent extent management local autoallocate
 blocksize 8k segment space management manual
 flashback on;
 
+  CREATE TABLE GALLERY_MEMBER 
+   (	
+    MEMBER_ID VARCHAR2(20 BYTE) primary key, 
+	MEMBER_PW VARCHAR2(30 BYTE), 
+	MEMBER_NAME VARCHAR2(50 BYTE), 
+	MEMBER_GENDER VARCHAR2(10 BYTE), 
+	TEL1 VARCHAR2(20 BYTE), 
+	TEL2 VARCHAR2(20 BYTE), 
+	TEL3 VARCHAR2(20 BYTE), 
+	HP1 VARCHAR2(20 BYTE), 
+	HP2 VARCHAR2(20 BYTE), 
+	HP3 VARCHAR2(20 BYTE), 
+	SMSSTS_YN VARCHAR2(20 BYTE), 
+	EMAIL1 VARCHAR2(20 BYTE), 
+	EMAIL2 VARCHAR2(20 BYTE), 
+	EMAILSTS_YN VARCHAR2(20 BYTE), 
+	ZIPCODE VARCHAR2(20 BYTE), 
+	ROADADDRESS VARCHAR2(500 BYTE), 
+	JIBUNADDRESS VARCHAR2(500 BYTE), 
+	NAMUJIADDRESS VARCHAR2(500 BYTE), 
+	MEMBER_BIRTH_Y VARCHAR2(20 BYTE), 
+	MEMBER_BIRTH_M VARCHAR2(20 BYTE), 
+	MEMBER_BIRTH_D VARCHAR2(20 BYTE), 
+	MEMBER_BIRTH_GN VARCHAR2(20 BYTE), 
+	JOINDATE DATE DEFAULT sysdate, 
+	DEL_YN VARCHAR2(20 BYTE) DEFAULT 'N'
+   ) ;

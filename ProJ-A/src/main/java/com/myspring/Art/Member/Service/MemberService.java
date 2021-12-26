@@ -8,4 +8,8 @@ public interface MemberService {
 
 	MemberVO login(Map loginMap) throws Exception;
 
+	void addMember(MemberVO memberVO) throws Exception;
+
+	String overlapped(String id) throws Exception;
+
 }

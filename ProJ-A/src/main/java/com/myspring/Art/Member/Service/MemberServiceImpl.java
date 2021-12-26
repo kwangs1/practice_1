@@ -20,4 +20,14 @@ public class MemberServiceImpl implements MemberService{
 	public MemberVO login(Map loginMap)throws Exception{
 		return memberDAO.login(loginMap);
 	}
+	
+	@Override
+	public void addMember(MemberVO memberVO) throws Exception{
+		memberDAO.insertNewMember(memberVO);
+	}
+	
+	@Override
+	public String overlapped(String id) throws Exception{
+		return memberDAO.selectOverlappedID(id);
+	}
 }

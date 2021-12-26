@@ -1,24 +1,24 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" isELIgnored="false" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"
+	 isELIgnored="false" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="contextPath"  value="${pageContext.request.contextPath}"  />
-<!DOCTYPE html>
+<!DOCTYPE html >
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <c:if test='${not empty message }'>
 <script>
-window.onload=function(){
-	result();
+window.onload=function()
+{
+  result();
 }
 
 function result(){
-	alert("아이디나 비밀번호가 틀립니다. 다시 로그인 해주세요");
+	alert("아이디나  비밀번호가 틀립니다. 다시 로그인해주세요");
 }
 </script>
 </c:if>
-<title>로그인</title>
 <style>
 *{
 margin:0; 
@@ -101,9 +101,9 @@ top:1px;
 <body>
 	<div class="loginbox">
 		<h1>Login</h1>
-		<form action="${contextPath }/member/login.do" method="GET">
+		<form action="${contextPath }/member/login.do" method="post">
 			<label for="loginid" class="labelid">아이디</label>
-      		<input type="text" name="member_id" id="loginid" ></br>
+      		<input type="text" name="member_id" id="loginid" ><br>
       		<label for="loginpw" class="labelpw">비밀번호</label>
       		<input type="password" name="member_pw" id="loginpw" >
 		<div class="search">
@@ -111,11 +111,12 @@ top:1px;
 			<a href="#">ID/PW 찾기</a>
 		</div>
 		<div class="btnwrap">
-			<a href="#">회원가입</a>
+			<a href="${contextPath}/member/memberForm.do">회원가입</a>
 			<input type="submit" id="loginbtn" value="로그인" />
 			<label for="loginbtn">로그인 버튼</label>
 		</div>
 		</form>
 	</div>
+
 </body>
 </html>

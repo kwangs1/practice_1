@@ -36,9 +36,66 @@
 	<select id="login" resultType="memberVO"
 		parameterType="java.util.Map">
 	    <![CDATA[
-			select * from gallery_MEMBER
+			select * from GALLERY_MEMBER
 			 where member_id=#{member_id}
 			 and member_pw=#{member_pw}					 
 		]]>
 	</select>
+	
+	<select id="selectOverlappedID" parameterType="String"
+		resultType="String">
+		select decode(count(*),1, 'true', 0, 'false')
+		from GALLERY_MEMBER
+		where member_id = #{id}
+	</select>
+	
+<insert id="insertNewMember" parameterType="memberVO">
+  <![CDATA[
+    	insert into GALLERY_MEMBER(member_id,
+				 					 member_pw,
+                                     member_name,
+                                     member_gender,
+                                     member_birth_y,
+                                     member_birth_m,
+                                     member_birth_d,
+                                     member_birth_gn,
+                                     tel1,
+                                     tel2,
+                                     tel3,
+                                     hp1,
+                                     hp2,
+                                     hp3,
+                                     smssts_yn,
+                                     email1,
+                                     email2,
+                                     emailsts_yn,
+                                     zipcode,
+                                     roadAddress,
+                                     jibunAddress,
+                                     namujiAddress)
+							 values(#{member_id},
+									#{member_pw},
+									#{member_name},
+                                 	#{member_gender},
+                                   	#{member_birth_y},
+                                   	#{member_birth_m},
+                                    #{member_birth_d},
+                                    #{member_birth_gn},
+                                    #{tel1},
+                                    #{tel2},
+                                    #{tel3},
+                                    #{hp1},
+                                    #{hp2},
+                                    #{hp3},
+                                    #{smssts_yn},
+                                    #{email1},
+                                    #{email2},
+                                    #{emailsts_yn},
+                                    #{zipcode},
+                                    #{roadAddress},
+                                    #{jibunAddress},
+                                    #{namujiAddress})
+                                                                  
+   ]]>
+	</insert>
 </mapper>
