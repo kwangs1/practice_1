@@ -162,8 +162,8 @@ li.dropdown {
 			</c:otherwise>
 		</c:choose><br>
 		<c:if test="${isLogOn == true and memberInfo.member_id =='admin' }">
-			<a href="#">상품관리|</a>
-			<a href="#">게시판관리</a>
+			<a href="${contextPath}/admin/goods/addNewGoodsForm.do">작품관리|</a>
+			<a href="#">공지관리</a>
 		</c:if>
 		</div>
 

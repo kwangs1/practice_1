@@ -12,9 +12,27 @@ public class CollectibleVO {
 	private String goods_author;
 	private String goods_stuff;
 	private String goods_standard;
+	private String goods_status;
+	private String goods_contents_order;
 	private String goods_note;
 	private Date   goods_credate;
+	private String goods_fileName;
+	private int goods_year;
 	
+	
+	
+	public String getGoods_fileName() {
+		return goods_fileName;
+	}
+	public void setGoods_fileName(String goods_fileName) {
+		this.goods_fileName = goods_fileName;
+	}
+	public int getGoods_year() {
+		return goods_year;
+	}
+	public void setGoods_year(int goods_year) {
+		this.goods_year = goods_year;
+	}
 	public int getGoods_id() {
 		return goods_id;
 	}
@@ -50,6 +68,19 @@ public class CollectibleVO {
 	}
 	public void setGoods_standard(String goods_standard) {
 		this.goods_standard = goods_standard;
+	}
+	
+	public String getGoods_status() {
+		return goods_status;
+	}
+	public void setGoods_status(String goods_status) {
+		this.goods_status = goods_status;
+	}
+	public String getGoods_contents_order() {
+		return goods_contents_order;
+	}
+	public void setGoods_contents_order(String goods_contents_order) {
+		this.goods_contents_order = goods_contents_order;
 	}
 	public String getGoods_note() {
 		return goods_note;

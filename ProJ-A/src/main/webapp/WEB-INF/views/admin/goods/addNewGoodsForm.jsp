@@ -1,0 +1,289 @@
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8" isELIgnored="false"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<head>
+<script src="https://code.jquery.com/jquery-2.2.1.js"></script>
+
+<style>
+#container {
+	margin: 40px auto;
+	width: 100%;
+}
+
+ul.tabs {
+	list-style: none;
+	margin: 0px;
+	padding: 0px;
+	width: 100%;
+	height: 32px;
+	border-bottom-color: rgb(255, 0, 0);
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	float: left;
+}
+
+ul.tabs li {
+	border-width: 1px;
+	border-style: solid;
+	border-color: rgb(153, 153, 153) rgb(153, 153, 153) rgb(255, 0, 0);
+	margin: 0px 1px;
+	padding: 0px;
+	border-image: none;
+	height: 31px;
+	line-height: 31px;
+	overflow: hidden;
+	float: left;
+	border-top-left-radius: 7px;
+	border-top-right-radius: 7px;
+	background-color: rgb(245, 245, 245);
+}
+
+ul.tabs li a {
+	padding: 0px 20px;
+	color: rgb(0, 0, 0);
+	font-size: 12px;
+	font-weight: bold;
+	text-decoration: none;
+	display: block;
+}
+
+ul.tabs li a:hover {
+	background-color: rgb(202, 228, 255);
+}
+
+ul.tabs li.active {
+	background: rgb(255, 255, 255);
+	border-color: rgb(255, 0, 0) rgb(255, 0, 0) rgb(255, 255, 255);
+	border-bottom-width: 2px;
+	border-bottom-style: solid;
+}
+
+ul.tabs li.active a:hover {
+	background: rgb(255, 255, 255);
+	border-color: rgb(255, 0, 0) rgb(255, 0, 0) rgb(255, 255, 255);
+	border-bottom-width: 2px;
+	border-bottom-style: solid;
+}
+
+.tab_container {
+	background: rgb(255, 255, 255);
+	width: 100%;
+	clear: both;
+	border-top-color: currentColor;
+	border-top-width: medium;
+	border-top-style: none;
+	float: left;
+}
+
+.tab_content {
+	padding: 10px 10px 20px;
+	line-height: 1.8em;
+	font-size: 0.75em;
+	min-height: 400px;
+}
+
+.tab_content h4 {
+	background-position: left top;
+	margin: 10px 0px;
+	padding: 20px 0px 5px 35px;
+	height: 30px;
+	color: rgb(255, 255, 255);
+	letter-spacing: 4px;
+	font-family: "NanumGothic", Serif;
+	font-size: 16px;
+	font-weight: bold;
+	background-image: url("../imgs/h4_back.png");
+	background-repeat: no-repeat;
+}
+
+.tab_content p {
+	margin: 10px 0px 0px;
+}
+
+.tab_content img {
+	margin: 10px;
+	padding: 5px;
+}
+
+.tab_content .writer {
+	margin: 10px 0px;
+	padding: 5px;
+	color: rgb(0, 0, 0);
+	font-size: 1.2em;
+	font-weight: bold;
+	border-bottom-color: rgb(255, 153, 0);
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+</style>
+</head>
+
+<body>
+	<form action="${contextPath}/admin/goods/addNewGoods.do" method="post" enctype="multipart/form-data">
+		<div class="tab_container">
+			<!-- 내용 들어 가는 곳 -->
+			<div class="tab_container" id="container">
+				<ul class="tabs">
+					<li><a href="#tab1">작품정보</a></li>
+					<li><a href="#tab2">작품목차</a></li>
+					<li><a href="#tab3">작품저자소개</a></li>
+					<li><a href="#tab4">작품소개</a></li>
+					<li><a href="#tab5">작품이미지</a></li>
+				</ul>
+				<div class="tab_container">
+					<div class="tab_content" id="tab1">
+						<table>
+
+							<tr>
+								<td>제품이름</td>
+								<td><input name="goods_title" type="text" size="40" /></td>
+							</tr>
+
+							<tr>
+								<td>등록번호</td>
+								<td><input name="goods_no" type="text" size="40" /></td>
+							</tr>
+							<tr>
+								<td>저자</td>
+								<td><input name="goods_author" type="text" size="40" /></td>
+							</tr>
+							<tr>
+								<td>제작년도</td>
+								<td><input name="goods_year" type="text" size="40" /></td>
+							</tr>
+
+							<tr>
+								<td>재료 및 기법</td>
+								<td><input name="goods_stuff" type="text" size="40" /></td>
+							</tr>
+
+
+							<tr>
+								<td>작품규격</td>
+								<td><input name="goods_standard" type="text" size="40" /></td>
+							</tr>
+
+							<tr>
+								<td>내용</td>
+								<td><input name="goods_note" type="text" size="40" /></td>
+							</tr>
+							<tr>
+								<td>제품종류</td>
+								<td><select name="goods_status">
+										<option value="collectible">작품</option>
+								</select></td>
+							</tr>
+							<tr>
+								<td><br></td>
+							</tr>
+						</table>
+					</div>
+					<div class="tab_content" id="tab2">
+						<H4>작품목차</H4>
+						<table>
+							<tr>
+								<td>작품목차</td>
+								<td><textarea rows="30" cols="50"
+										name="goods_contents_order"></textarea></td>
+							</tr>
+						</table>
+					</div>
+					<div class="tab_content" id="tab3">
+						<H4>작품 저자 소개</H4>
+						<table>
+							<tr>
+								<td>작품 저자 소개</td>
+								<td><textarea rows="30" cols="50" name="goods_author"></textarea></td>
+							</tr>
+						</table>
+					</div>
+					<div class="tab_content" id="tab4">
+						<H4>작품소개</H4>
+						<table>
+							<tr>
+								<td>작품소개</td>
+								<td><textarea rows="30" cols="50" name="goods_note"></textarea></td>
+							</tr>
+						</table>
+					</div>
+					<div class="tab_content" id="tab5">
+						<h4>작품이미지</h4>
+						<table>
+							<tr>
+								<td align="right">이미지파일 첨부</td>
+
+								<td align="left"><input type="button" value="파일 추가"
+									onClick="fn_addFile()" /></td>
+								<td>
+									<div id="d_file"></div>
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="clear"></div>
+
+			<table>
+				<tr>
+					<td align=center>
+					 <input type="button" value="상품 등록하기" onClick="fn_add_new_goods(this.form)">
+					</td>
+				</tr>
+			</table>
+
+		</div>
+	</form>
+	
+<script type="text/javascript">
+  var cnt=0;
+  function fn_addFile(){
+	  if(cnt == 0){
+		  $("#d_file").append("<br>"+"<input  type='file' name='main_image' id='f_main_image' />");	  
+	  }else{
+		  $("#d_file").append("<br>"+"<input  type='file' name='detail_image"+cnt+"' />");
+	  }
+  	
+  	cnt++;
+  }
+  
+  
+  function fn_add_new_goods(obj){
+		 fileName = $('#f_main_image').val();
+		 if(fileName != null && fileName != undefined){
+			 obj.submit();
+		 }else{
+			 alert("메인 이미지는 반드시 첨부해야 합니다.");
+			 return;
+		 }
+		 
+	}
+
+  $(document).ready(function() {
+
+		$(".tab_content").hide(); 
+		$("ul.tabs li:first").addClass("active").show(); 
+		$(".tab_content:first").show(); 
+
+		
+		$("ul.tabs li").click(function() {
+
+			$("ul.tabs li").removeClass("active");
+			$(this).addClass("active");
+			$(".tab_content").hide(); 
+
+			var activeTab = $(this).find("a").attr("href"); 
+			$(activeTab).fadeIn(); 
+			return false;
+		});
+
+	});
+
+
+</script>    
+</body>
+</html>

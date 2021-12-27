@@ -10,7 +10,12 @@
 		<result property="goods_author" column="goods_author" />
 		<result property="goods_stuff" column="goods_stuff" />
 		<result property="goods_standard" column="goods_standard" />
+		<result property="goods_status" column="goods_status" />
+		<result property="goods_contents_order" column="goods_contents_order" />
 		<result property="goods_note" column="goods_note" />
+		<result property="goods_year" column="goods_year" />
+		<result property="goods_credate" column="goods_credate" />
+		<result property="goods_fileName" column="fileName" />
 	</resultMap>
 		<!--상품 이미지 정보를 저장하는 resultmap  -->
 	<resultMap id="imageResult" type="ImageFileVO">

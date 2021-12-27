@@ -7,7 +7,35 @@ logging permanent extent management local autoallocate
 blocksize 8k segment space management manual
 flashback on;
 
-  CREATE TABLE GALLERY_MEMBER 
+  CREATE TABLE gallery_image
+   (	
+    "IMAGE_ID" NUMBER(20,0) primary key, 
+	"GOODS_ID" NUMBER(20,0), 
+	"FILENAME" VARCHAR2(50 BYTE), 
+	"REG_ID" VARCHAR2(20 BYTE), 
+	"FILETYPE" VARCHAR2(40 BYTE), 
+	"CREDATE" DATE DEFAULT sysdate
+   ) ;
+   
+   
+    CREATE TABLE gallery_collectible
+   (	
+    "GOODS_ID" NUMBER(20,0) primary key, 
+	"GOODS_TITLE" VARCHAR2(100 BYTE), 
+    "GOODS_YEAR" NUMBER(10), 
+	"GOODS_NO" VARCHAR2(50 BYTE), 
+	"GOODS_AUTHOR" VARCHAR2(50 BYTE), 
+	"GOODS_STUFF" VARCHAR2(50 BYTE), 
+	"GOODS_STANDARD" VARCHAR2(50 BYTE), 
+	"GOODS_NOTE" VARCHAR2(1000 BYTE),
+    "GOODS_STATUS" VARCHAR2(50 BYTE), 
+    "GOODS_CONTENTS_ORDER" CLOB, 
+    "GOODS_FILENAME" VARCHAR2(60 BYTE), 
+    "GOODS_CREDATE" DATE DEFAULT sysdate
+   ) ;
+   
+
+   CREATE TABLE GALLERY_MEMBER 
    (	
     MEMBER_ID VARCHAR2(20 BYTE) primary key, 
 	MEMBER_PW VARCHAR2(30 BYTE), 
@@ -34,3 +62,25 @@ flashback on;
 	JOINDATE DATE DEFAULT sysdate, 
 	DEL_YN VARCHAR2(20 BYTE) DEFAULT 'N'
    ) ;
+
+--------------------------------------------------------
+--  DDL for Sequence ORDER_SEQ_NUM
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "ORDER_SEQ_NUM"  MINVALUE 0 MAXVALUE 10000000 INCREMENT BY 1 START WITH 400 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence SEQ_GOODS_ID
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "SEQ_GOODS_ID"  MINVALUE 100 MAXVALUE 1000000 INCREMENT BY 1 START WITH 400 CACHE 20 ORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence SEQ_IMAGE_ID
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "SEQ_IMAGE_ID"  MINVALUE 1 MAXVALUE 11111111 INCREMENT BY 1 START WITH 400 NOCACHE  NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence SEQ_ORDER_ID
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "SEQ_ORDER_ID"  MINVALUE 0 MAXVALUE 10000000 INCREMENT BY 1 START WITH 400 NOCACHE  ORDER  NOCYCLE ;
+

@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
-      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="mapper.collectible">
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.admin.goods">
+<!-- 리절트 맵 정의 -->	
 	<resultMap id="goodsResult" type="collectibleVO">
 		<result property="goods_id" column="goods_id" />
 		<result property="goods_title" column="goods_title" />
@@ -14,7 +16,7 @@
 		<result property="goods_contents_order" column="goods_contents_order" />
 		<result property="goods_note" column="goods_note" />
 		<result property="goods_year" column="goods_year" />
-		<result property="goods_credate" column="goods_credate" />
+		<result property="goods_contents_order" column="goods_contents_order" javaType="java.lang.String" jdbcType="CLOB"  />
 		<result property="goods_fileName" column="fileName" />
 	</resultMap>
 		<!--상품 이미지 정보를 저장하는 resultmap  -->
@@ -25,18 +27,4 @@
 	   <result property="image_id" column="image_id" />
 	   <result property="fileType" column="fileType" />
 	</resultMap>
-	
-		 <select id="selectGoodsList" parameterType="String" resultMap="goodsResult"   >
-        <![CDATA[
-         select t.*
-          from(
-			select col.*, image.fileName from GALLERY_COLLECTIBLE col, GALLERY_IMAGE image
-        	where col.goods_id=image.goods_id 
-        	and image.filetype='main_image'
-        	and goods_status=#{goodsStatus}
-            order by col.goods_creDate desc)  t
-	             where   rowNum <16
-	    ]]>
-	</select>
-	
 </mapper>

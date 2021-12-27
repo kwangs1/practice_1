@@ -16,13 +16,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.myspring.Art.Collectible.VO.ImageFileVO;
 
-public class BaseController {
+public abstract class BaseController {
 	private static final String CURR_IMAGE_REPO_PATH = "C:\\gallery\\file_repo";
-	
-	protected List<ImageFileVO> upload(MultipartHttpServletRequest multipartRequest) throws Exception {
-		List<ImageFileVO> fileList = new ArrayList<ImageFileVO>();
-		Iterator<String> fileNames = multipartRequest.getFileNames();
 
+	protected List<ImageFileVO> upload(MultipartHttpServletRequest multipartRequest) throws Exception {
+		List<ImageFileVO> fileList = new ArrayList<ImageFileVO>();// 파일 정보를 저장할 fileList 선언
+		Iterator<String> fileNames = multipartRequest.getFileNames();
+		// 상품 등록창에서 전송된 파일들의 정보를 filelist에 저장
 		while (fileNames.hasNext()) {
 			ImageFileVO imageFileVO = new ImageFileVO();
 			String fileName = fileNames.next();
@@ -39,20 +39,21 @@ public class BaseController {
 						file.createNewFile();// 이후 파일생성
 					}
 				}
-				mFile.transferTo(new File(CURR_IMAGE_REPO_PATH + "\\" + "temp" + "\\" + originalFileName));
-																											
+				mFile.transferTo(new File(CURR_IMAGE_REPO_PATH + "\\" + "temp" + "\\" + originalFileName));// 임시로 정장된
+																											// 멀티파트파일을
+																											// 실제파일로 전송
 			}
 		}
 		return fileList;
 	}
-	
+
 	private void deleteFile(String fileName) {
-		File file = new File(CURR_IMAGE_REPO_PATH +"\\"+fileName);
-				try {
-					file.delete();
-				}catch(Exception e) {
-					e.printStackTrace();
-				}
+		File file = new File(CURR_IMAGE_REPO_PATH + "\\" + fileName);
+		try {
+			file.delete();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@RequestMapping(value = "/*.do", method = { RequestMethod.POST, RequestMethod.GET })
