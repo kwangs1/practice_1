@@ -35,7 +35,6 @@ img{
 </style>
 </head>
 <body>
-		<img alt="대문" src="${contextPath }/resources/image/Art4.jpg">
 	<div class="content">
 		<h1 class="titPage02">관람시간</h1>
 	<ul>

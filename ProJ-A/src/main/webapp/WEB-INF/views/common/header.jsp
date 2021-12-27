@@ -141,7 +141,7 @@ li.dropdown {
 		<!-- Site title Or logo -->
 		<div id="title">
 		<a href="${contextPath }/main/main.do">
-		<img alt="logo" src="${contextPath }/resources/image/logo.png" style="height:150px">
+		<img alt="logo" src="${contextPath }/resources/image/kslogo.png" style="height:150px">
 		</a>
 		</div>
 
@@ -152,17 +152,18 @@ li.dropdown {
 				<a href="${contextPath}/member/logout.do" onClick="window.location.reload()">로그아웃 |</a>
 				<a href="#">마이페이지 |</a>
 				<a href="#">새소식 |</a> 
-				<a href="#">사이트맵</a>
+				<a href="#">고객센터</a>
 			</c:when>
 			<c:otherwise>
 			<a href="${contextPath }/member/loginForm.do">로그인 |</a> 
 			<a href="${contextPath }/member/memberForm.do">회원가입 |</a> 
 			<a href="#">새소식 |</a> 
-			<a href="#">사이트맵</a>
+			<a href="#">고객센터</a>
 			</c:otherwise>
-		</c:choose>
+		</c:choose><br>
 		<c:if test="${isLogOn == true and memberInfo.member_id =='admin' }">
-			<a href="#">|관리자 페이지</a>
+			<a href="#">상품관리|</a>
+			<a href="#">게시판관리</a>
 		</c:if>
 		</div>
 
@@ -176,13 +177,18 @@ li.dropdown {
 				<a href="${contextPath }/information/navigator.do">오시는길</a>
 				<a href="${contextPath }/information/grouptour.do">단체관람 안내</a>
 				</div>
-				<li><a href="#">전시</a></li>
-				<li><a href="#">책그림섬</a></li>
-				<li><a href="#">교육프로그램</a></li>
-				<li><a href="#">소장품</a></li>
-				<li><a href="#">소식/참여</a></li>
-				<li><a href="#">미술관소개</a></li>
-				<li><a href="#">온라인예약</a></li>
+				</li>
+				
+				<li class="dropdown">
+				<a href="javascript:void(0)" class="dropbtn">프로그램</a>
+				<div class="dropdown-content">
+				<a href="#">전시</a>
+				<a href="#">교육</a>
+				</div>
+				</li>
+				
+				<li><a href="${contextPath}/collectible/collectibleList.do">소장품</a></li>
+				<li><a href="#">공지사항</a></li>
 			</ul>
 		</div>
 

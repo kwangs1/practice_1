@@ -21,10 +21,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.myspring.Art.Member.Service.MemberService;
 import com.myspring.Art.Member.VO.MemberVO;
+import com.myspring.Art.common.base.BaseController;
 
 @Controller("memberController")
 @RequestMapping(value ="/member")
-public class MemberControllerImpl implements MemberController{
+public class MemberControllerImpl extends BaseController implements MemberController{
 	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
 	@Autowired
 	private MemberService memberService;
@@ -113,14 +114,7 @@ public class MemberControllerImpl implements MemberController{
 		mav.setViewName(viewName);
 		return mav;
 	}
-	
 
-	@RequestMapping(value = "/*.do", method = { RequestMethod.POST, RequestMethod.GET })
-	protected ModelAndView viewForm(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		String viewName = (String) request.getAttribute("viewName");
-		ModelAndView mav = new ModelAndView(viewName);
-		return mav;
-	}
 	
 	private String getViewName(HttpServletRequest request) throws Exception {
 		String contextPath = request.getContextPath();

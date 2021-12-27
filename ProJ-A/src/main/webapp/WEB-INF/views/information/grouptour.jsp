@@ -53,7 +53,7 @@
 </style>
 </head>
 <body>
-	<img alt="대문" src="${contextPath }/resources/image/Art4.jpg" style="width:100%; height:200px;">
+
 	<div class="div_box">
 		<div class="div_center">
 				<table class="tableColRow1">

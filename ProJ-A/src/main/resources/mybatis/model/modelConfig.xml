@@ -8,5 +8,7 @@
     </settings>
 <typeAliases>
 		<typeAlias type="com.myspring.Art.Member.VO.MemberVO" alias="MemberVO" />
+		<typeAlias type="com.myspring.Art.Collectible.VO.CollectibleVO" alias="CollectibleVO" />
+		<typeAlias type="com.myspring.Art.Collectible.VO.ImageFileVO" alias="imageFileVO" />
 </typeAliases>       
 </configuration>

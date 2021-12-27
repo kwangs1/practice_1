@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.collectible">
+	<resultMap id="goodsResult" type="collectibleVO">
+		<result property="goods_id" column="goods_id" />
+		<result property="goods_title" column="goods_title" />
+		<result property="goods_no" column="goods_no" />
+		<result property="goods_author" column="goods_author" />
+		<result property="goods_stuff" column="goods_stuff" />
+		<result property="goods_standard" column="goods_standard" />
+		<result property="goods_note" column="goods_note" />
+	</resultMap>
+		<!--상품 이미지 정보를 저장하는 resultmap  -->
+	<resultMap id="imageResult" type="ImageFileVO">
+	   <result property="goods_id" column="goods_id" />
+	   <result property="fileName" column="fileName" />
+	   <result property="reg_id" column="reg_id" />
+	   <result property="image_id" column="image_id" />
+	   <result property="fileType" column="fileType" />
+	</resultMap>
+	
+		 <select id="selectGoodsList" parameterType="String" resultMap="goodsResult"   >
+        <![CDATA[
+         select t.*
+          from(
+			select col.*, image.fileName from GALLERY_COLLECTIBLE col, GALLERY_IMAGE image
+        	where col.goods_id=image.goods_id 
+        	and image.filetype='main_image'
+        	and goods_status=#{goodsStatus}
+            order by col.goods_creDate desc)  t
+	             where   rowNum <16
+	    ]]>
+	</select>
+	
+</mapper>

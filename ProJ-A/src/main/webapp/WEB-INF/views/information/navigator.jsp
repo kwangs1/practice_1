@@ -15,8 +15,9 @@ h1,p{
 	text-align:center;
 }
 #content{
+	width:50%; 
+	padding: 40px;
 	margin: 0 auto;
-	float:left;
 }
 #googleMap{
 	margin:0 auto;
@@ -71,7 +72,6 @@ h1,p{
     width:50%;
   }
  .text-align{
- 	text-align:left; 
  	padding-left:1%;
  	list-style:none;
  }
@@ -85,7 +85,6 @@ h1,p{
 </head>
 <body>
 <div id="content">
-	<img alt="대문" src="${contextPath }/resources/image/Art4.jpg" style="width:100%; height:200px;">
 	<h1 class="titPage02">교통안내</h1>
 	<p>주소: 경상남도 김해시 분성로155(외동) 전화 000-000-0000</p>
 	<div id="googleMap" style="width:80%; height:380px;"></div>
