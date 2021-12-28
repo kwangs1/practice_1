@@ -51,9 +51,9 @@
 		<div class="collectible">
 <%-- 			<a href="${contextPath}/collectilbe/collectibleList.do?goods_id=${item.goods_id }">
 			<img class="link"  src="${contextPath}/resources/image/1px.gif"> 
-			</a>  --%>
+			</a> --%>
 				<img width="121" height="154" 
-				     src="${contextPath}/thumbnails.do?goods_id=${item.goods_id}&fileName=${item.goods_fileName}">
+				     src="${contextPath}/Art/thumbnails.do?goods_id=${item.goods_id}&fileName=${item.goods_fileName}">
 
 			<div class="title">${item.goods_title }</div>
 			<div class="author"> ${item.goods_author}</div>
