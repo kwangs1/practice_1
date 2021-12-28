@@ -16,9 +16,8 @@ public class CollectibleDAOImpl implements CollectibleDAO{
 	private SqlSession sqlSession;
 	
 	@Override
-	public List<CollectibleVO> selectGoodsList(String goodsStatus) throws DataAccessException{
-		List<CollectibleVO> goodsList = (ArrayList)sqlSession.selectList("mapper.collectible.selectGoodsList",goodsStatus);
-	
-	return goodsList;
+	public List<CollectibleVO> selectCollectibleList(String goodsStatus) throws DataAccessException{
+		List<CollectibleVO> CollectibleList = (ArrayList)sqlSession.selectList("mapper.collectible.selectCollectibleList",goodsStatus);
+	return CollectibleList;
 	}
 }

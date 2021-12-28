@@ -98,7 +98,7 @@ h1,p{
 				<table class="tableColRow1">
 					<tbody>
 						<tr>
-							<th scope="row" class="tdstyle"><span class="color_black">사상→수로왕릉←도서관</span>
+							<th scope="row" class="tdstyle"><span class="color_black">사상→수로왕릉</span>
 							</th><td class="tdstyle">일반  2, 8, 9, 21, 1</td>
 						</tr>
 						<tr>

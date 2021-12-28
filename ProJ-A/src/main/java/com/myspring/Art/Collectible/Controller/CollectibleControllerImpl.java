@@ -23,14 +23,13 @@ public class CollectibleControllerImpl extends BaseController implements Collect
 	@Autowired
 	private CollectibleService collectibleService;
 	
-	@RequestMapping(value="/collectible.do", method= {RequestMethod.POST, RequestMethod.GET})
+	@RequestMapping(value="/collectibleList.do", method= {RequestMethod.POST, RequestMethod.GET})
 	public ModelAndView collectible(HttpServletRequest request, HttpServletResponse response)throws Exception{
-		HttpSession session;
 		ModelAndView mav = new ModelAndView();
 		String viewName = (String)request.getAttribute("viewName");
 		mav.setViewName(viewName);
-		Map<String, List<CollectibleVO>> goodsMap = collectibleService.listGoods();
-		mav.addObject("goodsMap",goodsMap);
+		Map<String, List<CollectibleVO>> collectibleMap = collectibleService.listCollectible();
+		mav.addObject("collectibleMap",collectibleMap);
 		return mav;
 	}
 }

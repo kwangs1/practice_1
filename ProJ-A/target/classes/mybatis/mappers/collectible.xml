@@ -6,16 +6,14 @@
 	<resultMap id="goodsResult" type="collectibleVO">
 		<result property="goods_id" column="goods_id" />
 		<result property="goods_title" column="goods_title" />
+		<result property="goods_year" column="goods_year" />
 		<result property="goods_no" column="goods_no" />
 		<result property="goods_author" column="goods_author" />
 		<result property="goods_stuff" column="goods_stuff" />
 		<result property="goods_standard" column="goods_standard" />
-		<result property="goods_status" column="goods_status" />
-		<result property="goods_contents_order" column="goods_contents_order" />
 		<result property="goods_note" column="goods_note" />
-		<result property="goods_year" column="goods_year" />
-		<result property="goods_credate" column="goods_credate" />
-		<result property="goods_fileName" column="fileName" />
+		<result property="goods_status" column="goods_status" />
+		<result property="goods_fileName" column="goods_fileName" />
 	</resultMap>
 		<!--상품 이미지 정보를 저장하는 resultmap  -->
 	<resultMap id="imageResult" type="ImageFileVO">
@@ -26,16 +24,12 @@
 	   <result property="fileType" column="fileType" />
 	</resultMap>
 	
-		 <select id="selectGoodsList" parameterType="String" resultMap="goodsResult"   >
+		 <select id="selectCollectibleList" parameterType="String" resultMap="goodsResult"   >
         <![CDATA[
-         select t.*
-          from(
-			select col.*, image.fileName from GALLERY_COLLECTIBLE col, GALLERY_IMAGE image
+			select col.goods_id,col.goods_title,col.goods_author,(image.fileName) as goods_fileName 
+			from GALLERY_COLLECTIBLE col, GALLERY_IMAGE image
         	where col.goods_id=image.goods_id 
         	and image.filetype='main_image'
-        	and goods_status=#{goodsStatus}
-            order by col.goods_creDate desc)  t
-	             where   rowNum <16
 	    ]]>
 	</select>
 	

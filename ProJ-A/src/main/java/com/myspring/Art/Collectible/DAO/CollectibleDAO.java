@@ -8,6 +8,6 @@ import com.myspring.Art.Collectible.VO.CollectibleVO;
 
 public interface CollectibleDAO {
 
-	List<CollectibleVO> selectGoodsList(String goodsStatus) throws DataAccessException;
+	List<CollectibleVO> selectCollectibleList(String goodsStatus) throws DataAccessException;
 
 }

@@ -16,10 +16,10 @@ public class CollectibleServiceImpl implements CollectibleService{
 	private CollectibleDAO collectibleDAO;
 	
 	@Override
-	public Map<String, List<CollectibleVO>> listGoods() throws Exception{
-		Map<String, List<CollectibleVO>> goodsMap = new HashMap<String,List<CollectibleVO>>();
-		List<CollectibleVO> goodsList = collectibleDAO.selectGoodsList("collectible");
-		goodsMap.put("collectible", goodsList);
-		return goodsMap;
+	public Map<String, List<CollectibleVO>> listCollectible() throws Exception{
+		Map<String, List<CollectibleVO>> collectibleMap = new HashMap<String,List<CollectibleVO>>();
+		List<CollectibleVO> CollectibleList = collectibleDAO.selectCollectibleList("collectible");
+		collectibleMap.put("collectible", CollectibleList);
+		return collectibleMap;
 	}
 }

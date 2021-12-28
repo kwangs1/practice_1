@@ -8,16 +8,14 @@
 	<resultMap id="goodsResult" type="collectibleVO">
 		<result property="goods_id" column="goods_id" />
 		<result property="goods_title" column="goods_title" />
+		<result property="goods_year" column="goods_year" />
 		<result property="goods_no" column="goods_no" />
 		<result property="goods_author" column="goods_author" />
 		<result property="goods_stuff" column="goods_stuff" />
 		<result property="goods_standard" column="goods_standard" />
-		<result property="goods_status" column="goods_status" />
-		<result property="goods_contents_order" column="goods_contents_order" />
 		<result property="goods_note" column="goods_note" />
-		<result property="goods_year" column="goods_year" />
-		<result property="goods_contents_order" column="goods_contents_order" javaType="java.lang.String" jdbcType="CLOB"  />
-		<result property="goods_fileName" column="fileName" />
+		<result property="goods_status" column="goods_status" />
+		<result property="goods_fileName" column="goods_fileName" />
 	</resultMap>
 		<!--상품 이미지 정보를 저장하는 resultmap  -->
 	<resultMap id="imageResult" type="ImageFileVO">
@@ -27,4 +25,46 @@
 	   <result property="image_id" column="image_id" />
 	   <result property="fileType" column="fileType" />
 	</resultMap>
+	
+	<insert id="insertNewGoods" parameterType="java.util.Map">
+		<selectKey resultType="String" keyProperty="goods_id"  order="BEFORE">
+			select seq_goods_id.nextval from dual
+		</selectKey>
+		<![CDATA[
+		   insert into gallery_collectible(
+		               					goods_id, 
+                   						goods_title,
+										goods_year,
+										goods_no,
+										goods_author,
+										goods_stuff,
+										goods_standard,
+										goods_note,
+										goods_status,
+										goods_fileName					
+										)
+					  			values(
+					  			      #{goods_id},
+					  			      #{goods_title},
+					  			      #{goods_year},
+					  			      #{goods_no},					  			     
+					  			      #{goods_author },
+					  			      #{goods_stuff},
+					  			      #{goods_standard},
+					  			      #{goods_note},
+					  			      #{goods_status},	
+					  			      #{goods_fileName}
+					 			 )
+		]]>
+	</insert>
+		<insert id="insertGoodsImageFile" parameterType="imageFileVO">
+		<selectKey resultType="int" keyProperty="image_id" order="BEFORE">
+			select seq_image_id.nextval from dual
+		</selectKey>
+		 <![CDATA[
+		   insert into gallery_image (image_id, goods_id, fileName, fileType, reg_id)
+				values(#{image_id}, #{goods_id}, #{fileName}, #{fileType}, #{reg_id} )
+		]]>
+		</insert>
+	
 </mapper>

@@ -20,7 +20,7 @@ ul.tabs {
 	padding: 0px;
 	width: 100%;
 	height: 32px;
-	border-bottom-color: rgb(255, 0, 0);
+	border-bottom-color: skyblue;
 	border-bottom-width: 1px;
 	border-bottom-style: solid;
 	float: left;
@@ -29,7 +29,7 @@ ul.tabs {
 ul.tabs li {
 	border-width: 1px;
 	border-style: solid;
-	border-color: rgb(153, 153, 153) rgb(153, 153, 153) rgb(255, 0, 0);
+	border-color: skyblue;
 	margin: 0px 1px;
 	padding: 0px;
 	border-image: none;
@@ -52,12 +52,12 @@ ul.tabs li a {
 }
 
 ul.tabs li a:hover {
-	background-color: rgb(202, 228, 255);
+	background-color: skyblue;
 }
 
 ul.tabs li.active {
 	background: rgb(255, 255, 255);
-	border-color: rgb(255, 0, 0) rgb(255, 0, 0) rgb(255, 255, 255);
+	border-color: skyblue;
 	border-bottom-width: 2px;
 	border-bottom-style: solid;
 }
@@ -96,7 +96,6 @@ ul.tabs li.active a:hover {
 	font-family: "NanumGothic", Serif;
 	font-size: 16px;
 	font-weight: bold;
-	background-image: url("../imgs/h4_back.png");
 	background-repeat: no-repeat;
 }
 
@@ -115,7 +114,7 @@ ul.tabs li.active a:hover {
 	color: rgb(0, 0, 0);
 	font-size: 1.2em;
 	font-weight: bold;
-	border-bottom-color: rgb(255, 153, 0);
+	border-bottom-color: skyblue;
 	border-bottom-width: 1px;
 	border-bottom-style: solid;
 }
@@ -129,10 +128,7 @@ ul.tabs li.active a:hover {
 			<div class="tab_container" id="container">
 				<ul class="tabs">
 					<li><a href="#tab1">작품정보</a></li>
-					<li><a href="#tab2">작품목차</a></li>
-					<li><a href="#tab3">작품저자소개</a></li>
-					<li><a href="#tab4">작품소개</a></li>
-					<li><a href="#tab5">작품이미지</a></li>
+					<li><a href="#tab2">작품이미지</a></li>
 				</ul>
 				<div class="tab_container">
 					<div class="tab_content" id="tab1">
@@ -148,7 +144,7 @@ ul.tabs li.active a:hover {
 								<td><input name="goods_no" type="text" size="40" /></td>
 							</tr>
 							<tr>
-								<td>저자</td>
+								<td>작가</td>
 								<td><input name="goods_author" type="text" size="40" /></td>
 							</tr>
 							<tr>
@@ -168,11 +164,11 @@ ul.tabs li.active a:hover {
 							</tr>
 
 							<tr>
-								<td>내용</td>
+								<td>작품내용</td>
 								<td><input name="goods_note" type="text" size="40" /></td>
 							</tr>
 							<tr>
-								<td>제품종류</td>
+								<td>작품종류</td>
 								<td><select name="goods_status">
 										<option value="collectible">작품</option>
 								</select></td>
@@ -183,35 +179,6 @@ ul.tabs li.active a:hover {
 						</table>
 					</div>
 					<div class="tab_content" id="tab2">
-						<H4>작품목차</H4>
-						<table>
-							<tr>
-								<td>작품목차</td>
-								<td><textarea rows="30" cols="50"
-										name="goods_contents_order"></textarea></td>
-							</tr>
-						</table>
-					</div>
-					<div class="tab_content" id="tab3">
-						<H4>작품 저자 소개</H4>
-						<table>
-							<tr>
-								<td>작품 저자 소개</td>
-								<td><textarea rows="30" cols="50" name="goods_author"></textarea></td>
-							</tr>
-						</table>
-					</div>
-					<div class="tab_content" id="tab4">
-						<H4>작품소개</H4>
-						<table>
-							<tr>
-								<td>작품소개</td>
-								<td><textarea rows="30" cols="50" name="goods_note"></textarea></td>
-							</tr>
-						</table>
-					</div>
-					<div class="tab_content" id="tab5">
-						<h4>작품이미지</h4>
 						<table>
 							<tr>
 								<td align="right">이미지파일 첨부</td>

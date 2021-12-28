@@ -18,44 +18,6 @@
 				<input type="file" name="main_image"><br>
 			</td>
 		</tr>
-		<tr>
-		 <td>
-		   <br>
-		 </td>
-		</tr>
-		<tr>
-			<td>상세 이미지1</td>
-			<td>
-				<input type="file" name="detail_image1"><br>
-			</td>
-		</tr>
-		<tr>
-		 <td>
-		   <br>
-		 </td>
-		</tr>
-		<tr>
-			<td>상세 이미지2:</td>
-			<td>
-				<input type="file" name="detail_image2"><br>
-			</td>
-		</tr>
-		<tr>
-		 <td>
-		   <br>
-		 </td>
-		</tr>
-		<tr>
-			<td>상세 이미지3:</td>
-			<td>
-				<input type="file" name="detail_image3"><br>
-			</td>
-		</tr>
-		<tr>
-		 <td>
-		   <br>
-		 </td>
-		</tr>
 		
 		<tr colspan=2 >
 			<td >

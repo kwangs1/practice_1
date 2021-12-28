@@ -13,13 +13,11 @@ public class CollectibleVO {
 	private String goods_stuff;
 	private String goods_standard;
 	private String goods_status;
-	private String goods_contents_order;
 	private String goods_note;
-	private Date   goods_credate;
-	private String goods_fileName;
 	private int goods_year;
+	private String goods_fileName;
 	
-	
+
 	
 	public String getGoods_fileName() {
 		return goods_fileName;
@@ -76,23 +74,11 @@ public class CollectibleVO {
 	public void setGoods_status(String goods_status) {
 		this.goods_status = goods_status;
 	}
-	public String getGoods_contents_order() {
-		return goods_contents_order;
-	}
-	public void setGoods_contents_order(String goods_contents_order) {
-		this.goods_contents_order = goods_contents_order;
-	}
 	public String getGoods_note() {
 		return goods_note;
 	}
 	public void setGoods_note(String goods_note) {
 		this.goods_note = goods_note;
-	}
-	public Date getGoods_credate() {
-		return goods_credate;
-	}
-	public void setGoods_credate(Date goods_credate) {
-		this.goods_credate = goods_credate;
 	}
 	
 	

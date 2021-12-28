@@ -39,16 +39,17 @@ public class fileDownloadController {
 	}
 	
 	@RequestMapping("/thumbnails.do")
-	protected void thumbnails(@RequestParam("fileName")String fileName,
-			@RequestParam("goods_id")String goods_id, HttpServletResponse response)throws Exception{
+	protected void thumbnails(@RequestParam("fileName") String fileName,
+                            	@RequestParam("goods_id") String goods_id,
+			                 HttpServletResponse response) throws Exception {
 		OutputStream out = response.getOutputStream();
-		String filePath = CURR_IMAGE_REPO_PATH + "\\" + goods_id + "\\" + fileName;
-		File image = new File(filePath);
+		String filePath=CURR_IMAGE_REPO_PATH+"\\"+goods_id+"\\"+fileName;
+		File image=new File(filePath);
 		
-		if(image.exists()) {
-			Thumbnails.of(image).size(121, 154).outputFormat("png").toOutputStream(out);
+		if (image.exists()) { 
+			Thumbnails.of(image).size(121,154).outputFormat("png").toOutputStream(out);
 		}
-		byte[]buffer = new byte[1024*8];
+		byte[] buffer = new byte[1024 * 8];
 		out.write(buffer);
 		out.close();
 	}
