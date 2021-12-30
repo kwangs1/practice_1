@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.myspring.Art.Collectible.Service.CollectibleService;
@@ -23,13 +24,25 @@ public class CollectibleControllerImpl extends BaseController implements Collect
 	@Autowired
 	private CollectibleService collectibleService;
 	
+	@Override
 	@RequestMapping(value="/collectibleList.do", method= {RequestMethod.POST, RequestMethod.GET})
 	public ModelAndView collectible(HttpServletRequest request, HttpServletResponse response)throws Exception{
-		ModelAndView mav = new ModelAndView();
 		String viewName = (String)request.getAttribute("viewName");
+		ModelAndView mav = new ModelAndView();
 		mav.setViewName(viewName);
 		Map<String, List<CollectibleVO>> collectibleMap = collectibleService.listCollectible();
 		mav.addObject("collectibleMap",collectibleMap);
+		return mav;
+	}
+	
+	@Override
+	@RequestMapping(value ="/collectibleDetail.do" , method= RequestMethod.GET)
+	public ModelAndView collectibleDetail(@RequestParam("goods_id") String goods_id,
+            HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String viewName=(String)request.getAttribute("viewName");
+		Map collectibleMap=collectibleService.collectibleDetail(goods_id);
+		ModelAndView mav = new ModelAndView(viewName);
+		mav.addObject("collectibleMap", collectibleMap);
 		return mav;
 	}
 }

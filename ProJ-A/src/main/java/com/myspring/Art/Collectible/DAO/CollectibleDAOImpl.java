@@ -9,6 +9,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
 import com.myspring.Art.Collectible.VO.CollectibleVO;
+import com.myspring.Art.Collectible.VO.ImageFileVO;
 
 @Repository("collectibleDAO")
 public class CollectibleDAOImpl implements CollectibleDAO{
@@ -19,5 +20,17 @@ public class CollectibleDAOImpl implements CollectibleDAO{
 	public List<CollectibleVO> selectCollectibleList(String goodsStatus) throws DataAccessException{
 		List<CollectibleVO> CollectibleList = (ArrayList)sqlSession.selectList("mapper.collectible.selectCollectibleList",goodsStatus);
 	return CollectibleList;
+	}
+	
+	@Override
+	public CollectibleVO selectCollectibleDetail(String goods_id)throws DataAccessException{
+		CollectibleVO collectibleVO =(CollectibleVO)sqlSession.selectOne("mapper.collectible.selectCollectibleDetail",goods_id);
+		return collectibleVO;
+	}
+	
+	@Override
+	public List<ImageFileVO> selectCollectibleDetailImage(String goods_id)throws DataAccessException{
+		List<ImageFileVO> imageList = (ArrayList)sqlSession.selectList("mapper.collectible.selectCollectibleDetailImage",goods_id);
+		return imageList;
 	}
 }

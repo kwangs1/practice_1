@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.myspring.Art.Collectible.DAO.CollectibleDAO;
 import com.myspring.Art.Collectible.VO.CollectibleVO;
+import com.myspring.Art.Collectible.VO.ImageFileVO;
 
 @Service("collectibleService")
 public class CollectibleServiceImpl implements CollectibleService{
@@ -20,6 +21,16 @@ public class CollectibleServiceImpl implements CollectibleService{
 		Map<String, List<CollectibleVO>> collectibleMap = new HashMap<String,List<CollectibleVO>>();
 		List<CollectibleVO> CollectibleList = collectibleDAO.selectCollectibleList("collectible");
 		collectibleMap.put("collectible", CollectibleList);
+		return collectibleMap;
+	}
+	
+	@Override
+	public Map collectibleDetail(String _goods_id)throws Exception{
+		Map collectibleMap = new HashMap();
+		CollectibleVO collectibleVO = collectibleDAO.selectCollectibleDetail(_goods_id);
+		collectibleMap.put("collectibleVO",collectibleVO);
+		List<ImageFileVO> imageList = collectibleDAO.selectCollectibleDetailImage(_goods_id);
+		collectibleMap.put("imageList", imageList);
 		return collectibleMap;
 	}
 }

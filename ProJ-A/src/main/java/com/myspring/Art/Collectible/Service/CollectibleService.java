@@ -9,4 +9,6 @@ public interface CollectibleService {
 
 	Map<String, List<CollectibleVO>> listCollectible() throws Exception;
 
+	Map collectibleDetail(String _goods_id) throws Exception;
+
 }

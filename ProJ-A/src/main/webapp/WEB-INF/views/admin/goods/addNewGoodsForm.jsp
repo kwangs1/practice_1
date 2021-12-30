@@ -135,7 +135,7 @@ ul.tabs li.active a:hover {
 						<table>
 
 							<tr>
-								<td>제품이름</td>
+								<td>작품명</td>
 								<td><input name="goods_title" type="text" size="40" /></td>
 							</tr>
 
