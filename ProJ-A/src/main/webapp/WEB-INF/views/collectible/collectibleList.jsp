@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <% request.setCharacterEncoding("UTF-8"); %>
 <c:set var="contextPath" value="${pageContent.request.contextPath }" />
+<c:set var="collectible" value="${collectibleMap.CollectibleVO}" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -71,10 +72,10 @@
 
  <script>
 	function DetailPop(){
-		var url = "${contextPath}/Art/collectible/collectibleDetail.do?goods_id=";
-		var name = "DetailPopUp";
-		var option = "width= 700 , height= 500 ,top= 100, left= 200, scrollbars=yes"
-		window.open(url, name, option);
+		var url = "${contextPath}/Art/collectible/collectibleDetail.do?goods_id=${collectible.goods_id}"
+		var name ="detail"
+		var option ="width =1024 , height = 700, top = 100, left = 200"
+		window.open(url,name,option);
 	}
 </script>
 </body>
