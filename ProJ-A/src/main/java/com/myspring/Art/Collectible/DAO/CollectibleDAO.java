@@ -11,8 +11,10 @@ public interface CollectibleDAO {
 
 	List<CollectibleVO> selectCollectibleList(String goodsStatus) throws DataAccessException;
 
-	List<ImageFileVO> selectCollectibleDetailImage(String goods_id) throws DataAccessException;
+//	CollectibleVO selectCollectibleDetail(String goods_id) throws DataAccessException;
 
 	CollectibleVO selectCollectibleDetail(String goods_id) throws DataAccessException;
+
+	List<ImageFileVO> selectCollectibleDetailImage(String goods_id) throws DataAccessException;
 
 }

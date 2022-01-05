@@ -11,4 +11,6 @@ public interface CollectibleService {
 
 	Map collectibleDetail(String _goods_id) throws Exception;
 
+//	CollectibleVO collectibleDetail(String goods_id) throws Exception;
+
 }

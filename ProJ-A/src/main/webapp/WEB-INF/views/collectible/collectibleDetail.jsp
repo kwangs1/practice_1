@@ -1,29 +1,31 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <% request.setCharacterEncoding("UTF-8"); %>
-<c:set var="contextPath" value="${pageContent.request.contextPath }" />
-<c:set var="collectible" value="${collectibleMap.CollectibleVO}" />
-<c:set var="imageList" value="${collectibleMap.imageList}" />
+<c:set var="contextPath"  value="${pageContext.request.contextPath}"  />
+<%-- <c:set var="collectible" value="${collectibleMap.collectibleVO}" />
+<c:set var="imageList"  value="${collectibleMap.imageList }"  /> --%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-
 </head>
 <body>
-	<div id="goods_image">
-		<figure>
-			<img src="${contextPath}/Art/thumbnails.do?goods_id=${collectible.goods_id}&fileName=${collectible.goods_fileName}">
-		</figure>
+  	<div id="goods_image">
+		<img width="121" height="154" 
+				     src="${contextPath}/thumbnails.do?goods_id=${collectible.goods_id}&fileName=${collectible.goods_fileName}">		
 	</div>
 	<div id="detail_table">
 		<table>
 			<tbody>
 				<tr class="dot_line">
-					<td class="fixed">작품명</td>
+					<td class="fixed"></td>
 					<td class="active">${collectible.goods_title}</td>
+				</tr>
+				<tr class="dot_line">
+					<td class="fixed">작품명</td>
+					<td class="active">${collectible.goods_year}</td>
 				</tr>
 				<tr class="dot_line">
 					<td class="fixed">등록번호</td>

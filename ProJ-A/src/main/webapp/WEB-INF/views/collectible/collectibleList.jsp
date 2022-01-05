@@ -2,8 +2,8 @@
     pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <% request.setCharacterEncoding("UTF-8"); %>
-<c:set var="contextPath" value="${pageContent.request.contextPath }" />
-<c:set var="collectible" value="${collectibleMap.CollectibleVO}" />
+<c:set var="contextPath" value="${pageContext.request.contextPath }" />
+<c:set var="collectible" value="${collectibleMap.collectibleVO}" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -46,33 +46,31 @@
 .main_goods .collectible .title {
 	font-weight: bold;
 }
+.link {
+	width: 188px; height: 230px; display: block; position: absolute; z-index: 2;
+}
 </style>
 </head>
 <body>
 <div class="main_goods">
-   <c:set  var="goods_count" value="0" />
 	<c:forEach var="item" items="${collectibleMap.collectible }">
-	   <c:set  var="goods_count" value="${goods_count+1 }" />
 		<div class="collectible">
- 	 		<a href="javascript:DetailPop()" >
+		<a href="${contextPath}/collectible/collectibleDetail.do?goods_id=${item.goods_id }">
+			<img class="link"  src="${contextPath}/resources/image/1px.gif"> 
+			</a>
 				<img width="121" height="154" 
-				     src="${contextPath}/Art/thumbnails.do?goods_id=${item.goods_id}&fileName=${item.goods_fileName}">
+				     src="${contextPath}/thumbnails.do?goods_id=${item.goods_id}&fileName=${item.goods_fileName}">
 			</a>
 
 			<div class="title">${item.goods_title }</div>
 			<div class="author"> ${item.goods_author}</div>
 		</div>
-	   <c:if test="${goods_count==15   }">
-         <div class="book">
-           <font size=20> <a href="#">more</a></font>
-         </div>
-     </c:if>
   </c:forEach>
 </div>
 
  <script>
 	function DetailPop(){
-		var url = "${contextPath}/Art/collectible/collectibleDetail.do?goods_id=${collectible.goods_id}"
+		var url = "${contextPath}/collectible/collectibleDetail.do?goods_id=${collectible.goods_id}&fileName=${collectible.goods_fileName}"
 		var name ="detail"
 		var option ="width =1024 , height = 700, top = 100, left = 200"
 		window.open(url,name,option);

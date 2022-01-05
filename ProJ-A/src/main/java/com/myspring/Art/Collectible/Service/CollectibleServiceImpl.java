@@ -15,7 +15,7 @@ import com.myspring.Art.Collectible.VO.ImageFileVO;
 public class CollectibleServiceImpl implements CollectibleService{
 	@Autowired
 	private CollectibleDAO collectibleDAO;
-	
+
 	@Override
 	public Map<String, List<CollectibleVO>> listCollectible() throws Exception{
 		Map<String, List<CollectibleVO>> collectibleMap = new HashMap<String,List<CollectibleVO>>();
@@ -33,4 +33,8 @@ public class CollectibleServiceImpl implements CollectibleService{
 		collectibleMap.put("imageList", imageList);
 		return collectibleMap;
 	}
+//	public CollectibleVO collectibleDetail(String goods_id) throws Exception {
+//		CollectibleVO collectibleVO = collectibleDAO.selectCollectibleDetail(goods_id);
+//		return collectibleVO;
+//	}
 }

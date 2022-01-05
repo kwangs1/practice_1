@@ -127,8 +127,7 @@ ul.tabs li.active a:hover {
 			<!-- 내용 들어 가는 곳 -->
 			<div class="tab_container" id="container">
 				<ul class="tabs">
-					<li><a href="#tab1">작품정보</a></li>
-					<li><a href="#tab2">작품이미지</a></li>
+					<li><a href="#tab1">작품 등록</a></li>
 				</ul>
 				<div class="tab_container">
 					<div class="tab_content" id="tab1">
@@ -174,13 +173,6 @@ ul.tabs li.active a:hover {
 								</select></td>
 							</tr>
 							<tr>
-								<td><br></td>
-							</tr>
-						</table>
-					</div>
-					<div class="tab_content" id="tab2">
-						<table>
-							<tr>
 								<td align="right">이미지파일 첨부</td>
 
 								<td align="left"><input type="button" value="파일 추가"
@@ -188,6 +180,9 @@ ul.tabs li.active a:hover {
 								<td>
 									<div id="d_file"></div>
 								</td>
+							</tr>
+							<tr>
+								<td><br></td>
 							</tr>
 						</table>
 					</div>
@@ -198,7 +193,7 @@ ul.tabs li.active a:hover {
 			<table>
 				<tr>
 					<td align=center>
-					 <input type="button" value="상품 등록하기" onClick="fn_add_new_goods(this.form)">
+					 <input type="button" value="상품 등록하기" onClick="fn_add_new_goods(this.form);">
 					</td>
 				</tr>
 			</table>
@@ -211,11 +206,7 @@ ul.tabs li.active a:hover {
   function fn_addFile(){
 	  if(cnt == 0){
 		  $("#d_file").append("<br>"+"<input  type='file' name='main_image' id='f_main_image' />");	  
-	  }else{
-		  $("#d_file").append("<br>"+"<input  type='file' name='detail_image"+cnt+"' />");
 	  }
-  	
-  	cnt++;
   }
   
   
@@ -229,28 +220,9 @@ ul.tabs li.active a:hover {
 		 }
 		 
 	}
-
-  $(document).ready(function() {
-
-		$(".tab_content").hide(); 
-		$("ul.tabs li:first").addClass("active").show(); 
-		$(".tab_content:first").show(); 
-
-		
-		$("ul.tabs li").click(function() {
-
-			$("ul.tabs li").removeClass("active");
-			$(this).addClass("active");
-			$(".tab_content").hide(); 
-
-			var activeTab = $(this).find("a").attr("href"); 
-			$(activeTab).fadeIn(); 
-			return false;
-		});
-
-	});
-
-
+  function goPage() { 
+	  location.href="${contextPath}/collectible/collectibleList.do"; 
+	}
 </script>    
 </body>
 </html>

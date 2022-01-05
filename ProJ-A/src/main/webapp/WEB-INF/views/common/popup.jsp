@@ -14,14 +14,10 @@
 	<title><tiles:insertAttribute name="title" /></title>	
 </head>
 <body>
-	<div id="outer_wrap">
-		<div id="wrap">
-			<article>
-			 	<tiles:insertAttribute name="body" />
-			</article>
 
-		</div>
-    </div>        	
+			<article>
+			 	<tiles:insertAttribute name="body" ignore="true"/>
+			</article>       	
 </body>      
         
         

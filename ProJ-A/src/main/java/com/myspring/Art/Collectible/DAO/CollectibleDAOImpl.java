@@ -15,7 +15,7 @@ import com.myspring.Art.Collectible.VO.ImageFileVO;
 public class CollectibleDAOImpl implements CollectibleDAO{
 	@Autowired
 	private SqlSession sqlSession;
-	
+
 	@Override
 	public List<CollectibleVO> selectCollectibleList(String goodsStatus) throws DataAccessException{
 		List<CollectibleVO> CollectibleList = (ArrayList)sqlSession.selectList("mapper.collectible.selectCollectibleList",goodsStatus);
@@ -27,6 +27,9 @@ public class CollectibleDAOImpl implements CollectibleDAO{
 		CollectibleVO collectibleVO =(CollectibleVO)sqlSession.selectOne("mapper.collectible.selectCollectibleDetail",goods_id);
 		return collectibleVO;
 	}
+//	public CollectibleVO selectCollectibleDetail(String goods_id) throws DataAccessException {
+//		return sqlSession.selectOne("mapper.collectible.selectCollectibleDetail",goods_id);
+//	}
 	
 	@Override
 	public List<ImageFileVO> selectCollectibleDetailImage(String goods_id)throws DataAccessException{

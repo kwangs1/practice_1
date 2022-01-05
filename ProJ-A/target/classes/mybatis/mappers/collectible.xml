@@ -35,12 +35,12 @@
 	
 	<select id="selectCollectibleDetail" parameterType="String" resultMap="goodsResult" >
 		<![CDATA[
-			select col.goods_id, col.goods_title, col.goods_year, col.goods_author, col.goods_stuff, col.goods_standard,
+			select col.goods_id, col.goods_title, col.goods_year, col.goods_no ,col.goods_author, col.goods_stuff, col.goods_standard,
 			col.goods_note, col.goods_status, (image.fileName) as goods_fileName 
 			from GALLERY_COLLECTIBLE col, GALLERY_IMAGE image
 			where col.goods_id = image.goods_id
 			and image.fileType = 'main_image'
-			 and col.goods_author = #{col.goods_author}
+			and col.goods_author = #{col.goods_author}
 		]]>
 	</select>
 	
