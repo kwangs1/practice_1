@@ -19,11 +19,11 @@
 			<header>
 				   <tiles:insertAttribute name="header" />
 			</header>
-			<div class="clear"></div>
+
 			<article>
 			 	<tiles:insertAttribute name="body" />
 			</article>
-			<div class="clear"></div>
+
 			<footer>
         		<tiles:insertAttribute name="footer" />
         	</footer>

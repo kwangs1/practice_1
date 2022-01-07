@@ -17,13 +17,20 @@ public class NoticeServiceImpl implements NoticeService{
 	private NoticeDAO noticeDAO;
 
 	@Override
-	public List<NoticeVO> NoticeList() throws Exception{
-		List<NoticeVO> NoticeList = noticeDAO.selectAllNoticeList();	
+	public List NoticeList() throws Exception{
+		List NoticeList = null;
+		NoticeList = noticeDAO.selectAllNoticeList();
 		return NoticeList;
-	}
+	}	
 	
 	@Override
-	public void write(NoticeVO noticeVO) throws Exception {
-		noticeDAO.write(noticeVO);
+	public int addNewNotice(NoticeVO notice)throws Exception{
+		return noticeDAO.insertNoticeList(notice);
+	}	
+	
+	@Override
+	public NoticeVO NoticeDetail(int bno)throws Exception{
+		NoticeVO noticeVO = noticeDAO.selectNoticeDetail(bno);
+		return noticeVO;
 	}
 }

@@ -6,8 +6,10 @@ import com.myspring.Art.Admin.notice.VO.NoticeVO;
 
 public interface NoticeService {
 
-	List<NoticeVO> NoticeList() throws Exception;
+	List NoticeList() throws Exception;
 
-	void write(NoticeVO noticeVO) throws Exception;
+	int addNewNotice(NoticeVO notice) throws Exception;
+
+	NoticeVO NoticeDetail(int bno) throws Exception;
 
 }

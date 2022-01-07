@@ -29,12 +29,7 @@ public class CollectibleServiceImpl implements CollectibleService{
 		Map collectibleMap = new HashMap();
 		CollectibleVO collectibleVO = collectibleDAO.selectCollectibleDetail(_goods_id);
 		collectibleMap.put("collectibleVO",collectibleVO);
-		List<ImageFileVO> imageList = collectibleDAO.selectCollectibleDetailImage(_goods_id);
-		collectibleMap.put("imageList", imageList);
 		return collectibleMap;
 	}
-//	public CollectibleVO collectibleDetail(String goods_id) throws Exception {
-//		CollectibleVO collectibleVO = collectibleDAO.selectCollectibleDetail(goods_id);
-//		return collectibleVO;
-//	}
+
 }

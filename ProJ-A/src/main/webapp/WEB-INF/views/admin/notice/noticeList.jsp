@@ -1,58 +1,123 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"
-    isELIgnored="false" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:set var="contextPath"  value="${pageContext.request.contextPath}"  />
-<c:set var="noticeList"  value="${List.noticeList}"  />
+	pageEncoding="UTF-8" isELIgnored="false"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
+
 <%
-  request.setCharacterEncoding("UTF-8");
-%>  
+request.setCharacterEncoding("UTF-8");
+%>
 <!DOCTYPE html>
 <html>
 <head>
- <style>
-   .cls1 {text-decoration:none;}
-   .cls2{text-align:center; font-size:30px;}
-  </style>
-  <meta charset="UTF-8">
-  <title>글목록창</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-colors-flat.css">
+<style>
+table.ListTb {
+  border-collapse: separate;
+  border-spacing: 1px;
+  text-align: center;
+  line-height: 1.5;
+  margin: 0 auto;
+}
+table.ListTb th {
+  width:155px;
+  padding: 10px;
+  vertical-align: top;
+  border-bottom: 3px solid #ccc;
+  background:#fff;
+}
+table.ListTb td {
+  width: 155px;
+  padding: 10px;
+  vertical-align: top;
+  border-bottom: 1px solid #ccc;
+  }
+a{
+text-decoration-line: none;
+}
+a:hover{
+text-decoration-line: underline;
+}
+</style>
+
 </head>
 <body>
-<table align="center" border="1"  width="80%"  >
-  <tr height="10" align="center"  bgcolor="lightgreen">
-     <td >글번호</td>
-     <td >작성자</td>              
-     <td >제목</td>
-     <td >작성일</td>
-  </tr>
-<c:choose>
-  <c:when test="${noticeList ==null }" >
-    <tr  height="10">
-      <td colspan="4">
-         <p align="center">
-            <b><span style="font-size:9pt;">등록된 글이 없습니다.</span></b>
-        </p>
-      </td>  
-    </tr>
-  </c:when>
-  <c:when test="${noticeList !=null }" >
-    <c:forEach  var="noticeList" items="${noticeList }"  >
-     <tr align="center">
-	<td width="5%">${noticeList.bno}</td>
-	<td width="10%">${noticeList.writer }</td>
-	<td width="10%">${noticeList.title }</td>
-	<td width="10%">${noticeList.content }</td>
-	<td align='left'  width="35%">
-	  <span style="padding-right:30px"></span>
+<h1>　</h1>
+	<table class="con1_search" align="center">
+		<tr>
+			<td>검색</td>
+			<td colspan="2" style="width: 50px;"><input type="date"
+				id='searchStartDate' style="width: 100%;" /></td>
+			<td>~</td>
+			<td><input type="date" id='searchEndDate' style="width: 100%;" /></td>
+			<td><button id="view_button" onclick="searchData()" style="cursor:pointer;">
+			<img src="${contextPath}/resources/image/search.png"></button></td>
+		</tr>
+	</table>
+	<table class="ListTb">
+		<thead class="w3-container w3-flat-clouds">
+		<tr>
+			<td>번호</td>
+  			<td>제목</td>
+			<td>부서명</td>
+			<td>작성일</td>
+		</tr>
+		</thead>
+		<tbody>
+		<c:forEach var="Notice" items="${NoticeList}" >
+			<tr align="center">
+			<td>${Notice.bno}</td>
+			<td><a href="${contextPath}/admin/notice/NoticeDetail.do?bno=${Notice.bno}">${Notice.title}</a></td>
+			<td>${Notice.department}</td>
+			<td>${Notice.regdate}</td>
+			</tr>	
+		</c:forEach>
+		</tbody>
+	</table>
+	<c:if test="${isLogOn == true and memberInfo.member_id =='admin' }">
+		<a href="${contextPath }/admin/notice/addNewNoticeForm.do"><p align="center">글쓰기</p></a>
+	</c:if>
 
-	  </td>
-	  <td  width="10%">${article.writeDate}</td> 
-	</tr>
-    </c:forEach>
-     </c:when>
-    </c:choose>
-</table>
- <a href="${contextPath}/admin/notice/writeView.do"><p class="cls2">글쓰기</p></a>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script type="text/javascript">
+
+/* 검색부 date onChange 함수 설정 */
+	var startDate;
+   	var endDate;
+   	
+   	$('#searchStartDate').change(function (){
+           var date = $('#searchStartDate').val();
+           startDate = date;
+       });
+   	$('#searchEndDate').change(function (){
+           var date = $('#searchEndDate').val();
+           endDate = date;
+       });
+   	
+
+	/* 조회버튼 클릭시 기능 구현 */
+	view_button.onclick = function() {
+		if (startDate == null && endDate == null) {
+			alert("시작일과 종료일은 필수 입력 요소입니다!");
+		} else if (startDate == null) {
+			alert("시작일은 필수 입력 요소입니다!");
+		} else if (endDate == null) {
+			alert("종료일은 필수 입력 요소입니다!");
+		} else if (startDate > endDate) {
+			alert("종료일은 시작일보다 커야합니다!");
+		} else {
+
+			const URLSearch = new URLSearchParams(location.search);
+			URLSearch.set('startDate', startDate);
+			URLSearch.set('endDate', endDate);
+			const newParam = URLSearch.toString();
+
+			window.open(location.pathname + '?' + newParam, '_self');
+		}
+	}
+</script>
 </body>
 </html>

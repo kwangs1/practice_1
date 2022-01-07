@@ -1,0 +1,61 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"
+    isELIgnored="false" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="contextPath"  value="${pageContext.request.contextPath}"  />
+<%
+  request.setCharacterEncoding("UTF-8");
+%> 
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+*{
+margin:0 auto;
+}
+table td {
+  width:155px;
+  padding: 10px;
+  vertical-align: top;
+  border-bottom: 1px solid #ccc;
+  background: #fff;
+  }
+table tr td input{
+	border:none;
+}
+</style>
+</head>
+<body>
+<form method="get"  action="${contextPath}/admin/notice/NoticeDetail.do">
+<h1>　</h1>
+  <table>
+  <tr>
+   <td>
+    <input type=text style="font-size:2.5em; font-weight:700; color:#000;"
+    value="${notice.title }" name="title"  disabled />
+   </td>
+  </tr>
+ 
+  <tr>
+    <td>부서명 &#124; <input type=text value="${notice.department}"  name="department"   disabled /> 
+    &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    전화번호 &#124; <input type=text value="${notice.tel }"  name="department"   disabled /></td>
+  </tr>
+   
+   <tr>
+   <td>작성자 &#124; <input type=text value="${notice.writer }"  name="department"   disabled />
+   &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+   작성일 &#124; <input type=text value="<fmt:formatDate value="${notice.regdate}" />" disabled /></td>
+   </tr>
+   
+   <tr>
+   <td>
+     <textarea rows="20" cols="80"  name="content" disabled >${notice.content }</textarea>
+   </td>  
+   </tr>
+  </table>
+  </form>
+</body>
+</html>

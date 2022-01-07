@@ -6,16 +6,19 @@ import org.springframework.stereotype.Component;
 
 @Component("noticeVO")
 public class NoticeVO {
-	  private Long bno;
+	  private int bno;
 	  private String title;
+	  private String department;
+	  private String tel;
 	  private String content;
 	  private String writer;
 	  private Date regdate;
-	  private Date updateDate;
-	public Long getBno() {
+
+
+	public int getBno() {
 		return bno;
 	}
-	public void setBno(Long bno) {
+	public void setBno(int bno) {
 		this.bno = bno;
 	}
 	public String getTitle() {
@@ -23,6 +26,18 @@ public class NoticeVO {
 	}
 	public void setTitle(String title) {
 		this.title = title;
+	}
+	public String getDepartment() {
+		return department;
+	}
+	public void setDepartment(String department) {
+		this.department = department;
+	}
+	public String getTel() {
+		return tel;
+	}
+	public void setTel(String tel) {
+		this.tel = tel;
 	}
 	public String getContent() {
 		return content;
@@ -42,12 +57,6 @@ public class NoticeVO {
 	public void setRegdate(Date regdate) {
 		this.regdate = regdate;
 	}
-	public Date getUpdateDate() {
-		return updateDate;
-	}
-	public void setUpdateDate(Date updateDate) {
-		this.updateDate = updateDate;
-	}
-	  
-	  
+
+	
 }

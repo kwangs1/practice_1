@@ -150,19 +150,18 @@ li.dropdown {
 		<c:choose>
 			<c:when test="${isLogOn == true and not empty memberInfo }">
 				<a href="${contextPath}/member/logout.do" onClick="window.location.reload()">로그아웃 |</a>
-				<a href="#">마이페이지 |</a>
-				<a href="#">새소식 |</a> 
+				<a href="#">마이페이지 &#124;</a>
+				<a href="#">새소식 &#124;</a> 
 				<a href="#">고객센터</a>
 			</c:when>
 			<c:otherwise>
-			<a href="${contextPath }/member/loginForm.do">로그인 |</a> 
-			<a href="${contextPath }/member/memberForm.do">회원가입 |</a> 
-			<a href="#">새소식 |</a> 
-			<a href="#">고객센터</a>
+			<a href="${contextPath }/member/loginForm.do">로그인 &#124;</a> 
+			<a href="${contextPath }/member/memberForm.do">회원가입</a> 
 			</c:otherwise>
 		</c:choose><br>
 		<c:if test="${isLogOn == true and memberInfo.member_id =='admin' }">
-			<a href="${contextPath}/admin/goods/addNewGoodsForm.do">▶작품관리</a>
+			<a href="${contextPath}/admin/goods/addNewGoodsForm.do">▶작품관리 &#124;</a>
+			<a href="${contextPath}/admin/notice/noticeList.do">▶공지사항관리</a>
 		</c:if>
 		</div>
 

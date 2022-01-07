@@ -9,26 +9,33 @@
 		<result property="bno" column="bno" />
 		<result property="title" column="title" />
 		<result property="content" column="content" />
+		<result property="department" column="department" />
+		<result property="tel" column="tel" />
 		<result property="writer" column="writer" />
 		<result property="regdate" column="regdate" />
-		<result property="updatedate" column="updatedate" />
 	</resultMap>
 
-<select id="selectAllNoticeList" resultMap="noticeResult">
+<select id="selectAllNoticeList" resultMap="noticeResult" >
 	<![CDATA[
-		select bno,writer,title,content from notice_board
-		order by regdate asc
+		select bno,title,department,regdate from notice_board
+		order by bno desc
 	]]>
 </select>
- <insert id="insertList" parameterType="NoticeVO">
-	   INSERT INTO NOTICE_BOARD(    BNO 
-	   					      , TITLE 
-	   					      , CONTENT 
-	   					      , WRITER  )
-	                 VALUES(    SEQ_NOTICE_ID.NEXTVAL 
-	                 		  , #{title}
-	                 		  , #{content}
-	                 		  , #{writer}  )
-   
-   </insert>
+
+<insert id="insertNoticeList" parameterType="NoticeVO">
+	<selectKey resultType="int" keyProperty="bno" order="BEFORE">
+		select seq_notice_id.nextval from dual
+	</selectKey>
+	<![CDATA[
+		insert into notice_board(bno, title, content, department , tel, writer, regdate)
+			values(#{bno},#{title},#{content},#{department},#{tel}, #{writer}, sysdate)
+	]]>
+</insert>
+
+<select id="selectNoticeDetail" resultMap="noticeResult"  parameterType="int">
+	<![CDATA[
+		select * from notice_board
+		where bno = #{bno}
+	]]>
+</select>
 </mapper>

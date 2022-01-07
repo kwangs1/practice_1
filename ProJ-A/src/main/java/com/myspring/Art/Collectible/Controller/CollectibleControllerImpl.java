@@ -41,12 +41,6 @@ public class CollectibleControllerImpl extends BaseController implements Collect
 	@RequestMapping(value ="/collectibleDetail.do" , method= RequestMethod.GET)
 	public ModelAndView collectibleDetail(@RequestParam("goods_id") String goods_id,
             HttpServletRequest request, HttpServletResponse response) throws Exception {		
-//		String viewName = (String)request.getAttribute("viewName");
-//		collectibleVO = collectibleService.collectibleDetail(goods_id);
-//		ModelAndView mav = new ModelAndView();
-//		mav.setViewName(viewName);
-//		mav.addObject("collectible", collectibleVO);
-//		return mav;
 		String viewName=(String)request.getAttribute("viewName");
 		Map collectibleMap=collectibleService.collectibleDetail(goods_id);
 		ModelAndView mav = new ModelAndView(viewName);

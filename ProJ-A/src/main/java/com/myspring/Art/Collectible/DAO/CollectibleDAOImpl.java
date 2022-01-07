@@ -27,13 +27,5 @@ public class CollectibleDAOImpl implements CollectibleDAO{
 		CollectibleVO collectibleVO =(CollectibleVO)sqlSession.selectOne("mapper.collectible.selectCollectibleDetail",goods_id);
 		return collectibleVO;
 	}
-//	public CollectibleVO selectCollectibleDetail(String goods_id) throws DataAccessException {
-//		return sqlSession.selectOne("mapper.collectible.selectCollectibleDetail",goods_id);
-//	}
-	
-	@Override
-	public List<ImageFileVO> selectCollectibleDetailImage(String goods_id)throws DataAccessException{
-		List<ImageFileVO> imageList = (ArrayList)sqlSession.selectList("mapper.collectible.selectCollectibleDetailImage",goods_id);
-		return imageList;
-	}
+
 }

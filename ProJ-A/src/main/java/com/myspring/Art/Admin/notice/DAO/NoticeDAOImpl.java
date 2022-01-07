@@ -1,5 +1,7 @@
 package com.myspring.Art.Admin.notice.DAO;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -15,14 +17,20 @@ public class NoticeDAOImpl implements NoticeDAO{
 	private SqlSession sqlSession;
 
 	@Override
-	public List selectAllNoticeList() throws DataAccessException {
-		List<NoticeVO> NoticeList = NoticeList = sqlSession.selectList("mapper.admin.notice.selectAllNoticeList");
+	public List selectAllNoticeList() throws DataAccessException{
+		List<NoticeVO> NoticeList = null;
+		NoticeList = sqlSession.selectList("mapper.admin.notice.selectAllNoticeList");
 		return NoticeList;
 	}
 	
 	@Override
-	public void write(NoticeVO noticeVO) throws DataAccessException {
-		sqlSession.insert("mapper.admin.notice.insertList", noticeVO);
-		
+	public int insertNoticeList(NoticeVO notice)throws DataAccessException{
+		int result = sqlSession.insert("mapper.admin.notice.insertNoticeList",notice);
+		return result;
+	}
+	
+	@Override
+	public NoticeVO selectNoticeDetail(int bno)throws DataAccessException{
+		return sqlSession.selectOne("mapper.admin.notice.selectNoticeDetail",bno);
 	}
 }

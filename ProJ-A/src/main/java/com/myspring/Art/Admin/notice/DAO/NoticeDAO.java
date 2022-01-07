@@ -10,6 +10,8 @@ public interface NoticeDAO {
 
 	List selectAllNoticeList() throws DataAccessException;
 
-	void write(NoticeVO noticeVO) throws DataAccessException;
+	int insertNoticeList(NoticeVO vo) throws DataAccessException;
+
+	NoticeVO selectNoticeDetail(int bno) throws DataAccessException;
 
 }

@@ -8,9 +8,14 @@
        <put-attribute name="body" value="/WEB-INF/views/admin/notice/noticeList.jsp" />
     </definition>
     
-      <definition name="/admin/notice/writeView" extends="baseLayout">
+     <definition name="/admin/notice/addNewNoticeForm" extends="baseLayout">
        <put-attribute name="title" value="글 작성" />
-       <put-attribute name="body" value="/WEB-INF/views/admin/notice/writeView.jsp" />
+       <put-attribute name="body" value="/WEB-INF/views/admin/notice/addNewNoticeForm.jsp" />
+    </definition>
+
+	 <definition name="/admin/notice/NoticeDetail" extends="baseLayout">
+       <put-attribute name="title" value="상세보기" />
+       <put-attribute name="body" value="/WEB-INF/views/admin/notice/NoticeDetail.jsp" />
     </definition>
 </tiles-definitions>
 

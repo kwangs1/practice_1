@@ -61,11 +61,15 @@ flashback on;
 	DEL_YN VARCHAR2(20 BYTE) DEFAULT 'N'
    ) ;
 
---------------------------------------------------------
---  DDL for Sequence ORDER_SEQ_NUM
---------------------------------------------------------
-
-   CREATE SEQUENCE  "ORDER_SEQ_NUM"  MINVALUE 0 MAXVALUE 10000000 INCREMENT BY 1 START WITH 400 CACHE 20 NOORDER  NOCYCLE ;
+create table notice_board (
+  bno number(10,0),
+  title varchar2(200) not null,
+  content varchar2(2000) not null,
+  department varchar2(2000) not null,
+  tel varchar2(2000) not null,
+  writer varchar2(50) not null,
+  regdate date default sysdate
+);
 --------------------------------------------------------
 --  DDL for Sequence SEQ_GOODS_ID
 --------------------------------------------------------
@@ -77,8 +81,5 @@ flashback on;
 
    CREATE SEQUENCE  "SEQ_IMAGE_ID"  MINVALUE 1 MAXVALUE 11111111 INCREMENT BY 1 START WITH 400 NOCACHE  NOORDER  NOCYCLE ;
 --------------------------------------------------------
---  DDL for Sequence SEQ_ORDER_ID
---------------------------------------------------------
 
-   CREATE SEQUENCE  "SEQ_ORDER_ID"  MINVALUE 0 MAXVALUE 10000000 INCREMENT BY 1 START WITH 400 NOCACHE  ORDER  NOCYCLE ;
 
