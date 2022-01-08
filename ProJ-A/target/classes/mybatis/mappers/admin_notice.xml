@@ -5,21 +5,32 @@
 
 <mapper namespace="mapper.admin.notice">
 
-		<resultMap id="noticeResult" type="NoticeVO">
+	<resultMap id="noticeResult" type="NoticeVO">
 		<result property="bno" column="bno" />
 		<result property="title" column="title" />
 		<result property="content" column="content" />
 		<result property="department" column="department" />
 		<result property="tel" column="tel" />
 		<result property="writer" column="writer" />
-		<result property="regdate" column="regdate" />
+		<result property="regDate" column="regDate" />
+		<result property="startDate" column="startDate" />
+		<result property="endDate" column="endDate" />
 	</resultMap>
 
-<select id="selectAllNoticeList" resultMap="noticeResult" >
+
+<select id="selectAllNoticeList" resultMap="noticeResult" parameterType="NoticeVO">
 	<![CDATA[
-		select bno,title,department,regdate from notice_board
+		select bno,title,department,regDate from notice_board
 		order by bno desc
 	]]>
+	<where>
+			<if test="startDate != '' and startDate != null">
+				regDate between #{startDate} and #{endDate}
+			</if>
+			<if test="endDate != '' and endDate != null">
+				and regDate between #{startDate} and #{endDate}
+			</if>
+	</where>
 </select>
 
 <insert id="insertNoticeList" parameterType="NoticeVO">
@@ -27,7 +38,7 @@
 		select seq_notice_id.nextval from dual
 	</selectKey>
 	<![CDATA[
-		insert into notice_board(bno, title, content, department , tel, writer, regdate)
+		insert into notice_board(bno, title, content, department , tel, writer, regDate)
 			values(#{bno},#{title},#{content},#{department},#{tel}, #{writer}, sysdate)
 	]]>
 </insert>
@@ -38,4 +49,19 @@
 		where bno = #{bno}
 	]]>
 </select>
+
+<delete id="deleteNoticeList" parameterType="int">
+	<![CDATA[
+		delete from notice_board
+		where bno = #{bno}
+	]]>
+</delete>
+
+<update id="modifyNotice" parameterType="NoticeVO">
+	<![CDATA[
+		update notice_board
+		set title=#{title}, content=#{content}
+		where bno=#{bno}
+	]]>
+</update>
 </mapper>

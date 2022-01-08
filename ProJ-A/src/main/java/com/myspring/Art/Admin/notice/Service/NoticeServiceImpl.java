@@ -17,9 +17,9 @@ public class NoticeServiceImpl implements NoticeService{
 	private NoticeDAO noticeDAO;
 
 	@Override
-	public List NoticeList() throws Exception{
+	public List NoticeList(String startDate, String endDate) throws Exception{
 		List NoticeList = null;
-		NoticeList = noticeDAO.selectAllNoticeList();
+		NoticeList = noticeDAO.selectAllNoticeList(startDate, endDate);
 		return NoticeList;
 	}	
 	
@@ -32,5 +32,15 @@ public class NoticeServiceImpl implements NoticeService{
 	public NoticeVO NoticeDetail(int bno)throws Exception{
 		NoticeVO noticeVO = noticeDAO.selectNoticeDetail(bno);
 		return noticeVO;
+	}
+	
+	@Override
+	public int removeNotice(int bno)throws Exception{
+		return noticeDAO.deleteNoticeList(bno);
+	}
+
+	@Override
+	public int modifyNotice(NoticeVO vo) throws Exception {
+		return noticeDAO.modifyNotice(vo);
 	}
 }

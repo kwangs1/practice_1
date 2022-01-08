@@ -28,18 +28,22 @@ public class NoticeControllerImpl implements NoticeController{
 	@Autowired
 	private NoticeVO noticeVO;
 	
-	@Override//목록
+	//글 목록
+	@Override
 	@RequestMapping(value="/noticeList.do", method = RequestMethod.GET)
 	public ModelAndView NoticeList(HttpServletRequest request, HttpServletResponse response)throws Exception{
-		String viewName = getViewName(request);		
+		String viewName = getViewName(request);
+		String startDate = request.getParameter("startDate");
+		String endDate = request.getParameter("endDate");
 		
-		List NoticeList = noticeService.NoticeList();
+		List NoticeList = noticeService.NoticeList(startDate, endDate);
 		ModelAndView mav = new ModelAndView(viewName);
 		
 		mav.addObject("NoticeList",NoticeList);
 		return mav;		
 	}
-	@Override//상세보기
+	//글 상세보기
+	@Override
 	@RequestMapping(value="NoticeDetail.do", method=RequestMethod.GET)
 	public ModelAndView NoticeDetail(@RequestParam("bno") int bno, 
 				HttpServletRequest request, HttpServletResponse response)throws Exception{
@@ -50,8 +54,8 @@ public class NoticeControllerImpl implements NoticeController{
 		mav.addObject("notice",noticeVO);
 		return mav;
 	}
-	
-	@Override//등록뷰에서 데이터넣기
+	//등록뷰에서 데이터넣기
+	@Override
 	@RequestMapping(value="/addNewNotice.do", method = RequestMethod.POST)
 	public ModelAndView addNewNotice(@ModelAttribute("Notice")NoticeVO vo, HttpServletRequest request,HttpServletResponse response)throws Exception{
 		request.setCharacterEncoding("utf-8");
@@ -60,12 +64,42 @@ public class NoticeControllerImpl implements NoticeController{
 		ModelAndView mav = new ModelAndView("redirect:/admin/notice/noticeList.do");
 		return mav;
 	}
-	@RequestMapping(value="/addNewNoticeForm.do", method = RequestMethod.GET)//등록뷰 가기
+	//등록뷰 가기
+	@RequestMapping(value="/addNewNoticeForm.do", method = RequestMethod.GET)
 	public ModelAndView addNewNotice(HttpServletRequest request,HttpServletResponse response)throws Exception{
 		ModelAndView mav = new ModelAndView();
 		String viewName = (String)request.getAttribute("viewName");
 		mav.setViewName(viewName);
 		
+		return mav;
+	}
+	//글 삭제
+	@Override
+	@RequestMapping(value="/removeNotice.do", method=RequestMethod.GET)
+	public ModelAndView removerNotice(@RequestParam("bno")int bno,
+				HttpServletRequest request, HttpServletResponse response)throws Exception{
+		request.setCharacterEncoding("utf-8");
+		noticeService.removeNotice(bno);
+		ModelAndView mav = new ModelAndView("redirect:/admin/notice/noticeList.do");
+		return mav;
+	}
+	//수정뷰 가기
+	@RequestMapping(value="/modifyNoticeForm.do", method = RequestMethod.GET)
+	public ModelAndView modifyNotice(HttpServletRequest request,HttpServletResponse response) throws Exception{
+		ModelAndView mav = new ModelAndView();
+		String viewName = (String)request.getAttribute("viewName");
+		mav.setViewName(viewName);
+		return mav;
+	}
+	//수정 데이터부분
+	@Override
+	@RequestMapping(value="/modifyNotice.do", method=RequestMethod.POST)
+	public ModelAndView modifyNotice(@ModelAttribute("notice")NoticeVO vo,
+			HttpServletRequest request,HttpServletResponse response)throws Exception{
+		request.setCharacterEncoding("utf-8");
+		int result = 0;
+		result = noticeService.modifyNotice(vo);
+		ModelAndView mav = new ModelAndView("redirect:/admin/notice/NoticeDetail.do");
 		return mav;
 	}
 	

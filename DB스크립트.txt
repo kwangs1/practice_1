@@ -81,5 +81,7 @@ create table notice_board (
 
    CREATE SEQUENCE  "SEQ_IMAGE_ID"  MINVALUE 1 MAXVALUE 11111111 INCREMENT BY 1 START WITH 400 NOCACHE  NOORDER  NOCYCLE ;
 --------------------------------------------------------
-
+--  DDL for Sequence SEQ_NOTICE_ID
+--------------------------------------------------------
+ CREATE SEQUENCE  "SEQ_NOTICE_ID"  MINVALUE 1 MAXVALUE 11111111 INCREMENT BY 1 START WITH 1 NOCACHE  NOORDER  NOCYCLE ;
 

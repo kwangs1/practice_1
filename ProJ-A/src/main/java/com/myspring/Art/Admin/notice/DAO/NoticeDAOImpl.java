@@ -17,9 +17,20 @@ public class NoticeDAOImpl implements NoticeDAO{
 	private SqlSession sqlSession;
 
 	@Override
-	public List selectAllNoticeList() throws DataAccessException{
+	public List selectAllNoticeList(String startDate, String endDate) throws DataAccessException,Exception{
 		List<NoticeVO> NoticeList = null;
-		NoticeList = sqlSession.selectList("mapper.admin.notice.selectAllNoticeList");
+		if(startDate != null && startDate !=  "" && endDate != null && endDate != "") {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			Date start = new Date(sdf.parse(startDate).getTime());
+			Date end = new Date(sdf.parse(endDate).getTime());
+			System.out.println(start);
+			NoticeVO vo = new NoticeVO();
+			vo.setStartDate(start);
+			vo.setEndDate(end);
+			NoticeList = sqlSession.selectList("mapper.admin.notice.selectAllNoticeList", vo);
+		}else {
+			NoticeList = sqlSession.selectList("mapper.admin.notice.selectAllNoticeList");
+		}
 		return NoticeList;
 	}
 	
@@ -32,5 +43,18 @@ public class NoticeDAOImpl implements NoticeDAO{
 	@Override
 	public NoticeVO selectNoticeDetail(int bno)throws DataAccessException{
 		return sqlSession.selectOne("mapper.admin.notice.selectNoticeDetail",bno);
+	}
+	
+	@Override
+	public int deleteNoticeList(int bno)throws DataAccessException{
+		int result = sqlSession.delete("mapper.admin.notice.deleteNoticeList",bno);
+			return result;
+	}
+	
+	@Override
+	public int modifyNotice(NoticeVO vo) throws DataAccessException {
+		int result = 0; 
+		result = sqlSession.update("mapper.admin.notice.modifyNotice",vo);
+		return result;
 	}
 }

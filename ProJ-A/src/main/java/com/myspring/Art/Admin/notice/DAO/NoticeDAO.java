@@ -8,10 +8,13 @@ import com.myspring.Art.Admin.notice.VO.NoticeVO;
 
 public interface NoticeDAO {
 
-	List selectAllNoticeList() throws DataAccessException;
+	List selectAllNoticeList(String startDate, String endDate) throws DataAccessException,Exception;
 
 	int insertNoticeList(NoticeVO vo) throws DataAccessException;
 
 	NoticeVO selectNoticeDetail(int bno) throws DataAccessException;
 
+	int deleteNoticeList(int bno) throws DataAccessException;
+
+	int modifyNotice(NoticeVO vo) throws DataAccessException;
 }

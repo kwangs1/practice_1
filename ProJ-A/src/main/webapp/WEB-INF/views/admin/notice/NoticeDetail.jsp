@@ -55,7 +55,35 @@ table tr td input{
      <textarea rows="20" cols="80"  name="content" disabled >${notice.content }</textarea>
    </td>  
    </tr>
+    <tr  id="tr_btn"    >
+   <td>
+        <c:if test="${isLogOn == true and memberInfo.member_id =='admin' }">
+	      <input type=button value="삭제하기"  style='cursor:pointer;' 
+	      	onClick="fn_remove_bno('${contextPath}/admin/notice/removeNotice.do', ${notice.bno})">
+	      
+	      <input type=button value="수정하기"  style='cursor:pointer;'
+	      	onClick="location.href='${contextPath}/admin/notice/modifyNoticeForm.do'">
+	    </c:if>
+   </td>
+  </tr>
   </table>
   </form>
+ <script  src="http://code.jquery.com/jquery-latest.min.js"></script> 
+ <script type="text/javascript">
+ function fn_remove_bno(url,bno){
+	 var form = document.createElement("form");
+	 form.setAttribute("method", "get");
+	 form.setAttribute("action", url);
+     var bnoInput = document.createElement("input");
+     bnoInput.setAttribute("type","hidden");
+     bnoInput.setAttribute("name","bno");
+     bnoInput.setAttribute("value", bno);
+	 
+     form.appendChild(bnoInput);
+     document.body.appendChild(form);
+     form.submit();
+ 
+ }
+ </script>
 </body>
 </html>

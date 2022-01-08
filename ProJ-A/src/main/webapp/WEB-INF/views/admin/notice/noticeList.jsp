@@ -101,12 +101,12 @@ text-decoration-line: underline;
 	/* 조회버튼 클릭시 기능 구현 */
 	view_button.onclick = function() {
 		if (startDate == null && endDate == null) {
-			alert("시작일과 종료일은 필수 입력 요소입니다!");
+			alert("조회할 날짜를 선택해주세요!");
 		} else if (startDate == null) {
-			alert("시작일은 필수 입력 요소입니다!");
-		} else if (endDate == null) {
-			alert("종료일은 필수 입력 요소입니다!");
-		} else if (startDate > endDate) {
+			alert("시작일을 입력해주세요!");
+		}else if(endDate == null){
+			alert("종료일을 입력해주세요!");
+		}else if (startDate > endDate) {
 			alert("종료일은 시작일보다 커야합니다!");
 		} else {
 

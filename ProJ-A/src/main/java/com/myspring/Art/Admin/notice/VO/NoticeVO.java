@@ -12,9 +12,11 @@ public class NoticeVO {
 	  private String tel;
 	  private String content;
 	  private String writer;
-	  private Date regdate;
-
-
+	  private Date regDate;
+	  private Date startDate;
+	  private Date endDate;
+	  
+	
 	public int getBno() {
 		return bno;
 	}
@@ -52,11 +54,23 @@ public class NoticeVO {
 		this.writer = writer;
 	}
 	public Date getRegdate() {
-		return regdate;
+		return regDate;
 	}
-	public void setRegdate(Date regdate) {
-		this.regdate = regdate;
+	public void setRegdate(Date regDate) {
+		this.regDate = regDate;
 	}
-
+	public Date getStartDate() {
+		return startDate;
+	}
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+	public Date getEndDate() {
+		return endDate;
+	}
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+	
 	
 }
