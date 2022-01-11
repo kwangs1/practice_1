@@ -21,5 +21,4 @@ public interface NoticeController {
 	ModelAndView removerNotice(int bno, HttpServletRequest request, HttpServletResponse response) throws Exception;
 
 	ModelAndView modifyNotice(NoticeVO vo, HttpServletRequest request, HttpServletResponse response) throws Exception;
-
 }

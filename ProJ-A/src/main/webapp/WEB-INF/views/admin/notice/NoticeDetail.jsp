@@ -62,7 +62,7 @@ table tr td input{
 	      	onClick="fn_remove_bno('${contextPath}/admin/notice/removeNotice.do', ${notice.bno})">
 	      
 	      <input type=button value="수정하기"  style='cursor:pointer;'
-	      	onClick="location.href='${contextPath}/admin/notice/modifyNoticeForm.do'">
+	      	onClick="location.href='${contextPath}/admin/notice/modifyNoticeForm.do?bno=${notice.bno }'">
 	    </c:if>
    </td>
   </tr>

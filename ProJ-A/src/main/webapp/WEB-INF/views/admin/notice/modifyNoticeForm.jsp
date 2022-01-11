@@ -3,6 +3,7 @@
     isELIgnored="false" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="com.myspring.Art.Admin.notice.VO.NoticeVO" %>
 <c:set var="contextPath"  value="${pageContext.request.contextPath}"  />
 <%
   request.setCharacterEncoding("UTF-8");
@@ -28,7 +29,7 @@ table tr td input{
 </style>
 </head>
 <body>
-<form method="post"  action="${contextPath}/admin/notice/modifyNotice.do">
+<form method="post"  action="${contextPath}/admin/notice/modifyNotice.do?bno=${notice.bno}">
 <h1>　</h1>
   <table>
   <tr>
@@ -47,7 +48,7 @@ table tr td input{
    <tr>
    <td>작성자 &#124; <input type=text value="${notice.writer }"  id="writer" disabled />
    &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-   작성일 &#124; <input type=text id="regDate" name="regDate" value="<fmt:formatDate value="${notice.regDate}" />" disabled /></td>
+   작성일 &#124; <%-- <input type=text id="regDate" name="regDate" value="<fmt:formatDate value="${notice.regDate}" />" disabled /> --%></td>
    </tr>
    
    <tr>
@@ -69,7 +70,7 @@ table tr td input{
 	 document.getElementById("department").disabled=true;
 	 document.getElementById("tel").disabled=true;
 	 document.getElementById("writer").disabled=true;
-	 document.getElementById("regDate").disabled=true;
+/* 	 document.getElementById("regDate").disabled=true; */
 	 document.getElementById("content").disabled=false;
 
 	 obj.submit();

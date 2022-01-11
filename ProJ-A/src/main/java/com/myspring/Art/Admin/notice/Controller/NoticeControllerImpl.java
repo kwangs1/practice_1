@@ -85,10 +85,13 @@ public class NoticeControllerImpl implements NoticeController{
 	}
 	//수정뷰 가기
 	@RequestMapping(value="/modifyNoticeForm.do", method = RequestMethod.GET)
-	public ModelAndView modifyNotice(HttpServletRequest request,HttpServletResponse response) throws Exception{
+		public ModelAndView modifyNotice(@RequestParam("bno") int bno, 
+				HttpServletRequest request, HttpServletResponse response)throws Exception{
+		String viewName=(String)request.getAttribute("viewName");
+		noticeVO = noticeService.NoticeDetail(bno);
 		ModelAndView mav = new ModelAndView();
-		String viewName = (String)request.getAttribute("viewName");
 		mav.setViewName(viewName);
+		mav.addObject("notice",noticeVO);
 		return mav;
 	}
 	//수정 데이터부분
@@ -99,9 +102,10 @@ public class NoticeControllerImpl implements NoticeController{
 		request.setCharacterEncoding("utf-8");
 		int result = 0;
 		result = noticeService.modifyNotice(vo);
-		ModelAndView mav = new ModelAndView("redirect:/admin/notice/NoticeDetail.do");
+		ModelAndView mav = new ModelAndView("redirect:/admin/notice/noticeList.do");
 		return mav;
 	}
+
 	
 	private String getViewName(HttpServletRequest request) throws Exception {
 		String contextPath = request.getContextPath();
