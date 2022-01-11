@@ -36,4 +36,5 @@ public class AdminGoodsDAOImpl implements AdminGoodsDAO{
 		ArrayList<CollectibleVO>  goodsList=(ArrayList)sqlSession.selectList("mapper.admin.goods.selectNewGoodsList",condMap);
 		return goodsList;
 	}
+	
 }

@@ -14,5 +14,4 @@ public interface AdminGoodsDAO {
 	void insertGoodsImageFile(List fileList) throws DataAccessException;
 
 	List<CollectibleVO> selectNewGoodsList(Map condMap) throws DataAccessException;
-
 }

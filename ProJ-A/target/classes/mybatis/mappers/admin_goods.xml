@@ -101,4 +101,5 @@
 		recNum between (#{section}-1)*100+ (#{pageNum}-1)*10+1 and (#{section}-1)*100+(#{pageNum})*10				        
     	]]>
 </select>
+
 </mapper>

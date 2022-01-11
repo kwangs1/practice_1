@@ -7,7 +7,7 @@
 <!DOCTYPE html >
 <html>
 <head>
-<script src="https://code.jquery.com/jquery-2.2.1.js"></script>
+<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <meta charset="utf-8">
 <style>
 *{
@@ -42,9 +42,10 @@ padding:0 auto;
 	border: 1px solid #444444;
 }
 #search {
-	margin: 20px 10px 0px 0px; 
-	padding: 0px; 
-	float: right;
+	width:100px;
+	margin:auto;
+	display:block;
+	
 }
 </style>
 </head>
@@ -118,12 +119,10 @@ padding:0 auto;
 		</TBODY>
 		
 	</TABLE>
-	<DIV class="clear"></DIV>
-	<br><br><br>
 
 <DIV id="search">
 	<form action="${contextPath}/admin/goods/addNewGoodsForm.do">
-		<input   type="submit" value="상품 등록하기">
+		<input   type="submit" style='cursor:pointer; border:none;' value="상품 등록하기">
 	</form>
 </DIV>
 
@@ -134,6 +133,7 @@ function selectAll(selectAll){
         checkbox.checked = selectAll.checked;
     })
 }
+
 </script>
 </body>
 </html>
