@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -17,9 +18,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.myspring.Art.Admin.goods.Service.AdminGoodsService;
+import com.myspring.Art.Collectible.VO.CollectibleVO;
 import com.myspring.Art.Collectible.VO.ImageFileVO;
 import com.myspring.Art.Member.VO.MemberVO;
 import com.myspring.Art.common.base.BaseController;
@@ -75,7 +79,7 @@ public class AdminGoodsControllerImpl extends BaseController implements AdminGoo
 			}
 			message = "<script>";
 			message += "alert('작품 등록완료!');";
-			message += "location.href='"+multipartRequest.getContextPath()+"/admin/goods/addNewGoodsForm.do';";
+			message += "location.href='"+multipartRequest.getContextPath()+"/admin/goods/adminGoodsMain.do';";
 			message += "</script>";
 		}catch(Exception e) {
 			if(imageFileList != null && imageFileList.size() != 0) {
@@ -93,5 +97,33 @@ public class AdminGoodsControllerImpl extends BaseController implements AdminGoo
 		}
 		resEntity = new ResponseEntity(message, responseHeaders, HttpStatus.OK);
 		return resEntity;
+	}
+	
+	@RequestMapping(value="/adminGoodsMain.do" ,method={RequestMethod.POST,RequestMethod.GET})
+	public ModelAndView adminGoodsMain(@RequestParam Map<String, String> dateMap,
+			                           HttpServletRequest request, HttpServletResponse response)  throws Exception {
+		String viewName=(String)request.getAttribute("viewName");
+		ModelAndView mav = new ModelAndView(viewName);
+		
+		String fixedSearchPeriod = dateMap.get("fixedSearchPeriod");
+		String section = dateMap.get("section");
+		String pageNum = dateMap.get("pageNum");
+		
+		Map<String,Object> condMap=new HashMap<String,Object>();
+		if(section== null) {
+			section = "1";
+		}
+		condMap.put("section",section);
+		if(pageNum== null) {
+			pageNum = "1";
+		}
+		condMap.put("pageNum",pageNum);
+		List<CollectibleVO> newGoodsList=adminGoodsService.listNewGoods(condMap);
+		mav.addObject("newGoodsList", newGoodsList);
+		
+		mav.addObject("section", section);
+		mav.addObject("pageNum", pageNum);
+		return mav;
+		
 	}
 }

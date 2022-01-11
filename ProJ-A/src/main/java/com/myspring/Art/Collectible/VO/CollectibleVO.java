@@ -16,7 +16,7 @@ public class CollectibleVO {
 	private String goods_note;
 	private int goods_year;
 	private String goods_fileName;
-	
+	private String goods_regDate;
 
 	
 	public String getGoods_fileName() {
@@ -79,6 +79,12 @@ public class CollectibleVO {
 	}
 	public void setGoods_note(String goods_note) {
 		this.goods_note = goods_note;
+	}
+	public String getGoods_regDate() {
+		return goods_regDate;
+	}
+	public void setGoods_regDate(String goods_regDate) {
+		this.goods_regDate = goods_regDate;
 	}
 	
 	

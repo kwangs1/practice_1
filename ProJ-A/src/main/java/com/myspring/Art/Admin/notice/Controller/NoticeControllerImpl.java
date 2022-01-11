@@ -1,6 +1,7 @@
 package com.myspring.Art.Admin.notice.Controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,6 +20,7 @@ import com.myspring.Art.Admin.notice.Service.NoticeService;
 import com.myspring.Art.Admin.notice.VO.NoticeVO;
 
 
+
 @RequestMapping(value="/admin/notice")
 @Controller("noticeController")
 public class NoticeControllerImpl implements NoticeController{
@@ -35,6 +37,7 @@ public class NoticeControllerImpl implements NoticeController{
 		String viewName = getViewName(request);
 		String startDate = request.getParameter("startDate");
 		String endDate = request.getParameter("endDate");
+
 		
 		List NoticeList = noticeService.NoticeList(startDate, endDate);
 		ModelAndView mav = new ModelAndView(viewName);

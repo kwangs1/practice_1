@@ -8,10 +8,9 @@ import com.myspring.Art.Collectible.VO.CollectibleVO;
 import com.myspring.Art.Collectible.VO.ImageFileVO;
 
 public interface CollectibleDAO {
+	List selectAllCollectibleList() throws DataAccessException;
 
-	List<CollectibleVO> selectCollectibleList(String goodsStatus) throws DataAccessException;
-
-	CollectibleVO selectCollectibleDetail(String goods_id) throws DataAccessException;
+	CollectibleVO selectCollectibleDetail(int goods_id) throws DataAccessException;
 
 
 }

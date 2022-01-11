@@ -24,7 +24,7 @@
 	   <result property="fileType" column="fileType" />
 	</resultMap>
 	
-	<select id="selectCollectibleList" parameterType="String" resultMap="goodsResult">
+	<select id="selectCollectibleList" resultMap="goodsResult">
         <![CDATA[
 			select col.goods_id,col.goods_title,col.goods_author,(image.fileName) as goods_fileName 
 			from GALLERY_COLLECTIBLE col, GALLERY_IMAGE image
@@ -33,23 +33,14 @@
 	    ]]>
 	</select>
 	
-	<select id="selectCollectibleDetail" parameterType="String" resultMap="goodsResult" >
+	<select id="selectCollectibleDetail" parameterType="int" resultMap="goodsResult" >
 		<![CDATA[
-			select col.goods_id, col.goods_title, col.goods_year, col.goods_no ,col.goods_author, col.goods_stuff, col.goods_standard,
-			col.goods_note, col.goods_status, (image.fileName) as goods_fileName 
+			select col.goods_id, col.goods_title, col.goods_year, col.goods_no ,col.goods_author,col.goods_year, 
+			col.goods_stuff, col.goods_standard, col.goods_note, col.goods_status, (image.fileName) as goods_fileName 
 			from GALLERY_COLLECTIBLE col, GALLERY_IMAGE image
 			where col.goods_id = image.goods_id
 			and image.fileType = 'main_image'
-			and col.goods_author = #{col.goods_author}
-		]]>
-	</select>
-	
-	<select id="selectCollectibleDetailImage" parameterType="String" resultMap="imageResult">
-		<![CDATA[
-			select * from gallery_image
-			where
-			fileType != 'main_image'
-			and goods_id = #{goods_id}
+			and col.goods_id = #{col.goods_id}
 		]]>
 	</select>
 </mapper>

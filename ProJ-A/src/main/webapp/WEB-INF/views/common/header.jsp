@@ -129,7 +129,7 @@ li.dropdown {
 
 .dropdown:hover .dropdown-content {
   display: inline;
-  top: 0px;
+  top: 100px;
 }
 </style>
 </head>
@@ -160,7 +160,7 @@ li.dropdown {
 			</c:otherwise>
 		</c:choose><br>
 		<c:if test="${isLogOn == true and memberInfo.member_id =='admin' }">
-			<a href="${contextPath}/admin/goods/addNewGoodsForm.do">▶작품관리 &#124;</a>
+			<a href="${contextPath}/admin/goods/adminGoodsMain.do">▶작품관리 &#124;</a>
 			<a href="${contextPath}/admin/notice/noticeList.do">▶공지사항관리</a>
 		</c:if>
 		</div>

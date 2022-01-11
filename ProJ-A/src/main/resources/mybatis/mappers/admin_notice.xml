@@ -18,19 +18,12 @@
 	</resultMap>
 
 
-<select id="selectAllNoticeList" resultMap="noticeResult" parameterType="NoticeVO">
+<select id="selectAllNoticeList" resultMap="noticeResult" parameterType="java.util.Map">
 	<![CDATA[
-		select bno,title,department,regDate from notice_board
+		select bno,title,department,regDate
+			 from notice_board
 		order by bno desc
 	]]>
-	<where>
-			<if test="startDate != '' and startDate != null">
-				regDate between #{startDate} and #{endDate}
-			</if>
-			<if test="endDate != '' and endDate != null">
-				and regDate between #{startDate} and #{endDate}
-			</if>
-	</where>
 </select>
 
 <insert id="insertNoticeList" parameterType="NoticeVO">

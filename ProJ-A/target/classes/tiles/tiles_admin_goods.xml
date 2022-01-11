@@ -7,6 +7,10 @@
        <put-attribute name="title" value="새 상품 추가 페이지" />
        <put-attribute name="body" value="/WEB-INF/views/admin/goods/addNewGoodsForm.jsp" />
     </definition>
+    <definition name="/admin/goods/adminGoodsMain" extends="baseLayout">
+       <put-attribute name="title" value="추가 메인페이지" />
+       <put-attribute name="body" value="/WEB-INF/views/admin/goods/adminGoodsMain.jsp" />
+    </definition>
 </tiles-definitions>
 
 

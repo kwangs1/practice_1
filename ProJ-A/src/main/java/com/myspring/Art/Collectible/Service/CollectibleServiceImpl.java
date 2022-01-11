@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.myspring.Art.Admin.notice.VO.NoticeVO;
 import com.myspring.Art.Collectible.DAO.CollectibleDAO;
 import com.myspring.Art.Collectible.VO.CollectibleVO;
 import com.myspring.Art.Collectible.VO.ImageFileVO;
@@ -17,19 +18,15 @@ public class CollectibleServiceImpl implements CollectibleService{
 	private CollectibleDAO collectibleDAO;
 
 	@Override
-	public Map<String, List<CollectibleVO>> listCollectible() throws Exception{
-		Map<String, List<CollectibleVO>> collectibleMap = new HashMap<String,List<CollectibleVO>>();
-		List<CollectibleVO> CollectibleList = collectibleDAO.selectCollectibleList("collectible");
-		collectibleMap.put("collectible", CollectibleList);
-		return collectibleMap;
-	}
+	public List collectibleList() throws Exception{
+		List collectibleList = null;
+		collectibleList = collectibleDAO.selectAllCollectibleList();
+		return collectibleList;
+	}	
 	
 	@Override
-	public Map collectibleDetail(String _goods_id)throws Exception{
-		Map collectibleMap = new HashMap();
-		CollectibleVO collectibleVO = collectibleDAO.selectCollectibleDetail(_goods_id);
-		collectibleMap.put("collectibleVO",collectibleVO);
-		return collectibleMap;
+	public CollectibleVO collectibleDetail(int goods_id)throws Exception{
+		CollectibleVO collectibleVO = collectibleDAO.selectCollectibleDetail(goods_id);
+		return collectibleVO;
 	}
-
 }

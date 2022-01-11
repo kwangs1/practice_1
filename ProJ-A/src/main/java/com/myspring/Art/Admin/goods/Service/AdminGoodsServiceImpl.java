@@ -1,6 +1,7 @@
 package com.myspring.Art.Admin.goods.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.myspring.Art.Admin.goods.DAO.AdminGoodsDAO;
+import com.myspring.Art.Collectible.VO.CollectibleVO;
 import com.myspring.Art.Collectible.VO.ImageFileVO;
 
 @Service("adminGoodsService")
@@ -26,5 +28,10 @@ public class AdminGoodsServiceImpl implements AdminGoodsService{
 		}
 		adminGoodsDAO.insertGoodsImageFile(imageFileList);
 		return goods_id;
+	}
+	
+	@Override
+	public List<CollectibleVO> listNewGoods(Map condMap) throws Exception{
+		return adminGoodsDAO.selectNewGoodsList(condMap);
 	}
 }

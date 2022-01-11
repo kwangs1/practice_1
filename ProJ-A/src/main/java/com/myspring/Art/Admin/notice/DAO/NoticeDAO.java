@@ -1,6 +1,7 @@
 package com.myspring.Art.Admin.notice.DAO;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.dao.DataAccessException;
 

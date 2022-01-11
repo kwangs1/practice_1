@@ -6,9 +6,8 @@ import java.util.Map;
 import com.myspring.Art.Collectible.VO.CollectibleVO;
 
 public interface CollectibleService {
+	List collectibleList() throws Exception;
 
-	Map<String, List<CollectibleVO>> listCollectible() throws Exception;
-
-	Map collectibleDetail(String _goods_id) throws Exception;
+	CollectibleVO collectibleDetail(int goods_id) throws Exception;
 
 }

@@ -16,6 +16,7 @@
 		<result property="goods_note" column="goods_note" />
 		<result property="goods_status" column="goods_status" />
 		<result property="goods_fileName" column="goods_fileName" />
+		<result property="goods_redDate" column="goods_redDate" />
 	</resultMap>
 		<!--상품 이미지 정보를 저장하는 resultmap  -->
 	<resultMap id="imageResult" type="ImageFileVO">
@@ -26,7 +27,7 @@
 	   <result property="fileType" column="fileType" />
 	</resultMap>
 	
-	<insert id="insertNewGoods" parameterType="java.util.Map">
+<insert id="insertNewGoods" parameterType="java.util.Map">
 		<selectKey resultType="String" keyProperty="goods_id"  order="BEFORE">
 			select seq_goods_id.nextval from dual
 		</selectKey>
@@ -56,8 +57,9 @@
 					  			      #{goods_fileName}
 					 			 )
 		]]>
-	</insert>
-		<insert id="insertGoodsImageFile" parameterType="imageFileVO">
+</insert>
+
+<insert id="insertGoodsImageFile" parameterType="imageFileVO">
 		<selectKey resultType="int" keyProperty="image_id" order="BEFORE">
 			select seq_image_id.nextval from dual
 		</selectKey>
@@ -65,6 +67,38 @@
 		   insert into gallery_image (image_id, goods_id, fileName, fileType, reg_id)
 				values(#{image_id}, #{goods_id}, #{fileName}, #{fileType}, #{reg_id} )
 		]]>
-		</insert>
-	
+</insert>
+
+<select id="selectNewGoodsList" resultMap="goodsResult"   parameterType="java.util.Map"  >
+	    <![CDATA[
+		  select * from (
+			   select rowNum as recNum,
+			   		  goods_id,
+			          goods_title,
+			          goods_year,
+			          goods_no,
+			          goods_author,
+			          goods_stuff,
+			          goods_standard,
+			          goods_note,
+			          goods_status
+			       from (
+			             select  goods_id,
+			          			 goods_title,
+			          			 goods_year,
+			          			 goods_no,
+			          			 goods_author,
+			          			 goods_stuff,
+			          			 goods_standard,
+			          			 goods_note,
+			          			 goods_status,
+			             		 goods_regDate
+			              from gallery_collectible 
+			               order by goods_regDate desc
+					    )
+				)							
+			where				
+		recNum between (#{section}-1)*100+ (#{pageNum}-1)*10+1 and (#{section}-1)*100+(#{pageNum})*10				        
+    	]]>
+</select>
 </mapper>

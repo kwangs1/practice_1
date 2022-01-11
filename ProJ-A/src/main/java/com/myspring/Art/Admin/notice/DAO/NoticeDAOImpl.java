@@ -33,7 +33,7 @@ public class NoticeDAOImpl implements NoticeDAO{
 		}
 		return NoticeList;
 	}
-	
+
 	@Override
 	public int insertNoticeList(NoticeVO notice)throws DataAccessException{
 		int result = sqlSession.insert("mapper.admin.notice.insertNoticeList",notice);

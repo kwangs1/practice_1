@@ -4,18 +4,13 @@
        "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
 
 <tiles-definitions>
- 	<definition name="/collectible/collectibleDetail" template="/WEB-INF/views/common/popup.jsp">
-		<put-attribute name="title" value="" />
-		<put-attribute name="body" value="/WEB-INF/views/collectible/collectibleDetail.jsp" />
-	</definition>
-
 	<definition name="/collectible/collectibleList" extends="baseLayout">
 		<put-attribute name="title" value="소장품" />
 		<put-attribute name="body" value="/WEB-INF/views/collectible/collectibleList.jsp" />
 	</definition>
-<!--   	<definition name="/collectible/collectibleDetail" extends="baseLayout">
-		<put-attribute name="title" value="상세 페이지" />
-		<put-attribute name="body" value="/WEB-INF/views/collectible/collectibleDetail.jsp" />
-	</definition> -->
 
+	<definition name="/collectible/collectibleDetail" extends="baseLayout">
+		<put-attribute name="title" value="상세보기" />
+		<put-attribute name="body" value="/WEB-INF/views/collectible/collectibleDetail.jsp" />
+	</definition>
 </tiles-definitions>

@@ -1,6 +1,7 @@
 package com.myspring.Art.Admin.notice.Service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,7 +23,8 @@ public class NoticeServiceImpl implements NoticeService{
 		NoticeList = noticeDAO.selectAllNoticeList(startDate, endDate);
 		return NoticeList;
 	}	
-	
+
+
 	@Override
 	public int addNewNotice(NoticeVO notice)throws Exception{
 		return noticeDAO.insertNoticeList(notice);

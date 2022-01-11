@@ -27,24 +27,57 @@ public class CollectibleControllerImpl extends BaseController implements Collect
 	private CollectibleVO collectibleVO;
 	
 	@Override
-	@RequestMapping(value="/collectibleList.do", method= {RequestMethod.POST, RequestMethod.GET})
-	public ModelAndView collectible(HttpServletRequest request, HttpServletResponse response)throws Exception{
-		String viewName = (String)request.getAttribute("viewName");
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName(viewName);
-		Map<String, List<CollectibleVO>> collectibleMap = collectibleService.listCollectible();
-		mav.addObject("collectibleMap",collectibleMap);
-		return mav;
+	@RequestMapping(value="/collectibleList.do", method= RequestMethod.GET)
+	public ModelAndView collectibleList(HttpServletRequest request, HttpServletResponse response)throws Exception{
+		String viewName = getViewName(request);
+		
+		List collectibleList = collectibleService.collectibleList();
+		ModelAndView mav = new ModelAndView(viewName);
+		
+		mav.addObject("collectibleList",collectibleList);
+		return mav;		
 	}
 	
 	@Override
-	@RequestMapping(value ="/collectibleDetail.do" , method= RequestMethod.GET)
-	public ModelAndView collectibleDetail(@RequestParam("goods_id") String goods_id,
-            HttpServletRequest request, HttpServletResponse response) throws Exception {		
+	@RequestMapping(value="collectibleDetail.do", method=RequestMethod.GET)
+	public ModelAndView collectibleDetail(@RequestParam("goods_id") int goods_id, 
+				HttpServletRequest request, HttpServletResponse response)throws Exception{
 		String viewName=(String)request.getAttribute("viewName");
-		Map collectibleMap=collectibleService.collectibleDetail(goods_id);
-		ModelAndView mav = new ModelAndView(viewName);
-		mav.addObject("collectible", collectibleMap);
+		collectibleVO = collectibleService.collectibleDetail(goods_id);
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName(viewName);
+		mav.addObject("collectible",collectibleVO);
 		return mav;
+	}
+	
+	private String getViewName(HttpServletRequest request) throws Exception {
+		String contextPath = request.getContextPath();
+		String uri = (String) request.getAttribute("javax.servlet.include.request_uri");
+		if (uri == null || uri.trim().equals("")) {
+			uri = request.getRequestURI();
+		}
+
+		int begin = 0;
+		if (!((contextPath == null) || ("".equals(contextPath)))) {
+			begin = contextPath.length();
+		}
+
+		int end;
+		if (uri.indexOf(";") != -1) {
+			end = uri.indexOf(";");
+		} else if (uri.indexOf("?") != -1) {
+			end = uri.indexOf("?");
+		} else {
+			end = uri.length();
+		}
+
+		String viewName = uri.substring(begin, end);
+		if (viewName.indexOf(".") != -1) {
+			viewName = viewName.substring(0, viewName.lastIndexOf("."));
+		}
+		if (viewName.lastIndexOf("/") != -1) {
+			viewName = viewName.substring(viewName.lastIndexOf("/", 1), viewName.length());
+		}
+		return viewName;
 	}
 }
