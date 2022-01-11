@@ -33,6 +33,7 @@ public class NoticeServiceImpl implements NoticeService{
 	@Override
 	public NoticeVO NoticeDetail(int bno)throws Exception{
 		NoticeVO noticeVO = noticeDAO.selectNoticeDetail(bno);
+		noticeDAO.boardHit(bno);
 		return noticeVO;
 	}
 	

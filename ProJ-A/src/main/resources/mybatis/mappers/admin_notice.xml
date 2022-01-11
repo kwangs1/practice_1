@@ -12,6 +12,7 @@
 		<result property="department" column="department" />
 		<result property="tel" column="tel" />
 		<result property="writer" column="writer" />
+		<result property="hit" column="hit" />
 		<result property="regDate" column="regDate" />
 		<result property="startDate" column="startDate" />
 		<result property="endDate" column="endDate" />
@@ -20,7 +21,7 @@
 
 <select id="selectAllNoticeList" resultMap="noticeResult" parameterType="java.util.Map">
 	<![CDATA[
-		select bno,title,department,regDate
+		select bno,title,department,regDate,hit
 			 from notice_board
 		order by bno desc
 	]]>
@@ -54,6 +55,14 @@
 	<![CDATA[
 		update notice_board
 		set title=#{title}, content=#{content}
+		where bno=#{bno}
+	]]>
+</update>
+
+<update id="boardHit" parameterType="int">
+	<![CDATA[
+		update notice_board
+		set hit = hit+1
 		where bno=#{bno}
 	]]>
 </update>

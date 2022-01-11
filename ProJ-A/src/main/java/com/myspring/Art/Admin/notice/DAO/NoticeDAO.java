@@ -18,4 +18,6 @@ public interface NoticeDAO {
 	int deleteNoticeList(int bno) throws DataAccessException;
 
 	int modifyNotice(NoticeVO vo) throws DataAccessException;
+
+	void boardHit(int bno) throws Exception;
 }

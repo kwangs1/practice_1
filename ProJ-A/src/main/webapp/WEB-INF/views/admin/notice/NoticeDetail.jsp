@@ -47,7 +47,10 @@ table tr td input{
    <tr>
    <td>작성자 &#124; <input type=text value="${notice.writer }"  name="department"   disabled />
    &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-   작성일 &#124; <input type=text value="<fmt:formatDate value="${notice.regdate}" />" disabled /></td>
+   작성일 &#124; <input type=text value="<fmt:formatDate value="${notice.regdate}" />" disabled />
+   조회수 &#124;&nbsp;&nbsp;&nbsp;${notice.hit }
+   </td>
+   
    </tr>
    
    <tr>

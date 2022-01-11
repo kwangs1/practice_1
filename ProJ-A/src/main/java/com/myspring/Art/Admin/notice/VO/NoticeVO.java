@@ -15,8 +15,21 @@ public class NoticeVO {
 	  private Date regDate;
 	  private Date startDate;
 	  private Date endDate;
-	  
+	  private int hit;
 	
+	
+	public Date getRegDate() {
+		return regDate;
+	}
+	public void setRegDate(Date regDate) {
+		this.regDate = regDate;
+	}
+	public int getHit() {
+		return hit;
+	}
+	public void setHit(int hit) {
+		this.hit = hit;
+	}
 	public int getBno() {
 		return bno;
 	}

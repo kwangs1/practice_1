@@ -69,6 +69,7 @@ create table notice_board (
   department varchar2(2000) not null,
   tel varchar2(2000) not null,
   writer varchar2(50) not null,
+  HIT NUMBER DEFAULT 0
   regdate date default sysdate
 );
 --------------------------------------------------------

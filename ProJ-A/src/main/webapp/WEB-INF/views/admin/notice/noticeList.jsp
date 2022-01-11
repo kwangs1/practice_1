@@ -63,6 +63,7 @@ text-decoration-line: underline;
   			<td>제목</td>
 			<td>부서명</td>
 			<td>작성일</td>
+			<td>조회수</td>
 		</tr>
 		</thead>
 		<tbody>
@@ -72,6 +73,7 @@ text-decoration-line: underline;
 			<td><a href="${contextPath}/admin/notice/NoticeDetail.do?bno=${Notice.bno}">${Notice.title}</a></td>
 			<td>${Notice.department}</td>
 			<td>${Notice.regdate}</td>
+			<td>${Notice.hit}</td>
 			</tr>	
 		</c:forEach>
 		</tbody>
