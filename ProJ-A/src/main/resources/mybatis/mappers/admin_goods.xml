@@ -102,4 +102,10 @@
     	]]>
 </select>
 
+	<delete id="deleteGoods"  parameterType="int">
+    <![CDATA[
+      delete from gallery_collectible
+      where goods_id = #{goods_id}
+    ]]>      
+  </delete>
 </mapper>

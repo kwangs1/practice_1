@@ -17,4 +17,8 @@ public interface AdminGoodsController {
 	ModelAndView adminGoodsMain(Map<String, String> dateMap, HttpServletRequest request, HttpServletResponse response)
 			throws Exception;
 
+	ResponseEntity removeGoods(int goods_id, HttpServletRequest request, HttpServletResponse response) throws Exception;
+
+	ResponseEntity modifyGoods(MultipartHttpServletRequest multipartRequest, HttpServletResponse response)
+			throws Exception;
 }

@@ -1,6 +1,7 @@
 package com.myspring.Art.Admin.goods.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -33,5 +34,10 @@ public class AdminGoodsServiceImpl implements AdminGoodsService{
 	@Override
 	public List<CollectibleVO> listNewGoods(Map condMap) throws Exception{
 		return adminGoodsDAO.selectNewGoodsList(condMap);
+	}
+	
+	@Override
+	public void removeGoods(int goods_id) throws Exception {
+		adminGoodsDAO.deleteGoods(goods_id);
 	}
 }

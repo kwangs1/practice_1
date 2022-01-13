@@ -1,9 +1,7 @@
 package com.myspring.Art.common.base;
 
 import java.io.File;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 
@@ -64,4 +62,5 @@ public abstract class BaseController {
 		ModelAndView mav = new ModelAndView(viewName);
 		return mav;
 	}
+
 }

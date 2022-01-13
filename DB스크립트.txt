@@ -9,28 +9,29 @@ flashback on;
 
   CREATE TABLE gallery_image
    (	
-    "IMAGE_ID" NUMBER(20,0) primary key, 
-	"GOODS_ID" NUMBER(20,0), 
-	"FILENAME" VARCHAR2(50 BYTE), 
-	"REG_ID" VARCHAR2(20 BYTE), 
-	"FILETYPE" VARCHAR2(40 BYTE), 
-	"CREDATE" DATE DEFAULT sysdate
+    IMAGE_ID NUMBER(20,0) primary key, 
+    GOODS_ID NUMBER(20,0), 
+    FILENAME VARCHAR2(50 BYTE), 
+    REG_ID VARCHAR2(20 BYTE), 
+    FILETYPE VARCHAR2(40 BYTE), 
+    CREDATE DATE DEFAULT sysdate,
+    constraint fk_image_goods_id foreign key (goods_id) references gallery_collectible(goods_id) on delete cascade
    ) ;
    
    
     CREATE TABLE gallery_collectible
    (	
-    "GOODS_ID" NUMBER(20,0) primary key, 
-    "GOODS_TITLE" VARCHAR2(100 BYTE), 
-    "GOODS_YEAR" NUMBER(10), 
-    "GOODS_NO" VARCHAR2(50 BYTE), 
-    "GOODS_AUTHOR" VARCHAR2(50 BYTE), 
-    "GOODS_STUFF" VARCHAR2(50 BYTE), 
-    "GOODS_STANDARD" VARCHAR2(50 BYTE), 
-    "GOODS_NOTE" VARCHAR2(1000 BYTE),
-    "GOODS_STATUS" VARCHAR2(50 BYTE), 
-    "GOODS_FILENAME" VARCHAR2(60 BYTE),
-    "GOODS_REGDATE" DATE default sysdate
+    GOODS_ID" NUMBER(20,0) primary key, 
+    GOODS_TITLE VARCHAR2(100 BYTE), 
+    GOODS_YEAR NUMBER(10), 
+    GOODS_NO VARCHAR2(50 BYTE), 
+    GOODS_AUTHOR VARCHAR2(50 BYTE), 
+    GOODS_STUFF VARCHAR2(50 BYTE), 
+    GOODS_STANDARD VARCHAR2(50 BYTE), 
+    GOODS_NOTE VARCHAR2(1000 BYTE),
+    GOODS_STATUS VARCHAR2(50 BYTE), 
+    GOODS_FILENAME VARCHAR2(60 BYTE),
+    GOODS_REGDATE DATE default sysdate
    ) ;
    
 

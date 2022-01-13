@@ -10,4 +10,6 @@ public interface AdminGoodsService {
 	int addNewGoods(Map newGoodsMap) throws Exception;
 
 	List<CollectibleVO> listNewGoods(Map condMap) throws Exception;
+
+	void removeGoods(int goods_id) throws Exception;
 }

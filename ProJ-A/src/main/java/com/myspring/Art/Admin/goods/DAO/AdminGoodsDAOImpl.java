@@ -37,4 +37,8 @@ public class AdminGoodsDAOImpl implements AdminGoodsDAO{
 		return goodsList;
 	}
 	
+	@Override
+	public void deleteGoods(int goods_id) throws DataAccessException {
+		sqlSession.delete("mapper.admin.goods.deleteGoods", goods_id);		
+	}
 }
