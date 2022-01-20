@@ -40,4 +40,25 @@ public class AdminGoodsServiceImpl implements AdminGoodsService{
 	public void removeGoods(int goods_id) throws Exception {
 		adminGoodsDAO.deleteGoods(goods_id);
 	}
+	
+	@Override
+	public Map goodsDetail(int goods_id)throws Exception{
+		Map goodsMap = new HashMap();
+		CollectibleVO colVO = adminGoodsDAO.selectGoodsDetail(goods_id);
+		List imageFileList =adminGoodsDAO.selectGoodsImageFileList(goods_id);
+		goodsMap.put("goods", colVO);
+		goodsMap.put("imageFileList", imageFileList);
+		return goodsMap;
+	}
+
+	@Override
+	public void modifyGoodsInfo(Map goodsMap) throws Exception{
+		adminGoodsDAO.updateGoodsInfo(goodsMap);
+		
+	}	
+	@Override
+	public void modifyGoodsImage(List<ImageFileVO> imageFileList) throws Exception{
+		adminGoodsDAO.updateGoodsImage(imageFileList); 
+	}
+
 }

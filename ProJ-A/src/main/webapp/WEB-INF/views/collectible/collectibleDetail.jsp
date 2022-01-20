@@ -27,8 +27,10 @@ table tr td input{
 <body>
 <form method="get"  action="${contextPath}/collectible/collectibleDetail.do">
 <h1>　</h1>
-			<img width="180" height="154" style="float: left; margin-right: 20px;" 
+	<div style="text-align:center">
+			<img width="180" height="154"
 				  src="${contextPath}/thumbnails.do?goods_id=${collectible.goods_id}&fileName=${collectible.goods_fileName}">
+	</div>
 		<table>
 			<tbody>
 				

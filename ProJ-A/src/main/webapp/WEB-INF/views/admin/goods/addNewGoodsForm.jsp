@@ -164,7 +164,8 @@ ul.tabs li.active a:hover {
 
 							<tr>
 								<td>작품내용</td>
-								<td><input name="goods_note" type="text" size="40" /></td>
+								<td>
+								 <textarea rows="20" cols="60"  name="goods_note"  id="i_note" /></textarea></td>
 							</tr>
 							<tr>
 								<td>작품종류</td>

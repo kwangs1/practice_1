@@ -70,7 +70,6 @@ table tr td input{
 	 document.getElementById("department").disabled=true;
 	 document.getElementById("tel").disabled=true;
 	 document.getElementById("writer").disabled=true;
-/* 	 document.getElementById("regDate").disabled=true; */
 	 document.getElementById("content").disabled=false;
 
 	 obj.submit();

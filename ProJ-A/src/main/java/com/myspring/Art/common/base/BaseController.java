@@ -46,6 +46,26 @@ public abstract class BaseController {
 		}
 		return fileList;
 	}
+	
+	protected String upload2(MultipartHttpServletRequest multipartRequest) throws Exception{
+		String imageFileName= null;
+		Iterator<String> fileNames = multipartRequest.getFileNames();
+		
+		while(fileNames.hasNext()){
+			String fileName = fileNames.next();
+			MultipartFile mFile = multipartRequest.getFile(fileName);
+			imageFileName=mFile.getOriginalFilename();
+			File file = new File(CURR_IMAGE_REPO_PATH +"\\"+"temp"+"\\" + fileName);
+			if(mFile.getSize()!=0){ //File Null Check
+				if(!file.exists()){ //경로상에 파일이 존재하지 않을 경우
+					file.getParentFile().mkdirs();  //경로에 해당하는 디렉토리들을 생성
+					mFile.transferTo(new File(CURR_IMAGE_REPO_PATH +"\\"+"temp"+ "\\"+imageFileName)); //임시로 저장된 multipartFile을 실제 파일로 전송
+				}
+			}
+			
+		}
+		return imageFileName;
+	}
 
 	private void deleteFile(String fileName) {
 		File file = new File(CURR_IMAGE_REPO_PATH + "\\" + fileName);

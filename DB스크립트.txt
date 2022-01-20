@@ -21,7 +21,7 @@ flashback on;
    
     CREATE TABLE gallery_collectible
    (	
-    GOODS_ID" NUMBER(20,0) primary key, 
+    GOODS_ID NUMBER(20,0) primary key, 
     GOODS_TITLE VARCHAR2(100 BYTE), 
     GOODS_YEAR NUMBER(10), 
     GOODS_NO VARCHAR2(50 BYTE), 

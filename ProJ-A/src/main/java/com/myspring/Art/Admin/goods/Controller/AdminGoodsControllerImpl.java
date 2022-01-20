@@ -3,7 +3,6 @@ package com.myspring.Art.Admin.goods.Controller;
 import java.io.File;
 import java.util.Enumeration;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -21,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -37,6 +35,8 @@ public class AdminGoodsControllerImpl extends BaseController implements AdminGoo
 	private static final String CURR_IMAGE_REPO_PATH = "C:\\gallery\\file_repo";
 	@Autowired
 	private AdminGoodsService adminGoodsService;
+	@Autowired
+	private CollectibleVO colVO;
 	
 	@Override
 	@RequestMapping(value="/addNewGoods.do" , method= RequestMethod.POST)
@@ -161,54 +161,8 @@ public class AdminGoodsControllerImpl extends BaseController implements AdminGoo
 		}
 		return resEnt;
 	  }
-	  
-	  @Override
-	  @RequestMapping(value="/modifyGoods.do" , method = RequestMethod.POST)
-	  @ResponseBody
-	  public ResponseEntity modifyGoods(MultipartHttpServletRequest multipartRequest, HttpServletResponse response)throws Exception{
-		  multipartRequest.setCharacterEncoding("utf-8");
-		  Map<String,Object> goodsMap = new HashMap<String,Object>();
-		  Enumeration enu = multipartRequest.getParameterNames();
-		  while(enu.hasMoreElements()) {
-			  String name = (String)enu.nextElement();
-			  String value = multipartRequest.getParameter(name);
-			  goodsMap.put(name, value);
-		  }
-		  	List<ImageFileVO> imageFileName = upload(multipartRequest);
-		  	goodsMap.put("imageFileName", imageFileName);
-		  	
-		  	String goods_id = (String)goodsMap.get("goods_id");
-		  	String message;
-		  	ResponseEntity resEnt = null;
-		  	HttpHeaders responseHeaders = new HttpHeaders();
-		  	responseHeaders.add("Content-Type", "text/html; charset=utf-8");
-		try {
-		      adminGoodsService.modifyGoods(goodsMap);
-		       if(imageFileName!=null && imageFileName.length()!=0) {
-		         File srcFile = new File(CURR_IMAGE_REPO_PATH+"\\"+"temp"+"\\"+imageFileName);
-		         File destDir = new File(CURR_IMAGE_REPO_PATH+"\\"+goods_id);
-		         FileUtils.moveFileToDirectory(srcFile, destDir, true);
-		         
-		         String originalFileName = (String)goodsMap.get("originalFileName");
-		         File oldFile = new File(CURR_IMAGE_REPO_PATH+"\\"+goods_id+"\\"+originalFileName);
-		         oldFile.delete();
-		}
-		       message = "<script>";
-			   message += " alert('글을 수정했습니다.');";
-			   message += " location.href='"+multipartRequest.getContextPath()+"/admin/goods/modifyGoods.do?goods_id="+goods_id+"';";
-			   message +=" </script>";
-		       resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
-	  }catch(Exception e) {
-		  File srcFile = new File(CURR_IMAGE_REPO_PATH+"\\"+"temp"+"\\"+imageFileName);
-	      srcFile.delete();
-	      message = "<script>";
-		  message += " alert('오류가 발생했습니다.다시 수정해주세요');";
-		  message += " location.href='"+multipartRequest.getContextPath()+"/admin/goods/modifyGoods.do?articleNO="+goods_id+"';";
-		  message +=" </script>";
-	      resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
-	  }
-		return resEnt;
-	  }
+
+	  //수정화면만
 	  @RequestMapping(value="/modifyGoodsForm.do", method=RequestMethod.GET)
 	  public ModelAndView modifyGoods(@RequestParam("goods_id") int goods_id,
 			  HttpServletRequest request, HttpServletResponse response)throws Exception{
@@ -220,7 +174,80 @@ public class AdminGoodsControllerImpl extends BaseController implements AdminGoo
 			mav.addObject("goodsMap",goodsMap);
 			
 			return mav;
-	  }	  
+	  }	 
+		@RequestMapping(value="/modifyGoodsImageInfo.do" ,method={RequestMethod.POST})
+		public void modifyGoodsImageInfo(MultipartHttpServletRequest multipartRequest, HttpServletResponse response)  throws Exception {
+			System.out.println("modifyGoodsImageInfo");
+			multipartRequest.setCharacterEncoding("utf-8");
+			response.setContentType("text/html; charset=utf-8");
+			String imageFileName=null;
+			
+			Map goodsMap = new HashMap();
+			Enumeration enu=multipartRequest.getParameterNames();
+			while(enu.hasMoreElements()){
+				String name=(String)enu.nextElement();
+				String value=multipartRequest.getParameter(name);
+				goodsMap.put(name,value);
+			}
+			
+			HttpSession session = multipartRequest.getSession();
+			MemberVO memberVO = (MemberVO) session.getAttribute("memberInfo");
+			String reg_id = memberVO.getMember_id();
+			
+			List<ImageFileVO> imageFileList=null;
+			int goods_id=0;
+			int image_id=0;
+			try {
+				imageFileList =upload(multipartRequest);
+				if(imageFileList!= null && imageFileList.size()!=0) {
+					for(ImageFileVO imageFileVO : imageFileList) {
+						goods_id = Integer.parseInt((String)goodsMap.get("goods_id"));
+						image_id = Integer.parseInt((String)goodsMap.get("image_id"));
+						imageFileVO.setGoods_id(goods_id);
+						imageFileVO.setImage_id(image_id);
+						imageFileVO.setReg_id(reg_id);
+					}
+					
+				    adminGoodsService.modifyGoodsImage(imageFileList);
+					for(ImageFileVO  imageFileVO:imageFileList) {
+						imageFileName = imageFileVO.getFileName();
+						File srcFile = new File(CURR_IMAGE_REPO_PATH+"\\"+"temp"+"\\"+imageFileName);
+						File destDir = new File(CURR_IMAGE_REPO_PATH+"\\"+goods_id);
+						FileUtils.moveFileToDirectory(srcFile, destDir,true);
+					}
+				}
+			}catch(Exception e) {
+				if(imageFileList!=null && imageFileList.size()!=0) {
+					for(ImageFileVO  imageFileVO:imageFileList) {
+						imageFileName = imageFileVO.getFileName();
+						File srcFile = new File(CURR_IMAGE_REPO_PATH+"\\"+"temp"+"\\"+imageFileName);
+						srcFile.delete();
+					}
+				}
+				e.printStackTrace();
+			}
+			
+		}
+ 
+		@RequestMapping(value="/modifyGoodsInfo.do" ,method={RequestMethod.POST})
+		public ResponseEntity modifyGoodsInfo( @RequestParam("goods_id") String goods_id,
+				                     @RequestParam("attribute") String attribute,
+				                     @RequestParam("value") String value,
+				HttpServletRequest request, HttpServletResponse response)  throws Exception {
+			//System.out.println("modifyGoodsInfo");
+			
+			Map<String,String> goodsMap=new HashMap<String,String>();
+			goodsMap.put("goods_id", goods_id);
+			goodsMap.put(attribute, value);
+			adminGoodsService.modifyGoodsInfo(goodsMap);
+			
+			String message = null;
+			ResponseEntity resEntity = null;
+			HttpHeaders responseHeaders = new HttpHeaders();
+			message  = "mod_success";
+			resEntity =new ResponseEntity(message, responseHeaders, HttpStatus.OK);
+			return resEntity;
+		}
 	@RequestMapping(value = "/*Form.do", method = RequestMethod.GET)
 	private ModelAndView form(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String viewName = (String) request.getAttribute("viewName");
@@ -228,4 +255,7 @@ public class AdminGoodsControllerImpl extends BaseController implements AdminGoo
 		mav.setViewName(viewName);
 		return mav;
 	}
+	
+	
+
 }

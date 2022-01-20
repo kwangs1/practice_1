@@ -4,7 +4,7 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="mapper.admin.goods">
-<!-- 리절트 맵 정의 -->	
+	<!-- 리절트 맵 정의 -->
 	<resultMap id="goodsResult" type="collectibleVO">
 		<result property="goods_id" column="goods_id" />
 		<result property="goods_title" column="goods_title" />
@@ -18,17 +18,18 @@
 		<result property="goods_fileName" column="goods_fileName" />
 		<result property="goods_redDate" column="goods_redDate" />
 	</resultMap>
-		<!--상품 이미지 정보를 저장하는 resultmap  -->
+	<!--상품 이미지 정보를 저장하는 resultmap -->
 	<resultMap id="imageResult" type="ImageFileVO">
-	   <result property="goods_id" column="goods_id" />
-	   <result property="fileName" column="fileName" />
-	   <result property="reg_id" column="reg_id" />
-	   <result property="image_id" column="image_id" />
-	   <result property="fileType" column="fileType" />
+		<result property="goods_id" column="goods_id" />
+		<result property="fileName" column="fileName" />
+		<result property="reg_id" column="reg_id" />
+		<result property="image_id" column="image_id" />
+		<result property="fileType" column="fileType" />
 	</resultMap>
-	
-<insert id="insertNewGoods" parameterType="java.util.Map">
-		<selectKey resultType="String" keyProperty="goods_id"  order="BEFORE">
+
+	<insert id="insertNewGoods" parameterType="java.util.Map">
+		<selectKey resultType="String" keyProperty="goods_id"
+			order="BEFORE">
 			select seq_goods_id.nextval from dual
 		</selectKey>
 		<![CDATA[
@@ -57,19 +58,21 @@
 					  			      #{goods_fileName}
 					 			 )
 		]]>
-</insert>
+	</insert>
 
-<insert id="insertGoodsImageFile" parameterType="imageFileVO">
-		<selectKey resultType="int" keyProperty="image_id" order="BEFORE">
+	<insert id="insertGoodsImageFile" parameterType="imageFileVO">
+		<selectKey resultType="int" keyProperty="image_id"
+			order="BEFORE">
 			select seq_image_id.nextval from dual
 		</selectKey>
 		 <![CDATA[
 		   insert into gallery_image (image_id, goods_id, fileName, fileType, reg_id)
 				values(#{image_id}, #{goods_id}, #{fileName}, #{fileType}, #{reg_id} )
 		]]>
-</insert>
+	</insert>
 
-<select id="selectNewGoodsList" resultMap="goodsResult"   parameterType="java.util.Map"  >
+	<select id="selectNewGoodsList" resultMap="goodsResult"
+		parameterType="java.util.Map">
 	    <![CDATA[
 		  select * from (
 			   select rowNum as recNum,
@@ -100,12 +103,70 @@
 			where				
 		recNum between (#{section}-1)*100+ (#{pageNum}-1)*10+1 and (#{section}-1)*100+(#{pageNum})*10				        
     	]]>
-</select>
+	</select>
 
-	<delete id="deleteGoods"  parameterType="int">
+	<delete id="deleteGoods" parameterType="int">
     <![CDATA[
       delete from gallery_collectible
       where goods_id = #{goods_id}
-    ]]>      
-  </delete>
+    ]]>
+	</delete>
+
+	<select id="selectGoodsDetail" parameterType="int"
+		resultMap="goodsResult">
+		<![CDATA[
+			select col.goods_id, col.goods_title, col.goods_year, col.goods_no ,col.goods_author,col.goods_year, 
+			col.goods_stuff, col.goods_standard, col.goods_note, col.goods_status, (image.fileName) as goods_fileName 
+			from GALLERY_COLLECTIBLE col, GALLERY_IMAGE image
+			where col.goods_id = image.goods_id
+			and image.fileType = 'main_image'
+			and col.goods_id = #{col.goods_id}
+		]]>
+	</select>
+	
+		<select id="selectGoodsImageFileList" resultMap="imageResult"   parameterType="String"  >
+	    <![CDATA[
+		    	select * from  GALLERY_IMAGE 
+		    	where  
+			    goods_id=#{goods_id}
+			    order by image_id asc
+    	]]>
+	</select>
+
+	<update id="updateGoodsImage" parameterType="imageFileVO">
+		update GALLERY_IMAGE
+		set fileName=#{fileName}
+		where	 
+		goods_id=#{goods_id} and image_id=#{image_id}
+	</update>
+	
+	<update id="updateGoodsInfo" parameterType="java.util.HashMap" >
+	   update gallery_collectible
+	    <set> 
+	      <if test=" goods_title!='' and goods_title!=null">
+	        goods_title=#{goods_title},
+	      </if>
+	      <if test="goods_no!='' and goods_no!=null">
+	        goods_no=#{goods_no},
+	      </if>
+	      <if test=" goods_author!='' and goods_author!=null">
+	        goods_author=#{goods_author},
+	      </if>
+	      <if test=" goods_year!='' and goods_year!=null">
+	        goods_year=#{goods_year},
+	      </if>
+	      <if test=" goods_stuff!='' and goods_stuff!=null">
+	        goods_stuff=#{goods_stuff},
+	      </if>
+	      <if test=" goods_standard!='' and goods_standard!=null">
+	        goods_standard=#{goods_standard},
+	      </if>
+	      <if test=" goods_note!='' and goods_note!=null">
+	        goods_note=#{goods_note},
+	      </if>
+	     </set>
+	    where 
+	    goods_id=#{goods_id}
+	
+	</update>
 </mapper>

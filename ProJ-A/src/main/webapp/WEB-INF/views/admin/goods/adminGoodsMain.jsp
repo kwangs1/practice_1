@@ -100,8 +100,12 @@ a:hover {
 								style='cursor: pointer; font-size: 1em; font-weight: 700; color: #000;'>
 									<strong>${item.goods_note}</strong>
 							</a></TD>
-							<td><input type=button value="삭제하기" style='cursor: pointer; border:none;'
+							<td>
+							<input type=button value="삭제" style='cursor: pointer; border:none;'
 								onClick="fn_remove_goods('${contextPath}/admin/goods/removeGoods.do', ${item.goods_id})">
+								&#9;
+							<input type=button value="수정" style='cursor: pointer; border:none;'
+								onClick="location.href='${contextPath}/admin/goods/modifyGoodsForm.do?goods_id=${item.goods_id}'">
 							</td>
 						</TR>
 					</c:forEach>
