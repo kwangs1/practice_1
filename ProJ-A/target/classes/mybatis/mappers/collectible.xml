@@ -24,12 +24,21 @@
 	   <result property="fileType" column="fileType" />
 	</resultMap>
 	
-	<select id="selectCollectibleList" resultMap="goodsResult">
-        <![CDATA[
-			select col.goods_id,col.goods_title,col.goods_author,(image.fileName) as goods_fileName 
-			from GALLERY_COLLECTIBLE col, GALLERY_IMAGE image
-        	where col.goods_id=image.goods_id 
-        	and image.filetype='main_image'
+	<select id="selectAllCollectibleList" resultMap="goodsResult" parameterType="java.util.Map">
+   <![CDATA[
+   select * 
+   		from(
+		select rowNum as rn,col.goods_id,col.goods_title,col.goods_author,
+		(
+   			select image.fileName
+   			from GALLERY_IMAGE image
+    		where image.goods_id = col.goods_id
+		)as goods_fileName
+    		from gallery_collectible col
+    		order by goods_id
+    		)
+			where				
+		rn between (#{section}-1)*100+ (#{pageNum}-1)*10+1 and (#{section}-1)*100+(#{pageNum})*10	
 	    ]]>
 	</select>
 	

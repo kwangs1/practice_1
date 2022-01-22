@@ -34,7 +34,7 @@ table tr td input{
   <table>
   <tr>
    <td>
-    <input type=text id="title" name="title" style="font-size:2.5em; font-weight:700; color:#000;"
+    <input type=text id="title" name="title" style="font-size:2.5em; font-weight:700; color:#000; background-color:#D6E6F0;"
     value="${notice.title}" />
    </td>
   </tr>
@@ -53,7 +53,7 @@ table tr td input{
    
    <tr>
    <td>
-     <textarea rows="20" cols="80"  id="content" name="content">${notice.content }</textarea>
+     <textarea rows="20" cols="80"  id="content" name="content"  style=" background-color:#D6E6F0;">${notice.content }</textarea>
    </td>  
    </tr>
     <tr>

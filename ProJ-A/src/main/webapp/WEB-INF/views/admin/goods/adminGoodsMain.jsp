@@ -77,7 +77,7 @@ a:hover {
 				<td>제작년도</td>
 				<td>재료 및 기법</td>
 				<td>작품규격</td>
-				<td>내용</td>
+				<td style=" background-color:#D6E6F0;">내용</td>
 				<td></td>
 			</tr>
 			<c:choose>
@@ -97,7 +97,7 @@ a:hover {
 							<TD><strong>${item.goods_standard}</strong></TD>
 							<TD><a
 								href="${contextPath}/collectible/collectibleDetail.do?goods_id=${item.goods_id}"
-								style='cursor: pointer; font-size: 1em; font-weight: 700; color: #000;'>
+								style='cursor: pointer; font-size: 1em; font-weight: 700; color:#A3CCA3;'>
 									<strong>${item.goods_note}</strong>
 							</a></TD>
 							<td>
@@ -112,8 +112,8 @@ a:hover {
 				</c:otherwise>
 			</c:choose>
 			<tr>
-				<td colspan=8 class="fixed"><c:forEach var="page" begin="1"
-						end="10" step="1">
+				<td colspan=8 class="fixed">
+				<c:forEach var="page" begin="1" end="10" step="1">
 						<c:if test="${section >1 && page==1 }">
 							<a
 								href="${contextPath}/admin/goods/adminGoodsMain.do?chapter=${section-1}&pageNum=${(section-1)*10 +1 }">&nbsp;

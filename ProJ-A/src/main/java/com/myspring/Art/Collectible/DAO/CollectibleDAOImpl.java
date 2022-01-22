@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,13 +20,13 @@ public class CollectibleDAOImpl implements CollectibleDAO{
 	@Autowired
 	private SqlSession sqlSession;
 
+
 	@Override
-	public List selectAllCollectibleList() throws DataAccessException{
-		List<CollectibleVO> CollectibleList = null;
-		CollectibleList = sqlSession.selectList("mapper.collectible.selectCollectibleList");
+	public List<CollectibleVO>selectAllCollectibleList(Map condMap) throws DataAccessException {
+		ArrayList<CollectibleVO>  CollectibleList=(ArrayList)sqlSession.selectList("mapper.collectible.selectAllCollectibleList",condMap);
 		return CollectibleList;
 	}
-
+	
 	@Override
 	public CollectibleVO selectCollectibleDetail(int goods_id)throws DataAccessException{
 		return sqlSession.selectOne("mapper.collectible.selectCollectibleDetail",goods_id);

@@ -53,7 +53,7 @@
 </style>
 </head>
 <body>
-
+<img alt="banner" src="${contextPath }/resources/image/banner.png" style="width:100%; height:250px;">
 	<div class="div_box">
 		<div class="div_center">
 				<table class="tableColRow1">

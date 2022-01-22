@@ -24,7 +24,7 @@ div#title{
    
     text-align:right;
     margin:10px;
-    font-size:0.8em;
+    font-size:0.9em;
     display:block;
     color:white;
  
@@ -107,7 +107,6 @@ li a, .dropbtn {
 li.dropdown {
   display: block;
 }
-
 .dropdown-content{
   display: none;
   position: absolute;
@@ -125,11 +124,12 @@ li.dropdown {
   text-align: left;
 }
 
-.dropdown-content a:hover {background-color: #f1f1f1;}
+.dropdown-content a:hover {
+	background-color: #f1f1f1;
+}
 
 .dropdown:hover .dropdown-content {
   display: inline;
-  top: 100px;
 }
 </style>
 </head>
@@ -151,7 +151,7 @@ li.dropdown {
 			<c:when test="${isLogOn == true and not empty memberInfo }">
 				<a href="${contextPath}/member/logout.do" onClick="window.location.reload()">로그아웃 |</a>
 				<a href="#">마이페이지 &#124;</a>
-				<a href="#">새소식 &#124;</a> 
+
 				<a href="#">고객센터</a>
 			</c:when>
 			<c:otherwise>
@@ -177,14 +177,7 @@ li.dropdown {
 				</div>
 				</li>
 				
-				<li class="dropdown">
-				<a href="javascript:void(0)" class="dropbtn">프로그램</a>
-				<div class="dropdown-content">
-				<a href="#">전시</a>
-				<a href="#">교육</a>
-				</div>
-				</li>
-				
+				<li><a href="#">프로그램</a></li>		
 				<li><a href="${contextPath}/collectible/collectibleList.do">소장품</a></li>
 				<li><a href="${contextPath}/admin/notice/noticeList.do">공지사항</a></li>
 			</ul>

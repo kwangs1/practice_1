@@ -15,6 +15,7 @@ ul{
    }
 #content{
 	margin: 0 auto;
+	text-align:center;
 }
 img{
 	width:100%;
@@ -35,6 +36,7 @@ img{
 </style>
 </head>
 <body>
+	<img alt="banner" src="${contextPath }/resources/image/banner.png">
 	<div class="content">
 		<h1 class="titPage02">관람시간</h1>
 	<ul>

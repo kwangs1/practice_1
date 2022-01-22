@@ -70,7 +70,7 @@ text-decoration-line: underline;
 		<c:forEach var="Notice" items="${NoticeList}" >
 			<tr align="center">
 			<td>${Notice.bno}</td>
-			<td><a href="${contextPath}/admin/notice/NoticeDetail.do?bno=${Notice.bno}">${Notice.title}</a></td>
+			<td style=" color:green;"><a href="${contextPath}/admin/notice/NoticeDetail.do?bno=${Notice.bno}">${Notice.title}</a></td>
 			<td>${Notice.department}</td>
 			<td>${Notice.regdate}</td>
 			<td>${Notice.hit}</td>
@@ -83,8 +83,7 @@ text-decoration-line: underline;
 	</c:if>
 
 
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script type="text/javascript">
 
 /* 검색부 date onChange 함수 설정 */

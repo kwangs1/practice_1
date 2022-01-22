@@ -15,12 +15,12 @@ request.setCharacterEncoding("UTF-8");
 	background-position: right; 
 	border-image: none; 
 	width: 300px; 
-	height: 250px; 
+	height: 300px; 
 	text-align: center; 
 	float: left; 
 	background-repeat: repeat-y;
 }
-div.desc {
+.desc {
 	padding: 15px;
 	text-align: center;
 }
@@ -46,23 +46,62 @@ div.desc {
  	font-weight:700;
  	text-align:center;
  }
+.gallery{
+	width:80%;
+	margin:0 auto;
+}
+.pageNum{
+	position:absolute;
+	bottom: 160px;
+	left:45%;
+}
 </style>
 </head>
 <body>
+<h1>　</h1>
 	<div class="gallery">
-		<c:forEach var="item" items="${collectibleList}">
+		<c:choose>
+				<c:when test="${empty collectible }">
+
+					<p style="text-align:center;">조회된 상품이 없습니다.</p>
+
+				</c:when>
+				<c:otherwise>
+		<c:forEach var="item" items="${collectible}">
 			<div class="collectible">
 			<h1>　</h1>
-				<a
-					href="${contextPath}/collectible/collectibleDetail.do?goods_id=${item.goods_id }">
-					<img class="link" src="${contextPath}/resources/image/1px.gif">
-				</a> <img width="180" height="150"
+				<a href="${contextPath}/collectible/collectibleDetail.do?goods_id=${item.goods_id }">
+					<img class="link" src="${contextPath}/resources/image/1px.gif"></a> 
+					
+					<img width="180" height="150"
 					src="${contextPath}/thumbnails.do?goods_id=${item.goods_id}&fileName=${item.goods_fileName}">
 
 				<div class="color_black">${item.goods_title }</div>
 				<div class="desc">${item.goods_author}</div>
 			</div>
 		</c:forEach>
+		</c:otherwise>
+		</c:choose>
 	</div>
+
+<div class="pageNum">
+	<c:forEach var="page" begin="1" end="10" step="1">
+		<c:if test="${section >1 && page==1 }">
+			<a
+				href="${contextPath}/collectible/collectibleList.do?chapter=${section-1}&pageNum=${(section-1)*10 +1 }">&nbsp;
+				&nbsp;</a>
+		</c:if>
+		<a
+			href="${contextPath}/collectible/collectibleList.do?chapter=${section}&pageNum=${page}">${(section-1)*10 +page }
+		</a>
+		<c:if test="${page ==10 }">
+			<a
+				href="${contextPath}/collectible/collectibleList.do?chapter=${section+1}&pageNum=${section*10+1}">&nbsp;
+				next</a>
+		</c:if>
+	</c:forEach>
+</div>
+
+
 </body>
 </html>

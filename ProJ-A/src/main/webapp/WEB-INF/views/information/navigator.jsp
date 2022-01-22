@@ -84,6 +84,7 @@ h1,p{
 </style>
 </head>
 <body>
+<img alt="banner" src="${contextPath }/resources/image/banner.png" style="width:100%; height:250px;">
 <div id="content">
 	<h1 class="titPage02">교통안내</h1>
 	<p>주소: 경상남도 김해시 분성로155(외동) 전화 000-000-0000</p>

@@ -1,5 +1,6 @@
 package com.myspring.Art.Collectible.Controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -27,15 +28,31 @@ public class CollectibleControllerImpl extends BaseController implements Collect
 	private CollectibleVO collectibleVO;
 	
 	@Override
-	@RequestMapping(value="/collectibleList.do", method= RequestMethod.GET)
-	public ModelAndView collectibleList(HttpServletRequest request, HttpServletResponse response)throws Exception{
-		String viewName = getViewName(request);
-		
-		List collectibleList = collectibleService.collectibleList();
+	@RequestMapping(value="/collectibleList.do" ,method={RequestMethod.POST,RequestMethod.GET})
+	public ModelAndView collectibleList(@RequestParam Map<String, String> dateMap,
+			                           HttpServletRequest request, HttpServletResponse response)  throws Exception {
+		String viewName=(String)request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView(viewName);
 		
-		mav.addObject("collectibleList",collectibleList);
-		return mav;		
+		String section = dateMap.get("section");
+		String pageNum = dateMap.get("pageNum");
+		
+		Map<String,Object> condMap=new HashMap<String,Object>();
+		if(section== null) {
+			section = "1";
+		}
+		condMap.put("section",section);
+		if(pageNum== null) {
+			pageNum = "1";
+		}
+		condMap.put("pageNum",pageNum);
+		List<CollectibleVO> collectibleList=collectibleService.collectibleList(condMap);
+		mav.addObject("collectible", collectibleList);
+		
+		mav.addObject("section", section);
+		mav.addObject("pageNum", pageNum);
+		return mav;
+		
 	}
 	
 	@Override

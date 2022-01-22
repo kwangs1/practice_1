@@ -17,12 +17,11 @@ public class CollectibleServiceImpl implements CollectibleService{
 	@Autowired
 	private CollectibleDAO collectibleDAO;
 
+	
 	@Override
-	public List collectibleList() throws Exception{
-		List collectibleList = null;
-		collectibleList = collectibleDAO.selectAllCollectibleList();
-		return collectibleList;
-	}	
+	public List<CollectibleVO> collectibleList(Map condMap) throws Exception{
+		return collectibleDAO.selectAllCollectibleList(condMap);
+	}
 	
 	@Override
 	public CollectibleVO collectibleDetail(int goods_id)throws Exception{
