@@ -12,4 +12,8 @@ public interface MemberService {
 
 	String overlapped(String id) throws Exception;
 
+	MemberVO modifyMyInfo(Map memberMap) throws Exception;
+
+	MemberVO memberInfo() throws Exception;
+
 }

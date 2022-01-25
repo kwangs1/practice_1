@@ -14,4 +14,8 @@ public interface MemberDAO {
 
 	String selectOverlappedID(String id) throws DataAccessException;
 
+	void modifyMyInfo(Map memberMap) throws DataAccessException;
+
+	MemberVO selectMemberInfo() throws DataAccessException;
+
 }

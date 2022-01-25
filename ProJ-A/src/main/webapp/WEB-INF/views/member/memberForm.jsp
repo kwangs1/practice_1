@@ -8,14 +8,12 @@
 <head>
 <meta charset="utf-8">
 <style>
-*{
-margin:0 auto;
+table{
+	width:40%;
+	margin:auto;
 }
-#detail_table{
- border-bottom: 1px solid #ccc;
-}
-.fixed_join{
-  border-bottom: 1px solid #ccc;
+table td{
+	border-bottom: 1px solid #ccc;
 }
 </style>
 </head>
@@ -25,33 +23,31 @@ margin:0 auto;
 	<div id="detail_table">
 		<table>
 			<tbody>
-				<tr class="dot_line">
-					<td class="fixed_join">아이디</td>
-					<td>
+				<tr>
+					<td>아이디 &#124;
 					  <input type="text" name="_member_id"  id="_member_id"  size="20" />
-					  <input type="hidden" name="member_id"  id="member_id" />
-					  
+					  <input type="hidden" name="member_id"  id="member_id" />				  
 					  <input type="button"  id="btnOverlapped" value="중복체크" onClick="fn_overlapped()" />
 					</td>
 				</tr>
-				<tr class="dot_line">
-					<td class="fixed_join">비밀번호</td>
-					<td><input name="member_pw" type="password" size="20" /></td>
+				<tr>
+					<td>비밀번호 &#124;
+					<input name="member_pw" type="password" size="20" />
+					</td>
 				</tr>
-				<tr class="dot_line">
-					<td class="fixed_join">이름</td>
-					<td><input name="member_name" type="text" size="20" /></td>
+				<tr>
+					<td>이름 &#124;
+					<input name="member_name" type="text" size="20" /></td>
 				</tr>
-				<tr class="dot_line">
-					<td class="fixed_join">성별</td>
-					<td><input type="radio" name="member_gender" value="102" />
+				<tr>
+					<td>성별
+					<input type="radio" name="member_gender" value="102" />
 						여성<span style="padding-left:120px"></span>
 						 <input type="radio" name="member_gender" value="101" checked />남성
 					</td>
 				</tr>
-				<tr class="dot_line">
-					<td class="fixed_join">법정생년월일</td>
-					<td>
+				<tr>
+					<td>법정생년월일 &#124;
 					<select name="member_birth_y">
 					 
 					     <c:forEach var="year" begin="1" end="180">
@@ -95,9 +91,9 @@ margin:0 auto;
 						<input type="radio"  name="member_birth_gn" value="1" />음력
 				  </td>
 				</tr>
-				<tr class="dot_line">
-					<td class="fixed_join">전화번호</td>
-					<td><select  name="tel1">
+				<tr>
+					<td>전화번호 &#124;
+					<select  name="tel1">
 							<option>없음</option>
 							<option value="02">02</option>
 							<option value="031">031</option>
@@ -126,9 +122,9 @@ margin:0 auto;
 					   </select> - <input  size="10px" type="text" name="tel2"> - <input size="10px"  type="text" name="tel3">
 					</td>
 				</tr>
-				<tr class="dot_line">
-					<td class="fixed_join">휴대폰번호</td>
-					<td><select  name="hp1">
+				<tr>
+					<td>휴대폰번호 &#124;
+					<select  name="hp1">
 							<option>없음</option>
 							<option selected value="010">010</option>
 							<option value="011">011</option>
@@ -139,9 +135,9 @@ margin:0 auto;
 					</select> - <input size="10px"  type="text" name="hp2"> - <input size="10px"  type="text"name="hp3"><br> <br> 
 					<input type="checkbox"	name="smssts_yn" value="Y" checked /> 쇼핑몰에서 발송하는 SMS 소식을 수신합니다.</td>
 				</tr>
-				<tr class="dot_line">
-					<td class="fixed_join">이메일<br>(e-mail)</td>
-					<td><input size="10px"   type="text" name="email1" /> @ <input  size="10px"  type="text"name="email2" /> 
+				<tr>
+					<td>이메일 &#124;<br>(e-mail)
+					<input size="10px"   type="text" name="email1" /> @ <input  size="10px"  type="text"name="email2" /> 
 						  <select name="email2" onChange=""	title="직접입력">
 									<option value="non">직접입력</option>
 									<option value="hanmail.net">hanmail.net</option>
@@ -157,9 +153,8 @@ margin:0 auto;
 									<option value="freechal.com">freechal.com</option>
 							</select><br> <br> <input type="checkbox" name="emailsts_yn" value="Y" checked /> 쇼핑몰에서 발송하는 e-mail을 수신합니다.</td>
 				</tr>
-				<tr class="dot_line">
-					<td class="fixed_join">주소</td>
-					<td>
+				<tr>
+					<td>주소 &#124;
 					   <input type="text" id="zipcode" name="zipcode" size="10" > <a href="javascript:execDaumPostcode()">우편번호검색</a>
 					  <br>
 					  <p> 

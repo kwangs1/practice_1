@@ -108,11 +108,11 @@ top:1px;
       		<input type="password" name="member_pw" id="loginpw" >
 		<div class="search">
 			<span class="text">아이디 또는 비밀번호를 잊으셨나요?</span>
-			<a href="#">ID/PW 찾기</a>
+			<a href="#" style='cursor:pointer;'>ID/PW 찾기</a>
 		</div>
 		<div class="btnwrap">
 			<a href="${contextPath}/member/memberForm.do">회원가입</a>
-			<input type="submit" id="loginbtn" value="로그인" />
+			<input type="submit" id="loginbtn" value="로그인"  style='cursor:pointer;'/>
 			<label for="loginbtn">로그인 버튼</label>
 		</div>
 		</form>

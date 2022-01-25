@@ -25,4 +25,7 @@ public interface MemberController {
 
 	String logout(HttpSession session) throws Exception;
 
+	ResponseEntity modifyMyInfo(String attribute, String value, HttpServletRequest request,
+			HttpServletResponse response) throws Exception;
+
 }

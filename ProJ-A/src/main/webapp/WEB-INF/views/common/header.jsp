@@ -12,7 +12,6 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <title>header</title>
 <style>
-
 div#title{
     float: left; /*box영역의 왼쪽으로 정렬, 다음에 오는 요소에 영향을 끼침, [title][logindisplay] */
     text-align:left;
@@ -94,7 +93,6 @@ h1, h2, h3, h4, h5, h6
 {
     font-size: 1.5em;
 }
-
 /* dropdown */
 li a, .dropbtn {
   display: inline-block;
@@ -103,7 +101,6 @@ li a, .dropbtn {
   padding: 14px 16px;
   text-decoration: none;
 }
-
 li.dropdown {
   display: block;
 }
@@ -115,7 +112,6 @@ li.dropdown {
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
 }
-
 .dropdown-content a {
   color: black;
   padding: 12px 16px;
@@ -123,11 +119,9 @@ li.dropdown {
   display: block;
   text-align: left;
 }
-
 .dropdown-content a:hover {
 	background-color: #f1f1f1;
 }
-
 .dropdown:hover .dropdown-content {
   display: inline;
 }
@@ -150,7 +144,7 @@ li.dropdown {
 		<c:choose>
 			<c:when test="${isLogOn == true and not empty memberInfo }">
 				<a href="${contextPath}/member/logout.do" onClick="window.location.reload()">로그아웃 |</a>
-				<a href="#">마이페이지 &#124;</a>
+				<a href="${contextPath}/member/memberInfo.do">마이페이지 &#124;</a>
 
 				<a href="#">고객센터</a>
 			</c:when>
