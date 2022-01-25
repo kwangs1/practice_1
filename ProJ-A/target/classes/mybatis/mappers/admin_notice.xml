@@ -21,18 +21,36 @@
 
  <select id="selectAllNoticeList" resultMap="noticeResult" parameterType="java.util.Map">
 	<![CDATA[
-		select bno,title,department,regDate,hit
-			 from notice_board
+		  select * from (
+			   select rowNum as rn,
+			   		  bno,
+			          title,
+			          department,
+			          regDate,
+			          hit
+			       from (
+			             select  bno,
+			          			 title,
+			          			 department,
+			          			 regDate,
+			          			 hit
+			              from notice_board 
+			               order by bno desc
+					    )
+				)							
+			where				
+		rn  between #{pageStart} and #{perPageNum}
 	]]>
-	<where>
-			<if test="startDate != '' and startDate != null">
-				regDate between #{startDate} and #{endDate}
-			</if>
-			<if test="endDate != '' and endDate != null">
-				and regDate between #{startDate} and #{endDate}
-			</if>	
-	</where>
 </select>
+
+<select id="countNoticeList"  resultType="Integer">
+    	<![CDATA[
+    		SELECT
+    			count(*)
+    		FROM
+    			notice_board
+    	]]>
+    </select>
 
 
 <insert id="insertNoticeList" parameterType="NoticeVO">

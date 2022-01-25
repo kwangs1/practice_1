@@ -1,14 +1,14 @@
 package com.myspring.Art.Admin.notice.DAO;
 
-import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
+import com.myspring.Art.Admin.notice.VO.Criteria;
 import com.myspring.Art.Admin.notice.VO.NoticeVO;
 
 @Repository("noticeDAO")
@@ -17,22 +17,16 @@ public class NoticeDAOImpl implements NoticeDAO{
 	private SqlSession sqlSession;
 
 	@Override
-	public List selectAllNoticeList(String startDate, String endDate) throws DataAccessException,Exception{
-		List<NoticeVO> NoticeList = null;
-		if(startDate != null && startDate !=  "" && endDate != null && endDate != "") {
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-			Date start = new Date(sdf.parse(startDate).getTime());
-			Date end = new Date(sdf.parse(endDate).getTime());
-			System.out.println(start);
-			NoticeVO vo = new NoticeVO();
-			vo.setStartDate(start);
-			vo.setEndDate(end);
-			NoticeList = sqlSession.selectList("mapper.admin.notice.selectAllNoticeList", vo);
-		}else {
-			NoticeList = sqlSession.selectList("mapper.admin.notice.selectAllNoticeList");
-		}
-		return NoticeList;
+	@SuppressWarnings("unchecked")
+	public List<Map<String, Object>> selectAllNoticeList(Criteria cri) {
+	    return sqlSession.selectList("mapper.admin.notice.selectAllNoticeList", cri);
 	}
+	
+	@Override
+	public int countNoticeList(){
+	    return (Integer) sqlSession.selectOne("mapper.admin.notice.countNoticeList");
+	}
+
 
 	@Override
 	public int insertNoticeList(NoticeVO notice)throws DataAccessException{

@@ -6,8 +6,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -17,14 +15,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.myspring.Art.Admin.notice.Service.NoticeService;
+import com.myspring.Art.Admin.notice.VO.Criteria;
 import com.myspring.Art.Admin.notice.VO.NoticeVO;
+import com.myspring.Art.Admin.notice.VO.PageMaker;
 
 
 
 @RequestMapping(value="/admin/notice")
 @Controller("noticeController")
 public class NoticeControllerImpl implements NoticeController{
-	private static final Logger logger = LoggerFactory.getLogger(NoticeControllerImpl.class);
 	@Autowired
 	private NoticeService noticeService;
 	@Autowired
@@ -33,16 +32,17 @@ public class NoticeControllerImpl implements NoticeController{
 	//글 목록
 	@Override
 	@RequestMapping(value="/noticeList.do", method = RequestMethod.GET)
-	public ModelAndView NoticeList(HttpServletRequest request, HttpServletResponse response)throws Exception{
-		String viewName = getViewName(request);
-		String startDate = request.getParameter("startDate");
-		String endDate = request.getParameter("endDate");
-
+	public ModelAndView NoticeList(Criteria cri,HttpServletRequest request, HttpServletResponse response)throws Exception{
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(noticeService.countNoticeListTotal());
 		
-		List NoticeList = noticeService.NoticeList(startDate, endDate);
+		String viewName = getViewName(request);		
+		List<Map<String,Object>>list = noticeService.NoticeList(cri);
 		ModelAndView mav = new ModelAndView(viewName);
 		
-		mav.addObject("NoticeList",NoticeList);
+		mav.addObject("list",list);
+		mav.addObject("pageMaker",pageMaker);
 		return mav;		
 	}
 	//글 상세보기

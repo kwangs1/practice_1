@@ -40,6 +40,54 @@ text-decoration-line: none;
 a:hover{
 text-decoration-line: underline;
 }
+.page_wrap {
+	text-align:center;
+	font-size:0;
+ }
+.page_nation {
+	display:inline-block;
+}
+.page_nation .none {
+	display:none;
+}
+.page_nation a {
+	display:block;
+	margin:0 3px;
+	float:left;
+	border:1px solid #e6e6e6;
+	width:28px;
+	height:28px;
+	line-height:28px;
+	text-align:center;
+	background-color:#fff;
+	font-size:13px;
+	color:#999999;
+	text-decoration:none;
+}
+.page_nation .arrow {
+	border:1px solid #ccc;
+}
+.page_nation .pprev {
+	background:#f8f8f8 url('image/page_pprev.png') no-repeat center center;
+	margin-left:0;
+}
+.page_nation .prev {
+	background:#f8f8f8 url('image/page_prev.png') no-repeat center center;
+	margin-right:7px;
+}
+.page_nation .next {
+	background:#f8f8f8 url('image/page_next.png') no-repeat center center;
+	margin-left:7px;
+}
+.page_nation .nnext {
+	background:#f8f8f8 url('image/page_nnext.png') no-repeat center center;
+	margin-right:0;
+}
+.page_nation a.active {
+	background-color:#42454c;
+	color:#fff;
+	border:1px solid #42454c;
+}
 </style>
 
 </head>
@@ -67,7 +115,7 @@ text-decoration-line: underline;
 		</tr>
 		</thead>
 		<tbody>
-		<c:forEach var="Notice" items="${NoticeList}" >
+		<c:forEach var="Notice" items="${list}" >
 			<tr align="center">
 			<td>${Notice.bno}</td>
 			<td style=" color:green;"><a href="${contextPath}/admin/notice/NoticeDetail.do?bno=${Notice.bno}">${Notice.title}</a></td>
@@ -81,6 +129,21 @@ text-decoration-line: underline;
 	<c:if test="${isLogOn == true and memberInfo.member_id =='admin' }">
 		<a href="${contextPath }/admin/notice/addNewNoticeForm.do"><p align="center">글쓰기</p></a>
 	</c:if>
+			<div class="page_wrap">
+  				<div class="page_nation">
+				<c:if test="${pageMaker.prev }">
+					<a class="arrow next" href='<c:url value="/admin/notice/noticeList.do?page=${pageMaker.startPage-1 }"/>'></a>
+				</c:if>
+				<c:forEach begin="${pageMaker.startPage }"
+					end="${pageMaker.endPage }" var="pageNum">
+					<a href='<c:url value="/admin/notice/noticeList.do?page=${pageNum }"/>'><i
+							class="fa">${pageNum }</i></a>
+				</c:forEach>
+				<c:if test="${pageMaker.next && pageMaker.endPage >0 }">
+					<a class="arrow nnext" href='<c:url value="/admin/notice/noticeList.do?page=${pageMaker.endPage+1 }"/>'></a>
+				</c:if>
+			</div>
+			</div>
 
 
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>

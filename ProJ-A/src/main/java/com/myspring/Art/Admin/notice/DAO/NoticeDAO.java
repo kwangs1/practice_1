@@ -5,11 +5,10 @@ import java.util.Map;
 
 import org.springframework.dao.DataAccessException;
 
+import com.myspring.Art.Admin.notice.VO.Criteria;
 import com.myspring.Art.Admin.notice.VO.NoticeVO;
 
 public interface NoticeDAO {
-
-	List selectAllNoticeList(String startDate, String endDate) throws DataAccessException,Exception;
 
 	int insertNoticeList(NoticeVO vo) throws DataAccessException;
 
@@ -20,4 +19,8 @@ public interface NoticeDAO {
 	int modifyNotice(NoticeVO vo) throws DataAccessException;
 
 	void boardHit(int bno) throws Exception;
+
+	List<Map<String, Object>> selectAllNoticeList(Criteria cri);
+
+	int countNoticeList();
 }

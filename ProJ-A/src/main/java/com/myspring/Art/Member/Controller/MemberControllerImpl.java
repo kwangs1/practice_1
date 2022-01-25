@@ -115,9 +115,6 @@ public class MemberControllerImpl extends BaseController implements MemberContro
 		mav.setViewName(viewName);
 		mav.addObject("memberInfo",memberVO);
 		return mav;
-//		String viewName=(String)request.getAttribute("viewName");
-//		ModelAndView mav = new ModelAndView(viewName);
-//		return mav;
 	}
 	
 	@Override

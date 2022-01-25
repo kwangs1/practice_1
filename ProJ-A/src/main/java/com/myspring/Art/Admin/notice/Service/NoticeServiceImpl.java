@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.myspring.Art.Admin.notice.DAO.NoticeDAO;
+import com.myspring.Art.Admin.notice.VO.Criteria;
 import com.myspring.Art.Admin.notice.VO.NoticeVO;
 
 @Service("noticeService")
@@ -18,11 +19,14 @@ public class NoticeServiceImpl implements NoticeService{
 	private NoticeDAO noticeDAO;
 
 	@Override
-	public List NoticeList(String startDate, String endDate) throws Exception{
-		List NoticeList = null;
-		NoticeList = noticeDAO.selectAllNoticeList(startDate, endDate);
-		return NoticeList;
+	public List<Map<String,Object>> NoticeList(Criteria cri) throws Exception{
+		return noticeDAO.selectAllNoticeList(cri);
 	}	
+
+	@Override
+	public int countNoticeListTotal() {
+	    return noticeDAO.countNoticeList();
+	}
 
 
 	@Override
