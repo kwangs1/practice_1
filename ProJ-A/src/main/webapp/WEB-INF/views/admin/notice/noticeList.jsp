@@ -64,30 +64,6 @@ text-decoration-line: underline;
 	color:#999999;
 	text-decoration:none;
 }
-.page_nation .arrow {
-	border:1px solid #ccc;
-}
-.page_nation .pprev {
-	background:#f8f8f8 url('image/page_pprev.png') no-repeat center center;
-	margin-left:0;
-}
-.page_nation .prev {
-	background:#f8f8f8 url('image/page_prev.png') no-repeat center center;
-	margin-right:7px;
-}
-.page_nation .next {
-	background:#f8f8f8 url('image/page_next.png') no-repeat center center;
-	margin-left:7px;
-}
-.page_nation .nnext {
-	background:#f8f8f8 url('image/page_nnext.png') no-repeat center center;
-	margin-right:0;
-}
-.page_nation a.active {
-	background-color:#42454c;
-	color:#fff;
-	border:1px solid #42454c;
-}
 </style>
 
 </head>
@@ -118,7 +94,9 @@ text-decoration-line: underline;
 		<c:forEach var="Notice" items="${list}" >
 			<tr align="center">
 			<td>${Notice.bno}</td>
-			<td style=" color:green;"><a href="${contextPath}/admin/notice/NoticeDetail.do?bno=${Notice.bno}">${Notice.title}</a></td>
+			<td style=" color:green;">
+			<a href='<c:url value='/admin/notice/NoticeDetail.do${pageMaker.makeQuery(pageMaker.cri.page) }&bno=${Notice.bno }'/>'>${Notice.title }</a>
+			</td>
 			<td>${Notice.department}</td>
 			<td>${Notice.regdate}</td>
 			<td>${Notice.hit}</td>
@@ -132,15 +110,16 @@ text-decoration-line: underline;
 			<div class="page_wrap">
   				<div class="page_nation">
 				<c:if test="${pageMaker.prev }">
-					<a class="arrow next" href='<c:url value="/admin/notice/noticeList.do?page=${pageMaker.startPage-1 }"/>'></a>
+					<a  href='<c:url value="/admin/notice/noticeList.do${pageMaker.makeQuery(pageMaker.startPage - 1) }"/>'>
+					<i class="fa fa-chevron-left"></i>◀</a>
 				</c:if>
-				<c:forEach begin="${pageMaker.startPage }"
-					end="${pageMaker.endPage }" var="pageNum">
-					<a href='<c:url value="/admin/notice/noticeList.do?page=${pageNum }"/>'><i
+				<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="pageNum">
+					<a href='<c:url value="/admin/notice/noticeList.do${pageMaker.makeQuery(pageNum)}"/>'><i
 							class="fa">${pageNum }</i></a>
 				</c:forEach>
 				<c:if test="${pageMaker.next && pageMaker.endPage >0 }">
-					<a class="arrow nnext" href='<c:url value="/admin/notice/noticeList.do?page=${pageMaker.endPage+1 }"/>'></a>
+					<a href='<c:url value="/admin/notice/noticeList.do${pageMaker.makeQuery(pageMaker.endPage + 1)}"/>'>
+					<i class="fa fa-chevron-right">▶</i></a>
 				</c:if>
 			</div>
 			</div>

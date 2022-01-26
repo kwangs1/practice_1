@@ -29,7 +29,7 @@ table tr td input{
 </style>
 </head>
 <body>
-<form method="post"  action="${contextPath}/admin/notice/modifyNotice.do?bno=${notice.bno}">
+<form method="post"  action="${contextPath}/admin/notice/modifyNotice.do?bno=${notice.bno}&page=${cri.page }&perPageNum=${cri.perPageNum }">
 <h1>　</h1>
   <table>
   <tr>
@@ -58,6 +58,9 @@ table tr td input{
    </tr>
     <tr>
    <td>
+  	 <input type="hidden" name="bno" value="${notice.bno }">
+	 <input type="hidden" name="page" value="${cri.page }">
+	 <input type="hidden" name="perPageNum" value="${cri.perPageNum }">
 	   <input type=button value="수정반영하기" style='cursor:pointer;' onClick="fn_enable(this.form)">
    </td>
   </tr>

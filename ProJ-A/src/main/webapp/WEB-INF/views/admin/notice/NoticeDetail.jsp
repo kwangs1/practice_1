@@ -25,6 +25,9 @@ table td {
 table tr td input{
 	border:none;
 }
+a {
+  text-decoration-line: none;
+}
 </style>
 </head>
 <body>
@@ -61,12 +64,15 @@ table tr td input{
     <tr  id="tr_btn"    >
    <td>
         <c:if test="${isLogOn == true and memberInfo.member_id =='admin' }">
-	      <input type=button value="삭제하기"  style='cursor:pointer;' 
-	      	onClick="fn_remove_bno('${contextPath}/admin/notice/removeNotice.do', ${notice.bno})">
-	      
-	      <input type=button value="수정하기"  style='cursor:pointer;'
-	      	onClick="location.href='${contextPath}/admin/notice/modifyNoticeForm.do?bno=${notice.bno }'">
-	    </c:if>
+<%-- 	      <input type=button value="삭제하기"  style='cursor:pointer;' 
+	      	onClick="fn_remove_bno('${contextPath}/admin/notice/removeNotice.do', ${notice.bno})"> --%>
+   <a style='cursor:pointer;' onClick="fn_remove_bno" 
+   		href='<c:url value="/admin/notice/removeNotice.do?bno=${notice.bno }&page=${cri.page }&perPageNum=${cri.perPageNum }"/>'> 삭제</a>      	
+   <a style='cursor:pointer;' 
+   		href='<c:url value="/admin/notice/modifyNoticeForm.do?bno=${notice.bno }&page=${cri.page }&perPageNum=${cri.perPageNum }"/>'> 수정</a>
+	    </c:if>	    
+	    <br>
+	      	<a style='cursor:pointer;' href='<c:url value='/admin/notice/noticeList.do?page=${cri.page }&perPageNum=${cri.perPageNum }'/>'>목록으로</a>
    </td>
   </tr>
   </table>

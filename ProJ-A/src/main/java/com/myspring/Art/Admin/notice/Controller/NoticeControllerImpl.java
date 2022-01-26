@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.myspring.Art.Admin.notice.Service.NoticeService;
 import com.myspring.Art.Admin.notice.VO.Criteria;
@@ -43,18 +44,20 @@ public class NoticeControllerImpl implements NoticeController{
 		
 		mav.addObject("list",list);
 		mav.addObject("pageMaker",pageMaker);
+
 		return mav;		
 	}
 	//글 상세보기
 	@Override
 	@RequestMapping(value="NoticeDetail.do", method=RequestMethod.GET)
-	public ModelAndView NoticeDetail(@RequestParam("bno") int bno, 
+	public ModelAndView NoticeDetail(@RequestParam("bno") int bno, Criteria cri,
 				HttpServletRequest request, HttpServletResponse response)throws Exception{
 		String viewName=(String)request.getAttribute("viewName");
 		noticeVO = noticeService.NoticeDetail(bno);
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName(viewName);
 		mav.addObject("notice",noticeVO);
+		mav.addObject("cri",cri);
 		return mav;
 	}
 	//등록뷰에서 데이터넣기
@@ -79,33 +82,41 @@ public class NoticeControllerImpl implements NoticeController{
 	//글 삭제
 	@Override
 	@RequestMapping(value="/removeNotice.do", method=RequestMethod.GET)
-	public ModelAndView removerNotice(@RequestParam("bno")int bno,
+	public ModelAndView removerNotice(@RequestParam("bno")int bno,Criteria cri, RedirectAttributes redAttr,
 				HttpServletRequest request, HttpServletResponse response)throws Exception{
 		request.setCharacterEncoding("utf-8");
 		noticeService.removeNotice(bno);
 		ModelAndView mav = new ModelAndView("redirect:/admin/notice/noticeList.do");
+		redAttr.addAttribute("page", cri.getPage());
+	     redAttr.addAttribute("perPagNum", cri.getPerPageNum());
 		return mav;
 	}
 	//수정뷰 가기
 	@RequestMapping(value="/modifyNoticeForm.do", method = RequestMethod.GET)
-		public ModelAndView modifyNotice(@RequestParam("bno") int bno, 
+		public ModelAndView modifyNotice(@RequestParam("bno") int bno,Criteria cri,
 				HttpServletRequest request, HttpServletResponse response)throws Exception{
 		String viewName=(String)request.getAttribute("viewName");
 		noticeVO = noticeService.NoticeDetail(bno);
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName(viewName);
 		mav.addObject("notice",noticeVO);
+		
+		mav.addObject("cri", cri);
 		return mav;
 	}
 	//수정 데이터부분
 	@Override
 	@RequestMapping(value="/modifyNotice.do", method=RequestMethod.POST)
-	public ModelAndView modifyNotice(@ModelAttribute("notice")NoticeVO vo,
+	public ModelAndView modifyNotice(@ModelAttribute("notice")NoticeVO vo, Criteria cri, RedirectAttributes redAttr,
 			HttpServletRequest request,HttpServletResponse response)throws Exception{
 		request.setCharacterEncoding("utf-8");
 		int result = 0;
 		result = noticeService.modifyNotice(vo);
 		ModelAndView mav = new ModelAndView("redirect:/admin/notice/noticeList.do");
+		
+		 redAttr.addAttribute("page", cri.getPage());
+	     redAttr.addAttribute("perPagNum", cri.getPerPageNum());
+
 		return mav;
 	}
 

@@ -1,14 +1,17 @@
 package com.myspring.Art.Admin.notice.VO;
 
+import org.springframework.web.util.UriComponents;
+import org.springframework.web.util.UriComponentsBuilder;
+
 public class PageMaker {//페이징 버튼들을 만들기 위한 계산클래스
 
 	private Criteria cri;
-	private int totalCount;
-	private int startPage;
-	private int endPage;
-	private boolean prev;
-	private boolean next;
-	private int displayPageNum = 5;
+	private int totalCount; //총 게시글 수
+	private int startPage; //화면에 보여질 첫번째 페이지 번호, 시작 페이지 번호
+	private int endPage; //화면에 보여질 마지막 페이지 번호, 끝 페이지 번호
+	private boolean prev; //이전 버튼 생성 여부
+	private boolean next; //다음 버튼 생성 여부
+	private int displayPageNum = 5; //화면에 보여지는 페이지 버튼의 수
 	
 	public Criteria getCri() {
 		return cri;
@@ -24,22 +27,21 @@ public class PageMaker {//페이징 버튼들을 만들기 위한 계산클래스
 		calcData();
 	}
 	
-	private void calcData() { //페이징 관련 버튼 계산 메서드
-        
-		//(현제페이지번호 / 화면에 보여질 페이지 번호갯수) * 화면에 보여질 페이지 번호 갯수
-        endPage = (int) (Math.ceil(cri.getPage() / (double) displayPageNum) * displayPageNum); 
-        //마지막 페이지 번호 = 총게시글 수 / 한 페이지당 보여줄 게시글 갯수
+	private void calcData() {
+		
+		endPage = (int) (Math.ceil(cri.getPage() / (double) displayPageNum) * displayPageNum);
         int tempEndPage = (int) (Math.ceil(totalCount / (double) cri.getPerPageNum()));
         if (endPage > tempEndPage) {
             endPage = tempEndPage;
         }
-        startPage = (endPage - displayPageNum) + 1; // 시작페이지 번호 = (끝 페이지번호 - 화면에 보여질 페이지 번호) +1
-        if(startPage < 0) startPage = 1;
+        
+        startPage = (endPage - displayPageNum) + 1;
+        if(startPage < 0) startPage=1;
  
-        prev = startPage == 1 ? false : true; // 이전 버튼은 시작페이지 번호가 1이 아니면 생성
-        next = endPage * cri.getPerPageNum() < totalCount ? true : false;
-        // 다음 버튼 생성 여부 = 끝 페이지 번호 * 한 페이지당 보여줄 게시글의 갯수 < 총 게시글의 수? true:false
-    }
+        prev = startPage == 1 ? false : true;
+        next = endPage * cri.getPerPageNum() >= totalCount ? false : true;
+        
+	}
 	
 	public int getStartPage() {
 		return startPage;
@@ -72,5 +74,13 @@ public class PageMaker {//페이징 버튼들을 만들기 위한 계산클래스
 		this.displayPageNum = displayPageNum;
 	}
 	
-	
+	public String makeQuery(int page) {
+		UriComponents uriComponents =
+		UriComponentsBuilder.newInstance()
+						    .queryParam("page", page)
+							.queryParam("perPageNum", cri.getPerPageNum())
+							.build();
+		   
+		return uriComponents.toUriString();
+	}
 }
