@@ -63,6 +63,30 @@ a {
 a:hover {
 	color: silver;
 }
+.page_wrap {
+	text-align:center;
+	font-size:0;
+ }
+.page_nation {
+	display:inline-block;
+}
+.page_nation .none {
+	display:none;
+}
+.page_nation a {
+	display:block;
+	margin:0 3px;
+	float:left;
+	border:1px solid #e6e6e6;
+	width:28px;
+	height:28px;
+	line-height:28px;
+	text-align:center;
+	background-color:#fff;
+	font-size:13px;
+	color:#999999;
+	text-decoration:none;
+}
 </style>
 </head>
 <body>
@@ -111,8 +135,11 @@ a:hover {
 					</c:forEach>
 				</c:otherwise>
 			</c:choose>
-			<tr>
-				<td colspan=8 class="fixed">
+		</TBODY>
+
+	</TABLE>
+		<div class="page_wrap">
+  				<div class="page_nation">
 				<c:forEach var="page" begin="1" end="10" step="1">
 						<c:if test="${section >1 && page==1 }">
 							<a
@@ -125,13 +152,11 @@ a:hover {
 						<c:if test="${page ==10 }">
 							<a
 								href="${contextPath}/admin/goods/adminGooodsMain.do?chapter=${section+1}&pageNum=${section*10+1}">&nbsp;
-								next</a>
+								▶</a>
 						</c:if>
 					</c:forEach>
-		</TBODY>
-
-	</TABLE>
-
+	</div>
+	</div>
 	<DIV id="search">
 		<a href="${contextPath}/admin/goods/addNewGoodsForm.do"
 			style='cursor: pointer; font-size: 1.5em; font-weight: 700; color: #000;'>등록하기</a>

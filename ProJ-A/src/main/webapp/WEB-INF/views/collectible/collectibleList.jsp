@@ -55,6 +55,30 @@ request.setCharacterEncoding("UTF-8");
 	bottom: 160px;
 	left:45%;
 }
+.page_wrap {
+	text-align:center;
+	font-size:0;
+ }
+.page_nation {
+	display:inline-block;
+}
+.page_nation .none {
+	display:none;
+}
+.page_nation a {
+	display:block;
+	margin:0 3px;
+	float:left;
+	border:1px solid #e6e6e6;
+	width:28px;
+	height:28px;
+	line-height:28px;
+	text-align:center;
+	background-color:#fff;
+	font-size:13px;
+	color:#999999;
+	text-decoration:none;
+}
 </style>
 </head>
 <body>
@@ -82,9 +106,8 @@ request.setCharacterEncoding("UTF-8");
 		</c:forEach>
 		</c:otherwise>
 		</c:choose>
-	</div>
-
-<div class="pageNum">
+	<div class="page_wrap">
+  	<div class="page_nation">
 	<c:forEach var="page" begin="1" end="10" step="1">
 		<c:if test="${section >1 && page==1 }">
 			<a
@@ -97,10 +120,13 @@ request.setCharacterEncoding("UTF-8");
 		<c:if test="${page ==10 }">
 			<a
 				href="${contextPath}/collectible/collectibleList.do?chapter=${section+1}&pageNum=${section*10+1}">&nbsp;
-				next</a>
+				▶</a>
 		</c:if>
 	</c:forEach>
 </div>
+</div>
+	</div>
+	
 
 
 </body>
