@@ -114,7 +114,6 @@ table tr td input{
 </style>
 </head>
 <body>
-<form method="get">
 <h1>　</h1>
 	<div style="text-align:center">
 			<img width="180" height="154" id="myImg"
@@ -159,9 +158,8 @@ table tr td input{
 				</tr>
 		</table>
 		<br>
-</form>
 <br/><br/>
-
+ <form name="replyForm" method="post" > 
 <table>
 	 <c:choose>
 			<c:when test="${empty replyList }">
@@ -171,13 +169,19 @@ table tr td input{
 		<c:forEach var="item" items="${replyList}">
 		<tr>
 			<td>작성자&#124; ${item.writer}</td>
-        	<td>작성 날짜 &#124; <fmt:formatDate value="${item.regdate}" pattern="yyyy-MM-dd" /></td>
+        	<td>작성 날짜 &#124; <fmt:formatDate value="${item.regdate}" pattern="yyyy-MM-dd" />
+        	</td>
         </tr>
         	<tr>
-			<td>내용 &#124; ${item.content}  	  
-		    <button type="button" class="replyUpdateBtn" data-rno="${item.rno}">수정</button> 
-   			<button type="submit" class="replyDeleteBtn" data-rno="${item.rno}">삭제</button>
+			<td>내용 &#124; ${item.content}  	  		   
    		</td>
+			</tr>
+			<tr>
+				<td>
+				 <button type="button" class="replyUpdateBtn" data-rno="${item.rno}">수정</button> 
+   			<input type=button value="삭제하기"  style='cursor:pointer;' 
+	      	onClick="fn_remove_bno('${contextPath}/collectible/removeReply.do?rno=${item.rno }&goods_id=${collectible.goods_id }')">	
+	      		</td>		
 			</tr>
 		
 		</c:forEach>
@@ -185,7 +189,6 @@ table tr td input{
 		</c:choose>		
 		</table>
 		
- <form name="replyForm" method="post" > 
 	<input type="hidden" name="goods_id" value="${collectible.goods_id}" readonly="readonly"/>
 
   <div class="addreply">
@@ -229,10 +232,21 @@ $(".replyUpdateBtn").on("click", function(){
 	location.href = "${contextPath}/collectible/modifyReplyForm.do?goods_id=${collectible.goods_id}"
 					+ "&rno="+$(this).attr("data-rno");
 });
-$(".replyDeleteBtn").on("click", function(){
-	location.href = "${contextPath}/collectible/removeReply.do?goods_id=${collectible.goods_id}&rno=${reply.rno}"
-				+ "&rno="+$(this).attr("data-rno");
-});
+
+function fn_remove_bno(url,rno){
+	 var form = document.createElement("form");
+	 form.setAttribute("method", "post");
+	 form.setAttribute("action", url);
+    var RnoInput = document.createElement("input");
+    RnoInput.setAttribute("type","hidden");
+    RnoInput.setAttribute("name","rno");
+    RnoInput.setAttribute("value", rno);
+	 
+    form.appendChild(RnoInput);
+    document.body.appendChild(form);
+    form.submit();
+
+}
 </script>
 </body>
 </html>

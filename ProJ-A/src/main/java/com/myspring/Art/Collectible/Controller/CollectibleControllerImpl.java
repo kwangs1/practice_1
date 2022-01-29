@@ -109,7 +109,6 @@ public class CollectibleControllerImpl extends BaseController implements Collect
 	@Override
 	@RequestMapping(value="/modifyReply.do", method = RequestMethod.POST)
 	public ModelAndView modifyReply(@ModelAttribute("reply")ReplyVO vo, RedirectAttributes rttr,
-			@RequestParam("goods_id")int goods_id,
 			HttpServletRequest request, HttpServletResponse response)throws Exception{
 
 		replyService.updateReply(vo);		
@@ -122,19 +121,15 @@ public class CollectibleControllerImpl extends BaseController implements Collect
 	//¥Ò±€ªË¡¶
 	@Override
 	@RequestMapping(value="/removeReply.do", method = RequestMethod.POST)
-	public ModelAndView removeReply(@ModelAttribute("reply")ReplyVO vo, @RequestParam("goods_id") int goods_id,
-			RedirectAttributes rttr,HttpServletRequest request, HttpServletResponse response)throws Exception{
+	public ModelAndView removeReply(@ModelAttribute("reply")ReplyVO vo, RedirectAttributes rttr,
+				HttpServletRequest request, HttpServletResponse response)throws Exception{
+		logger.info("reply delete");
 		
-//		String viewName = (String)request.getAttribute("viewName");
-		
-//		collectibleVO = collectibleService.collectibleDetail(goods_id);
 		replyService.deleteReply(vo);
 		
 		rttr.addAttribute("goods_id", vo.getGoods_id());
 		ModelAndView mav = new ModelAndView("redirect:/collectible/collectibleDetail.do");
-		mav.addObject("reply",vo);
-//		mav.setViewName(viewName);
-//		mav.addObject("collectible",collectibleVO);
+
 		return mav;
 	}
 	

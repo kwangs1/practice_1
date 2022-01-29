@@ -21,10 +21,10 @@ public interface CollectibleController {
 
 	ModelAndView replyWrite(ReplyVO vo,RedirectAttributes rttr, HttpServletRequest request, HttpServletResponse response) throws Exception;
 
-	ModelAndView modifyReply(ReplyVO vo, RedirectAttributes rttr, int goods_id, HttpServletRequest request,
+	ModelAndView modifyReply(ReplyVO vo, RedirectAttributes rttr,  HttpServletRequest request,
 			HttpServletResponse response) throws Exception;
 
-	ModelAndView removeReply(ReplyVO vo, int goods_id, RedirectAttributes rttr, HttpServletRequest request,
+	ModelAndView removeReply(ReplyVO vo, RedirectAttributes rttr, HttpServletRequest request,
 			HttpServletResponse response) throws Exception;
 
 }
