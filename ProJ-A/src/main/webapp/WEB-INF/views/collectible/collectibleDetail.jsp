@@ -179,8 +179,8 @@ table tr td input{
 			<tr>
 				<td>
 				 <button type="button" class="replyUpdateBtn" data-rno="${item.rno}">수정</button> 
-   			<input type=button value="삭제하기"  style='cursor:pointer;' 
-	      	onClick="fn_remove_bno('${contextPath}/collectible/removeReply.do?rno=${item.rno }&goods_id=${collectible.goods_id }')">	
+   				<button type="button"style='cursor:pointer;' 
+	      	onClick="fn_remove_reply('${contextPath}/collectible/removeReply.do?rno=${item.rno }&goods_id=${collectible.goods_id }')">삭제</button>	
 	      		</td>		
 			</tr>
 		
@@ -233,7 +233,7 @@ $(".replyUpdateBtn").on("click", function(){
 					+ "&rno="+$(this).attr("data-rno");
 });
 
-function fn_remove_bno(url,rno){
+function fn_remove_reply(url,rno){
 	 var form = document.createElement("form");
 	 form.setAttribute("method", "post");
 	 form.setAttribute("action", url);
