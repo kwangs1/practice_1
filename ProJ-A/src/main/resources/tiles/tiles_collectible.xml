@@ -13,4 +13,9 @@
 		<put-attribute name="title" value="상세보기" />
 		<put-attribute name="body" value="/WEB-INF/views/collectible/collectibleDetail.jsp" />
 	</definition>
+	
+	<definition name="/collectible/modifyReplyForm" extends="baseLayout">
+		<put-attribute name="title" value="댓글수정" />
+		<put-attribute name="body" value="/WEB-INF/views/collectible/modifyReplyForm.jsp" />
+	</definition>
 </tiles-definitions>

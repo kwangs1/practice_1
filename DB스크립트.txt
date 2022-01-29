@@ -64,7 +64,7 @@ flashback on;
    ) ;
 
 create table notice_board (
-  bno number(10,0),
+  bno number(10,0)PRIMARY KEY,
   title varchar2(200) not null,
   content varchar2(2000) not null,
   department varchar2(2000) not null,
@@ -73,18 +73,32 @@ create table notice_board (
   HIT NUMBER DEFAULT 0
   regdate date default sysdate
 );
+
+create table notice_reply(
+    rno number(10,0) PRIMARY KEY not null,
+    goods_id number(10,0) not null,
+    content varchar2(1000) not null,
+    writer varchar2(50) not null,
+    regdate date DEFAULT sysdate,
+    constraint fk_notice_bno foreign key (goods_id) references GALLERY_COLLECTIBLE(goods_id)
+);
 --------------------------------------------------------
 --  DDL for Sequence SEQ_GOODS_ID
 --------------------------------------------------------
+CREATE SEQUENCE  "SEQ_GOODS_ID"  MINVALUE 100 MAXVALUE 1000000 INCREMENT BY 1 START WITH 400 CACHE 20 ORDER  NOCYCLE ;
 
-   CREATE SEQUENCE  "SEQ_GOODS_ID"  MINVALUE 100 MAXVALUE 1000000 INCREMENT BY 1 START WITH 400 CACHE 20 ORDER  NOCYCLE ;
 --------------------------------------------------------
 --  DDL for Sequence SEQ_IMAGE_ID
 --------------------------------------------------------
+CREATE SEQUENCE  "SEQ_IMAGE_ID"  MINVALUE 1 MAXVALUE 11111111 INCREMENT BY 1 START WITH 400 NOCACHE  NOORDER  NOCYCLE ;
 
-   CREATE SEQUENCE  "SEQ_IMAGE_ID"  MINVALUE 1 MAXVALUE 11111111 INCREMENT BY 1 START WITH 400 NOCACHE  NOORDER  NOCYCLE ;
 --------------------------------------------------------
 --  DDL for Sequence SEQ_NOTICE_ID
 --------------------------------------------------------
  CREATE SEQUENCE  "SEQ_NOTICE_ID"  MINVALUE 1 MAXVALUE 11111111 INCREMENT BY 1 START WITH 1 NOCACHE  NOORDER  NOCYCLE ;
+
+--------------------------------------------------------
+--  DDL for Sequence SEQ_REPLY_ID
+--------------------------------------------------------
+CREATE SEQUENCE  "SEQ_REPLY_ID"  MINVALUE 1 MAXVALUE 11111111 INCREMENT BY 1 START WITH 1 NOCACHE  NOORDER  NOCYCLE ;
 

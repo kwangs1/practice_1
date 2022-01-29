@@ -11,5 +11,6 @@
 		<typeAlias type="com.myspring.Art.Collectible.VO.CollectibleVO" alias="CollectibleVO" />
 		<typeAlias type="com.myspring.Art.Collectible.VO.ImageFileVO" alias="imageFileVO" />
 		<typeAlias type="com.myspring.Art.Admin.notice.VO.NoticeVO" alias="NoticeVO" />
+		<typeAlias type="com.myspring.Art.common.Reply.VO.ReplyVO" alias="ReplyVO" />
 </typeAliases>       
 </configuration>

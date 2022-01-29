@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.reply">
+<resultMap id="replyResult" type="ReplyVO">
+		<result property="rno" column="rno" />
+		<result property="goods_id" column="goods_id" />
+		<result property="content" column="content" />
+		<result property="writer" column="writer" />
+		<result property="regdate" column="regdate" />
+	</resultMap>
+
+<select id="readReply" resultType="ReplyVO">
+	<![CDATA[
+		select
+			rno,content,writer,regdate
+		from notice_reply
+		where goods_id =#{goods_id}
+	]]>
+</select>
+
+<insert id="writeReply" parameterType="ReplyVO">
+<selectKey resultType="int" keyProperty="rno" order="BEFORE">
+		select SEQ_REPLY_ID.nextval from dual
+	</selectKey>
+	<![CDATA[
+	INSERT INTO notice_reply(
+		goods_id
+		, RNO
+		, CONTENT
+		, WRITER
+	)
+	VALUES(#{goods_id}
+			, #{rno}
+			, #{content}
+			, #{writer}	)
+	]]>
+</insert>
+
+<update id="updateReply" parameterType="ReplyVO">
+	<![CDATA[
+		update notice_reply set content = #{content}
+		where rno = #{rno}
+	]]>
+</update>
+
+<delete id="deleteReply" parameterType="ReplyVO">
+	DELETE FROM notice_reply
+		WHERE rno = #{rno}
+</delete>
+
+<select id="selectReply" resultType="ReplyVO">
+select
+	goods_id, rno, content
+	from notice_reply
+	where rno = #{rno}
+</select>
+</mapper>

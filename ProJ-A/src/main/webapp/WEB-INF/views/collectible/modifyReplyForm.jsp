@@ -114,7 +114,7 @@ table tr td input{
 </style>
 </head>
 <body>
-<form method="get">
+<form method="get"  action="${contextPath}/collectible/collectibleDetail.do">
 <h1>　</h1>
 	<div style="text-align:center">
 			<img width="180" height="154" id="myImg"
@@ -158,42 +158,25 @@ table tr td input{
 					<td>${collectible.goods_note}</td>
 				</tr>
 		</table>
-		<br>
+		<br><br>
+
 </form>
 <br/><br/>
-
-<table>
-	 <c:choose>
-			<c:when test="${empty replyList }">
-				<p style="text-align:center;">등록된 댓글이 없습니다.</p>
-			</c:when>
-		<c:otherwise>
-		<c:forEach var="item" items="${replyList}">
-		<tr>
-			<td>작성자&#124; ${item.writer}</td>
-        	<td>작성 날짜 &#124; <fmt:formatDate value="${item.regdate}" pattern="yyyy-MM-dd" /></td>
-        </tr>
+<form name="updateForm" method="post" action="${contextPath}/collectible/modifyReply.do?goods_id=${reply.goods_id}&rno=${reply.rno}">
+		<table>
+			<tbody>
+			<tr>  	
+			<td><input type="hidden" name="goods_id" value="${reply.goods_id}" readonly="readonly"/>
+				<input type="hidden" id="rno" name="rno" value="${reply.rno}" />	
+				작성자  &#124; <input type=text value="${memberInfo.member_name}" disabled />
+			</td>
         	<tr>
-			<td>내용 &#124; ${item.content}  	  
-		    <button type="button" class="replyUpdateBtn" data-rno="${item.rno}">수정</button> 
-   			<button type="submit" class="replyDeleteBtn" data-rno="${item.rno}">삭제</button>
-   		</td>
-			</tr>
-		
-		</c:forEach>
-		</c:otherwise>
-		</c:choose>		
+			<td>내용 &#124; <input type=text value="${reply.content }"  id="content"  name="content"/>
+			<button type="submit" class="replyUpdateBtn2">저장</button>
+			</td>
+			</tr>	
+			</tbody>
 		</table>
-		
- <form name="replyForm" method="post" > 
-	<input type="hidden" name="goods_id" value="${collectible.goods_id}" readonly="readonly"/>
-
-  <div class="addreply">
-    <label for="writer">댓글 작성자</label><input type="text" id="writer" name="writer" value="${memberInfo.member_name}"readonly/>
-    <br/>
-    <label for="content">댓글 내용</label><input type="text" id="content" name="content" />
- 	 <button type="button" class="replyWriteBtn" style='cursor:pointer;'>작성</button>
-  </div>
 </form>
 
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
@@ -219,19 +202,17 @@ span.onclick = function() {
   modal.style.display = "none";
 }
 
-$(".replyWriteBtn").on("click", function(){
-	  var formObj = $("form[name='replyForm']"); 
-	  formObj.attr("action", "${contextPath}/collectible/replyWrite.do");
-	  formObj.submit();
-	});
 
-$(".replyUpdateBtn").on("click", function(){
-	location.href = "${contextPath}/collectible/modifyReplyForm.do?goods_id=${collectible.goods_id}"
-					+ "&rno="+$(this).attr("data-rno");
-});
-$(".replyDeleteBtn").on("click", function(){
-	location.href = "${contextPath}/collectible/removeReply.do?goods_id=${collectible.goods_id}&rno=${reply.rno}"
-				+ "&rno="+$(this).attr("data-rno");
+function fn_enable(obj){
+	 document.getElementById("content").disabled=false;
+
+	 obj.submit();
+}
+$(document).ready(function(){
+	var formObj = $("form[name='updateForm']");
+	
+$(".replyUpdateBtn2").on("click", function(){
+	location.href = "${contextPath}/collectible/collectibleDetail.do?goods_id=${collectible.goods_id}"
 });
 </script>
 </body>

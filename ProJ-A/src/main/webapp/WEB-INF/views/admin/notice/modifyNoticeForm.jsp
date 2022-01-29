@@ -48,7 +48,7 @@ table tr td input{
    <tr>
    <td>작성자 &#124; <input type=text value="${notice.writer }"  id="writer" disabled />
    &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-   작성일 &#124; <%-- <input type=text id="regDate" name="regDate" value="<fmt:formatDate value="${notice.regDate}" />" disabled /> --%></td>
+   </td>
    </tr>
    
    <tr>
