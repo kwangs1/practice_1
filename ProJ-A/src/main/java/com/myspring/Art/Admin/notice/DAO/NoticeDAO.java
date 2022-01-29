@@ -1,5 +1,6 @@
 package com.myspring.Art.Admin.notice.DAO;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -23,4 +24,8 @@ public interface NoticeDAO {
 	List<Map<String, Object>> selectAllNoticeList(Criteria cri);
 
 	int countNoticeList();
+
+	List<String> selectKeywordSearch(String keyword) throws DataAccessException;
+
+	ArrayList selectNoticeBySearchWord(String searchWord,Criteria cri) throws DataAccessException;
 }

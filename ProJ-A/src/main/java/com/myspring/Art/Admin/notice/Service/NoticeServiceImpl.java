@@ -50,4 +50,14 @@ public class NoticeServiceImpl implements NoticeService{
 	public int modifyNotice(NoticeVO vo) throws Exception {
 		return noticeDAO.modifyNotice(vo);
 	}
+	@Override
+	public List<String> keywordSearch(String keyword) throws Exception {
+		List<String> list=noticeDAO.selectKeywordSearch(keyword);
+		return list;
+	}
+	@Override
+	public List<NoticeVO> searchNotice(String searchWord,Criteria cri) throws Exception{
+		List noticeList=noticeDAO.selectNoticeBySearchWord(searchWord,cri);
+		return noticeList;
+	}
 }

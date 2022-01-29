@@ -19,4 +19,8 @@ public interface NoticeService {
 	List<Map<String, Object>> NoticeList(Criteria cri) throws Exception;
 
 	int countNoticeListTotal();
+
+	List<NoticeVO> searchNotice(String searchWord,Criteria cri) throws Exception;
+
+	List<String> keywordSearch(String keyword) throws Exception;
 }

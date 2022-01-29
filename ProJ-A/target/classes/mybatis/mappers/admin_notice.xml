@@ -21,7 +21,6 @@
 
  <select id="selectAllNoticeList" resultMap="noticeResult" parameterType="java.util.Map">
 	<![CDATA[
-
 			SELECT  bno, 
 		        title, 
 		        department,
@@ -35,7 +34,7 @@
 		               hit, 
 		               ROW_NUMBER() OVER(ORDER BY BNO DESC) AS RNUM
 		         FROM notice_board 
-		                       ) MP
+		                       ) Notice
 		WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd}
 		ORDER BY BNO DESC
 	]]>
@@ -90,4 +89,46 @@
 		where bno=#{bno}
 	]]>
 </update>
+
+<select id="selectKeywordSearch" resultType="String" parameterType="String">
+	<![CDATA[
+		select title from notice_board
+		where
+		title like '%'||#{keyword}||'%'
+		order by regDate desc
+	]]>
+</select>
+
+<select id="selectNoticeBySearchWord" resultMap="noticeResult" parameterType="String">
+<!-- 	<![CDATA[
+		SELECT  bno, 
+		        title, 
+		        department,
+		        regDate, 
+		        hit
+		    from notice_board
+		where
+		title like '%'||#{keyword}||'%'
+		order by regDate desc
+	]]> -->
+<![CDATA[
+		SELECT  bno, 
+		        title, 
+		        department,
+		        regDate, 
+		        hit
+		 FROM ( 
+		        SELECT bno, 
+		               title, 
+		               department, 
+		               regDate, 
+		               hit, 
+		               ROW_NUMBER() OVER(ORDER BY BNO DESC) AS RNUM
+		         FROM notice_board 
+			where title like '%'||#{keyword}||'%'
+			ORDER BY regDate DESC	
+		                       ) Notice
+			where RNUM BETWEEN #{rowStart} AND #{rowEnd}
+	]]>
+</select>
 </mapper>

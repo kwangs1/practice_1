@@ -1,5 +1,6 @@
 package com.myspring.Art.Admin.notice.DAO;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -55,5 +56,17 @@ public class NoticeDAOImpl implements NoticeDAO{
 	@Override
 	public void boardHit(int bno) throws Exception {
 		sqlSession.update("mapper.admin.notice.boardHit", bno);
+	}
+	
+	@Override
+	public List<String> selectKeywordSearch(String keyword) throws DataAccessException {
+	   List<String> list=(ArrayList)sqlSession.selectList("mapper.admin.notice.selectKeywordSearch",keyword);
+	   return list;
+	}
+	
+	@Override
+	public ArrayList selectNoticeBySearchWord(String searchWord,Criteria cri) throws DataAccessException{
+		ArrayList list=(ArrayList)sqlSession.selectList("mapper.admin.notice.selectNoticeBySearchWord",searchWord);
+		 return list;
 	}
 }
