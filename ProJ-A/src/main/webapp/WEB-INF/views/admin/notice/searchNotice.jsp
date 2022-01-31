@@ -119,15 +119,15 @@ text-decoration-line: underline;
 			<div class="page_wrap">
   				<div class="page_nation">
 				<c:if test="${pageMaker.prev }">
-					<a  href='<c:url value="/admin/notice/noticeList.do${pageMaker.makeQuery(pageMaker.startPage - 1) }"/>'>
+					<a  href='<c:url value="/admin/notice/searchNotice.do${pageMaker.makeQuery(pageMaker.startPage - 1) }"/>'>
 					<i class="fa fa-chevron-left"></i>◀</a>
 				</c:if>
 				<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="pageNum">
-					<a href='<c:url value="/admin/notice/noticeList.do${pageMaker.makeQuery(pageNum)}"/>'><i
+					<a href='<c:url value="/admin/notice/searchNotice.do${pageMaker.makeQuery(pageNum)}"/>'><i
 							class="fa">${pageNum }</i></a>
 				</c:forEach>
 				<c:if test="${pageMaker.next && pageMaker.endPage >0 }">
-					<a href='<c:url value="/admin/notice/noticeList.do${pageMaker.makeQuery(pageMaker.endPage + 1)}"/>'>
+					<a href='<c:url value="/admin/notice/searchNotice.do${pageMaker.makeQuery(pageMaker.endPage + 1)}"/>'>
 					<i class="fa fa-chevron-right">▶</i></a>
 				</c:if>
 			</div>

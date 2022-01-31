@@ -1,4 +1,4 @@
-package com.myspring.Art.Admin.notice.VO;
+package com.myspring.Art.common.domain;
 
 public class Criteria {
 
@@ -6,6 +6,7 @@ public class Criteria {
 	private int perPageNum; //페이지당 보여줄 게시글 수
 	private int rowStart;
 	private int rowEnd;
+
 	
 	public int getPageStart() {
 		return (this.page-1)*perPageNum;
@@ -54,11 +55,14 @@ public class Criteria {
 	public void setRowEnd(int rowEnd) {
 		this.rowEnd = rowEnd;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Criteria [page=" + page + ", perPageNum=" + perPageNum + ", rowStart=" + rowStart + ", rowEnd=" + rowEnd
 				+ "]";
 	}
+	
+	
+	
 }
 

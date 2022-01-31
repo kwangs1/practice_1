@@ -19,8 +19,8 @@
 	</resultMap>
 
 
- <select id="selectAllNoticeList" resultMap="noticeResult" parameterType="java.util.Map">
-	<![CDATA[
+	<select id="selectAllNoticeList" resultMap="noticeResult"
+		parameterType="java.util.Map">
 			SELECT  bno, 
 		        title, 
 		        department,
@@ -34,101 +34,92 @@
 		               hit, 
 		               ROW_NUMBER() OVER(ORDER BY BNO DESC) AS RNUM
 		         FROM notice_board 
+		         where 1=1
+		         	<include refid="search"></include>
 		                       ) Notice
 		WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd}
 		ORDER BY BNO DESC
-	]]>
-</select>
 
-<select id="countNoticeList"  resultType="Integer">
-    	<![CDATA[
-    		SELECT
+	</select>
+
+	<select id="countNoticeList" resultType="Integer">
+   		SELECT
     			count(*)
     		FROM
     			notice_board
-    	]]>
-    </select>
+    		where 1=1
+    			<include refid="search"></include>
+    		and bno >0
+	</select>
 
 
-<insert id="insertNoticeList" parameterType="NoticeVO">
-	<selectKey resultType="int" keyProperty="bno" order="BEFORE">
-		select seq_notice_id.nextval from dual
-	</selectKey>
+	<insert id="insertNoticeList" parameterType="NoticeVO">
+		<selectKey resultType="int" keyProperty="bno" order="BEFORE">
+			select seq_notice_id.nextval from dual
+		</selectKey>
 	<![CDATA[
 		insert into notice_board(bno, title, content, department , tel, writer, regDate)
 			values(#{bno},#{title},#{content},#{department},#{tel}, #{writer}, sysdate)
 	]]>
-</insert>
+	</insert>
 
-<select id="selectNoticeDetail" resultMap="noticeResult"  parameterType="int">
+	<select id="selectNoticeDetail" resultMap="noticeResult"
+		parameterType="int">
 	<![CDATA[
 		select * from notice_board
 		where bno = #{bno}
 	]]>
-</select>
+	</select>
 
-<delete id="deleteNoticeList" parameterType="int">
+	<delete id="deleteNoticeList" parameterType="int">
 	<![CDATA[
 		delete from notice_board
 		where bno = #{bno}
 	]]>
-</delete>
+	</delete>
 
-<update id="modifyNotice" parameterType="NoticeVO">
+	<update id="modifyNotice" parameterType="NoticeVO">
 	<![CDATA[
 		update notice_board
 		set title=#{title}, content=#{content}
 		where bno=#{bno}
 	]]>
-</update>
+	</update>
 
-<update id="boardHit" parameterType="int">
+	<update id="boardHit" parameterType="int">
 	<![CDATA[
 		update notice_board
 		set hit = hit+1
 		where bno=#{bno}
 	]]>
-</update>
+	</update>
 
-<select id="selectKeywordSearch" resultType="String" parameterType="String">
+<!-- 	<select id="selectKeywordSearch" resultType="String"
+		parameterType="String">
 	<![CDATA[
 		select title from notice_board
 		where
 		title like '%'||#{keyword}||'%'
 		order by regDate desc
 	]]>
-</select>
+	</select>
 
-<select id="selectNoticeBySearchWord" resultMap="noticeResult" parameterType="String">
-<!-- 	<![CDATA[
-		SELECT  bno, 
-		        title, 
-		        department,
-		        regDate, 
-		        hit
-		    from notice_board
+	<select id="selectNoticeBySearchWord" resultMap="noticeResult"
+		parameterType="String">
+<![CDATA[
+	select bno,title,department,regDate,hit
+		from notice_board
 		where
 		title like '%'||#{keyword}||'%'
 		order by regDate desc
-	]]> -->
-<![CDATA[
-		SELECT  bno, 
-		        title, 
-		        department,
-		        regDate, 
-		        hit
-		 FROM ( 
-		        SELECT bno, 
-		               title, 
-		               department, 
-		               regDate, 
-		               hit, 
-		               ROW_NUMBER() OVER(ORDER BY BNO DESC) AS RNUM
-		         FROM notice_board 
-			where title like '%'||#{keyword}||'%'
-			ORDER BY regDate DESC	
-		                       ) Notice
-			where RNUM BETWEEN #{rowStart} AND #{rowEnd}
-	]]>
-</select>
+]]>
+	</select> -->
+<sql id="search">
+	<if test="searchType != null">
+		<if test="searchType == 't'.toString()">and title like '%'|| #{keyword}||'%'</if>
+		<if test="searchType == 'c'.toString()">and content like '%'|| #{keyword}||'%'</if>
+		<if test="searchType == 'w'.toString()">and writer like '%'|| #{keyword}||'%'</if>
+		<if test="searchType == 'tc'.toString()">and (title like '%'|| #{keyword}||'%') or (content like '%'|| #{keyword}||'%')</if>
+	</if>
+</sql>
 </mapper>

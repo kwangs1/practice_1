@@ -9,8 +9,9 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.myspring.Art.Admin.notice.DAO.NoticeDAO;
-import com.myspring.Art.Admin.notice.VO.Criteria;
 import com.myspring.Art.Admin.notice.VO.NoticeVO;
+import com.myspring.Art.common.domain.Criteria;
+import com.myspring.Art.common.domain.SearchCriteria;
 
 @Service("noticeService")
 @Transactional(propagation = Propagation.REQUIRED)
@@ -19,13 +20,13 @@ public class NoticeServiceImpl implements NoticeService{
 	private NoticeDAO noticeDAO;
 
 	@Override
-	public List<Map<String,Object>> NoticeList(Criteria cri) throws Exception{
-		return noticeDAO.selectAllNoticeList(cri);
+	public List<Map<String,Object>> NoticeList(SearchCriteria scri) throws Exception{
+		return noticeDAO.selectAllNoticeList(scri);
 	}	
 
 	@Override
-	public int countNoticeListTotal() {
-	    return noticeDAO.countNoticeList();
+	public int countNoticeListTotal(SearchCriteria scri) {
+	    return noticeDAO.countNoticeList(scri);
 	}
 
 
@@ -50,14 +51,15 @@ public class NoticeServiceImpl implements NoticeService{
 	public int modifyNotice(NoticeVO vo) throws Exception {
 		return noticeDAO.modifyNotice(vo);
 	}
-	@Override
-	public List<String> keywordSearch(String keyword) throws Exception {
-		List<String> list=noticeDAO.selectKeywordSearch(keyword);
-		return list;
-	}
-	@Override
-	public List<NoticeVO> searchNotice(String searchWord,Criteria cri) throws Exception{
-		List noticeList=noticeDAO.selectNoticeBySearchWord(searchWord,cri);
-		return noticeList;
-	}
+//	@Override
+//	public List<String> keywordSearch(String keyword) throws Exception {
+//		List<String> list=noticeDAO.selectKeywordSearch(keyword);
+//		return list;
+//	}
+//	@Override
+//	public List<NoticeVO> searchNotice(String searchWord,Criteria cri) throws Exception{
+//		List noticeList=noticeDAO.selectNoticeBySearchWord(searchWord,cri);
+//		return noticeList;
+//	}
+
 }

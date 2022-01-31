@@ -1,13 +1,12 @@
 package com.myspring.Art.Admin.notice.DAO;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.dao.DataAccessException;
 
-import com.myspring.Art.Admin.notice.VO.Criteria;
 import com.myspring.Art.Admin.notice.VO.NoticeVO;
+import com.myspring.Art.common.domain.SearchCriteria;
 
 public interface NoticeDAO {
 
@@ -21,11 +20,12 @@ public interface NoticeDAO {
 
 	void boardHit(int bno) throws Exception;
 
-	List<Map<String, Object>> selectAllNoticeList(Criteria cri);
+	List<Map<String, Object>> selectAllNoticeList(SearchCriteria scri);
 
-	int countNoticeList();
+	int countNoticeList(SearchCriteria scri);
 
-	List<String> selectKeywordSearch(String keyword) throws DataAccessException;
+//	List<String> selectKeywordSearch(String keyword) throws DataAccessException;
+//
+//	ArrayList selectNoticeBySearchWord(String searchWord,Criteria cri) throws DataAccessException;
 
-	ArrayList selectNoticeBySearchWord(String searchWord,Criteria cri) throws DataAccessException;
 }

@@ -1,6 +1,5 @@
 package com.myspring.Art.Admin.notice.DAO;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -9,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
-import com.myspring.Art.Admin.notice.VO.Criteria;
 import com.myspring.Art.Admin.notice.VO.NoticeVO;
+import com.myspring.Art.common.domain.SearchCriteria;
 
 @Repository("noticeDAO")
 public class NoticeDAOImpl implements NoticeDAO{
@@ -19,13 +18,13 @@ public class NoticeDAOImpl implements NoticeDAO{
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public List<Map<String, Object>> selectAllNoticeList(Criteria cri) {
-	    return sqlSession.selectList("mapper.admin.notice.selectAllNoticeList", cri);
+	public List<Map<String, Object>> selectAllNoticeList(SearchCriteria scri) {
+	    return sqlSession.selectList("mapper.admin.notice.selectAllNoticeList", scri);
 	}
 	
 	@Override
-	public int countNoticeList(){
-	    return (Integer) sqlSession.selectOne("mapper.admin.notice.countNoticeList");
+	public int countNoticeList(SearchCriteria scri){
+	    return (Integer) sqlSession.selectOne("mapper.admin.notice.countNoticeList",scri);
 	}
 
 
@@ -58,15 +57,16 @@ public class NoticeDAOImpl implements NoticeDAO{
 		sqlSession.update("mapper.admin.notice.boardHit", bno);
 	}
 	
-	@Override
-	public List<String> selectKeywordSearch(String keyword) throws DataAccessException {
-	   List<String> list=(ArrayList)sqlSession.selectList("mapper.admin.notice.selectKeywordSearch",keyword);
-	   return list;
-	}
-	
-	@Override
-	public ArrayList selectNoticeBySearchWord(String searchWord,Criteria cri) throws DataAccessException{
-		ArrayList list=(ArrayList)sqlSession.selectList("mapper.admin.notice.selectNoticeBySearchWord",searchWord);
-		 return list;
-	}
+//	@Override
+//	public List<String> selectKeywordSearch(String keyword) throws DataAccessException {
+//	   List<String> list=(ArrayList)sqlSession.selectList("mapper.admin.notice.selectKeywordSearch",keyword);
+//	   return list;
+//	}
+//	
+//	@Override
+//	public ArrayList selectNoticeBySearchWord(String searchWord,Criteria cri) throws DataAccessException{
+//		ArrayList list=(ArrayList)sqlSession.selectList("mapper.admin.notice.selectNoticeBySearchWord",searchWord);
+//		 return list;
+//	}
+
 }

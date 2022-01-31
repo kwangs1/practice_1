@@ -3,8 +3,9 @@ package com.myspring.Art.Admin.notice.Service;
 import java.util.List;
 import java.util.Map;
 
-import com.myspring.Art.Admin.notice.VO.Criteria;
 import com.myspring.Art.Admin.notice.VO.NoticeVO;
+import com.myspring.Art.common.domain.Criteria;
+import com.myspring.Art.common.domain.SearchCriteria;
 
 public interface NoticeService {
 	
@@ -16,11 +17,12 @@ public interface NoticeService {
 
 	int modifyNotice(NoticeVO vo) throws Exception;
 
-	List<Map<String, Object>> NoticeList(Criteria cri) throws Exception;
+	List<Map<String, Object>> NoticeList(SearchCriteria scri) throws Exception;
 
-	int countNoticeListTotal();
+	int countNoticeListTotal(SearchCriteria scri);
 
-	List<NoticeVO> searchNotice(String searchWord,Criteria cri) throws Exception;
+//	List<NoticeVO> searchNotice(String searchWord,Criteria cri) throws Exception;
+//
+//	List<String> keywordSearch(String keyword) throws Exception;
 
-	List<String> keywordSearch(String keyword) throws Exception;
 }

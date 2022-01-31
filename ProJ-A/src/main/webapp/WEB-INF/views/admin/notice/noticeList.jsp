@@ -64,10 +64,14 @@ text-decoration-line: underline;
 	color:#999999;
 	text-decoration:none;
 }
+#searchBtn{
+text-align:center;
+}
 </style>
 
 </head>
 <body>
+<form role="form" method="get">
 <h1>　</h1>
 	<table class="con1_search" align="center">
 		<tr>
@@ -80,12 +84,6 @@ text-decoration-line: underline;
 			<img src="${contextPath}/resources/image/search.png"></button></td>
 		</tr>
 	</table>
-	<div id="search" align="center">
-		<form name="frmSearch" action="${contextPath}/admin/notice/searchNotice.do" >
-			<input name="searchWord" class="main_input" type="text"  onKeyUp="keywordSearch()"> 
-			<input type="submit" name="search" class="btn1"  value="검 색" >
-		</form>
-	</div>
 	<table class="ListTb">
 		<thead class="w3-container w3-flat-clouds">
 		<tr>
@@ -110,93 +108,48 @@ text-decoration-line: underline;
 		</c:forEach>
 		</tbody>
 	</table>
+	 <div class="search">
+    <select name="searchType">
+      <option value="n"<c:out value="${scri.searchType == null ? 'selected' : ''}"/>>-----</option>
+      <option value="t"<c:out value="${scri.searchType eq 't' ? 'selected' : ''}"/>>제목</option>
+      <option value="c"<c:out value="${scri.searchType eq 'c' ? 'selected' : ''}"/>>내용</option>
+      <option value="w"<c:out value="${scri.searchType eq 'w' ? 'selected' : ''}"/>>작성자</option>
+      <option value="tc"<c:out value="${scri.searchType eq 'tc' ? 'selected' : ''}"/>>제목+내용</option>
+    </select>
+
+    <input type="text" name="keyword" id="keywordInput" value="${scri.keyword}"/>
+
+    <button id="searchBtn" type="button">검색</button>
+
+  </div>
 	<c:if test="${isLogOn == true and memberInfo.member_id =='admin' }">
 		<a href="${contextPath }/admin/notice/addNewNoticeForm.do"><p align="center">글쓰기</p></a>
 	</c:if>
 			<div class="page_wrap">
   				<div class="page_nation">
 				<c:if test="${pageMaker.prev }">
-					<a  href='<c:url value="/admin/notice/noticeList.do${pageMaker.makeQuery(pageMaker.startPage - 1) }"/>'>
+					<a  href='<c:url value="/admin/notice/noticeList.do${pageMaker.makeSearch(pageMaker.startPage - 1) }"/>'>
 					<i class="fa fa-chevron-left"></i>◀</a>
 				</c:if>
 				<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="pageNum">
-					<a href='<c:url value="/admin/notice/noticeList.do${pageMaker.makeQuery(pageNum)}"/>'><i
+					<a href='<c:url value="/admin/notice/noticeList.do${pageMaker.makeSearch(pageNum)}"/>'><i
 							class="fa">${pageNum }</i></a>
 				</c:forEach>
 				<c:if test="${pageMaker.next && pageMaker.endPage >0 }">
-					<a href='<c:url value="/admin/notice/noticeList.do${pageMaker.makeQuery(pageMaker.endPage + 1)}"/>'>
+					<a href='<c:url value="/admin/notice/noticeList.do${pageMaker.makeSearch(pageMaker.endPage + 1)}"/>'>
 					<i class="fa fa-chevron-right">▶</i></a>
 				</c:if>
 			</div>
 			</div>
-
+</form>
 
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script type="text/javascript">
-/* 검색부 date onChange 함수 설정 */
-	var startDate;
-   	var endDate;
-   	
-   	$('#searchStartDate').change(function (){
-           var date = $('#searchStartDate').val();
-           startDate = date;
-       });
-   	$('#searchEndDate').change(function (){
-           var date = $('#searchEndDate').val();
-           endDate = date;
-       });
-   	
-
-	/* 조회버튼 클릭시 기능 구현 */
-	view_button.onclick = function() {
-		if (startDate == null && endDate == null) {
-			alert("조회할 날짜를 선택해주세요!");
-		} else if (startDate == null) {
-			alert("시작일을 입력해주세요!");
-		}else if(endDate == null){
-			alert("종료일을 입력해주세요!");
-		}else if (startDate > endDate) {
-			alert("종료일은 시작일보다 커야합니다!");
-		} else {
-
-			const URLSearch = new URLSearchParams(location.search);
-			URLSearch.set('startDate', startDate);
-			URLSearch.set('endDate', endDate);
-			const newParam = URLSearch.toString();
-
-			window.open(location.pathname + '?' + newParam, '_self');
-		}
-	}
-	
-	var loopSearch=true;
-	function keywordSearch(){
-		if(loopSearch==false)
-			return;
-	 var value=document.frmSearch.searchWord.value;
-		$.ajax({
-			type : "get",
-			async : true, //false인 경우 동기식으로 처리한다.
-			url : "${contextPath}/admin/notice/keywordSearch.do",
-			data : {keyword:value},
-			success : function(data, textStatus) {
-			    var jsonInfo = JSON.parse(data);
-				displayResult(jsonInfo);
-			},
-			error : function(data, textStatus) {
-				alert("에러가 발생했습니다."+data);
-			}
-		});	
-	}
-	
-	function displayResult(jsonInfo){
-		var count = jsonInfo.keyword.length;
-		if(count > 0) {
-		    var html = '';
-		    for(var i in jsonInfo.keyword){
-			   html += "<a href=\"javascript:select('"+jsonInfo.keyword[i]+"')\">"+jsonInfo.keyword[i]+"</a><br/>";
-		    }
-		}
-	}
+$(function(){
+    $('#searchBtn').click(function() {
+      self.location = "list" + '${pageMaker.makeQuery(1)}' + "&searchType=" + $("select option:selected").val() + "&keyword=" + encodeURIComponent($('#keywordInput').val());
+    });
+  });   
 </script>
 </body>
 </html>

@@ -9,8 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.myspring.Art.Admin.notice.VO.Criteria;
 import com.myspring.Art.Collectible.VO.CollectibleVO;
+import com.myspring.Art.common.domain.Criteria;
 
 public interface AdminGoodsController {
 

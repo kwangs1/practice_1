@@ -12,17 +12,15 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.myspring.Art.Admin.notice.Service.NoticeService;
-import com.myspring.Art.Admin.notice.VO.Criteria;
 import com.myspring.Art.Admin.notice.VO.NoticeVO;
-import com.myspring.Art.Admin.notice.VO.PageMaker;
 import com.myspring.Art.common.base.BaseController;
-
-import net.sf.json.JSONObject;
+import com.myspring.Art.common.domain.Criteria;
+import com.myspring.Art.common.domain.PageMaker;
+import com.myspring.Art.common.domain.SearchCriteria;
 
 
 
@@ -37,13 +35,13 @@ public class NoticeControllerImpl extends BaseController implements NoticeContro
 	//±Û ¸ñ·Ï
 	@Override
 	@RequestMapping(value="/noticeList.do", method = RequestMethod.GET)
-	public ModelAndView NoticeList(Criteria cri,HttpServletRequest request, HttpServletResponse response)throws Exception{
+	public ModelAndView NoticeList(@ModelAttribute("scri") SearchCriteria scri,HttpServletRequest request, HttpServletResponse response)throws Exception{
 		PageMaker pageMaker = new PageMaker();
-		pageMaker.setCri(cri);
-		pageMaker.setTotalCount(noticeService.countNoticeListTotal());
+		pageMaker.setCri(scri);
+		pageMaker.setTotalCount(noticeService.countNoticeListTotal(scri));
 		
 		String viewName = getViewName(request);		
-		List<Map<String,Object>>list = noticeService.NoticeList(cri);
+		List<Map<String,Object>>list = noticeService.NoticeList(scri);
 		ModelAndView mav = new ModelAndView(viewName);
 		
 		mav.addObject("list",list);
@@ -124,41 +122,41 @@ public class NoticeControllerImpl extends BaseController implements NoticeContro
 		return mav;
 	}
 	
-	@RequestMapping(value="/keywordSearch.do",method = RequestMethod.GET,produces = "application/text; charset=utf8")
-	public @ResponseBody String  keywordSearch(@RequestParam("keyword") String keyword,
-			                                  HttpServletRequest request, HttpServletResponse response) throws Exception{
-		response.setContentType("text/html;charset=utf-8");
-		response.setCharacterEncoding("utf-8");
-		if(keyword == null || keyword.equals(""))
-		   return null ;
-	
-		keyword = keyword.toUpperCase();
-	    List<String> keywordList =noticeService.keywordSearch(keyword);
-	    
-
-		JSONObject jsonObject = new JSONObject();
-		jsonObject.put("keyword", keywordList);
-		 		
-	    String jsonInfo = jsonObject.toString();
-	    return jsonInfo ;
-	}
-	
-	@RequestMapping(value="/searchNotice.do" ,method = RequestMethod.GET)
-	public ModelAndView searchGoods(@RequestParam("searchWord") String searchWord,Criteria cri,
-			                       HttpServletRequest request, HttpServletResponse response) throws Exception{
-		String viewName=(String)request.getAttribute("viewName");
-		
-		List<NoticeVO> noticeList=noticeService.searchNotice(searchWord,cri);
-		
-		PageMaker pageMaker = new PageMaker();
-		pageMaker.setCri(cri);
-		pageMaker.setTotalCount(noticeService.countNoticeListTotal());
-		
-		ModelAndView mav = new ModelAndView(viewName);
-		mav.addObject("noticeList", noticeList);
-		mav.addObject("list",noticeList);
-		mav.addObject("pageMaker",pageMaker);
-		return mav;
-		
-	}
+//	@RequestMapping(value="/keywordSearch.do",method = RequestMethod.GET,produces = "application/text; charset=utf8")
+//	public @ResponseBody String  keywordSearch(@RequestParam("keyword") String keyword,
+//			                                  HttpServletRequest request, HttpServletResponse response) throws Exception{
+//		response.setContentType("text/html;charset=utf-8");
+//		response.setCharacterEncoding("utf-8");
+//		if(keyword == null || keyword.equals(""))
+//		   return null ;
+//	
+//		keyword = keyword.toUpperCase();
+//	    List<String> keywordList =noticeService.keywordSearch(keyword);
+//	    
+//
+//		JSONObject jsonObject = new JSONObject();
+//		jsonObject.put("keyword", keywordList);
+//		 		
+//	    String jsonInfo = jsonObject.toString();
+//	    return jsonInfo ;
+//	}
+//	
+//	@RequestMapping(value="/searchNotice.do" ,method = RequestMethod.GET)
+//	public ModelAndView searchGoods(@RequestParam("searchWord") String searchWord,Criteria cri,
+//			                       HttpServletRequest request, HttpServletResponse response) throws Exception{
+//		String viewName=(String)request.getAttribute("viewName");
+//		
+//		List<NoticeVO> noticeList=noticeService.searchNotice(searchWord,cri);
+//		
+//		PageMaker pageMaker = new PageMaker();
+//		pageMaker.setCri(cri);
+//		pageMaker.setTotalCount(noticeService.countNoticeListTotal());
+//		
+//		ModelAndView mav = new ModelAndView(viewName);
+//		mav.addObject("noticeList", noticeList);
+//		mav.addObject("list",noticeList);
+//		mav.addObject("pageMaker",pageMaker);
+//		return mav;
+//		
+//	}
 }

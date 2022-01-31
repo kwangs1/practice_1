@@ -24,12 +24,12 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.myspring.Art.Admin.goods.Service.AdminGoodsService;
-import com.myspring.Art.Admin.notice.VO.Criteria;
-import com.myspring.Art.Admin.notice.VO.PageMaker;
 import com.myspring.Art.Collectible.VO.CollectibleVO;
 import com.myspring.Art.Collectible.VO.ImageFileVO;
 import com.myspring.Art.Member.VO.MemberVO;
 import com.myspring.Art.common.base.BaseController;
+import com.myspring.Art.common.domain.Criteria;
+import com.myspring.Art.common.domain.PageMaker;
 
 @Controller("adminGoodsController")
 @RequestMapping(value="/admin/goods")

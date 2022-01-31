@@ -6,12 +6,13 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.myspring.Art.Admin.notice.VO.Criteria;
 import com.myspring.Art.Admin.notice.VO.NoticeVO;
+import com.myspring.Art.common.domain.Criteria;
+import com.myspring.Art.common.domain.SearchCriteria;
 
 public interface NoticeController {
 
-	ModelAndView NoticeList(Criteria cri, HttpServletRequest request, HttpServletResponse response) throws Exception;
+	ModelAndView NoticeList(SearchCriteria scri, HttpServletRequest request, HttpServletResponse response) throws Exception;
 
 	ModelAndView addNewNotice(NoticeVO vo, HttpServletRequest request, HttpServletResponse response) throws Exception;
 
