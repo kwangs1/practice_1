@@ -93,27 +93,6 @@
 		where bno=#{bno}
 	]]>
 	</update>
-
-<!-- 	<select id="selectKeywordSearch" resultType="String"
-		parameterType="String">
-	<![CDATA[
-		select title from notice_board
-		where
-		title like '%'||#{keyword}||'%'
-		order by regDate desc
-	]]>
-	</select>
-
-	<select id="selectNoticeBySearchWord" resultMap="noticeResult"
-		parameterType="String">
-<![CDATA[
-	select bno,title,department,regDate,hit
-		from notice_board
-		where
-		title like '%'||#{keyword}||'%'
-		order by regDate desc
-]]>
-	</select> -->
 <sql id="search">
 	<if test="searchType != null">
 		<if test="searchType == 't'.toString()">and title like '%'|| #{keyword}||'%'</if>

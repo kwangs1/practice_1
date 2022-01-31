@@ -64,26 +64,27 @@ text-decoration-line: underline;
 	color:#999999;
 	text-decoration:none;
 }
-#searchBtn{
-text-align:center;
-}
+
 </style>
 
 </head>
 <body>
 <form role="form" method="get">
 <h1>　</h1>
-	<table class="con1_search" align="center">
-		<tr>
-			<td>검색</td>
-			<td colspan="2" style="width: 50px;"><input type="date"
-				id='searchStartDate' style="width: 100%;" /></td>
-			<td>~</td>
-			<td><input type="date" id='searchEndDate' style="width: 100%;" /></td>
-			<td><button id="view_button" onclick="searchData()" style="cursor:pointer;">
-			<img src="${contextPath}/resources/image/search.png"></button></td>
-		</tr>
-	</table>
+		 <div class="search" align="center">
+    <select name="searchType">
+      <option value="n"<c:out value="${scri.searchType == null ? 'selected' : ''}"/>>-----</option>
+      <option value="t"<c:out value="${scri.searchType eq 't' ? 'selected' : ''}"/>>제목</option>
+      <option value="c"<c:out value="${scri.searchType eq 'c' ? 'selected' : ''}"/>>내용</option>
+      <option value="w"<c:out value="${scri.searchType eq 'w' ? 'selected' : ''}"/>>작성자</option>
+      <option value="tc"<c:out value="${scri.searchType eq 'tc' ? 'selected' : ''}"/>>제목+내용</option>
+    </select>
+
+    <input type="text" name="keyword" id="keywordInput" value="${scri.keyword}"/>
+
+    <button id="searchBtn" type="button">검색</button>
+
+  </div>
 	<table class="ListTb">
 		<thead class="w3-container w3-flat-clouds">
 		<tr>
@@ -108,20 +109,6 @@ text-align:center;
 		</c:forEach>
 		</tbody>
 	</table>
-	 <div class="search">
-    <select name="searchType">
-      <option value="n"<c:out value="${scri.searchType == null ? 'selected' : ''}"/>>-----</option>
-      <option value="t"<c:out value="${scri.searchType eq 't' ? 'selected' : ''}"/>>제목</option>
-      <option value="c"<c:out value="${scri.searchType eq 'c' ? 'selected' : ''}"/>>내용</option>
-      <option value="w"<c:out value="${scri.searchType eq 'w' ? 'selected' : ''}"/>>작성자</option>
-      <option value="tc"<c:out value="${scri.searchType eq 'tc' ? 'selected' : ''}"/>>제목+내용</option>
-    </select>
-
-    <input type="text" name="keyword" id="keywordInput" value="${scri.keyword}"/>
-
-    <button id="searchBtn" type="button">검색</button>
-
-  </div>
 	<c:if test="${isLogOn == true and memberInfo.member_id =='admin' }">
 		<a href="${contextPath }/admin/notice/addNewNoticeForm.do"><p align="center">글쓰기</p></a>
 	</c:if>

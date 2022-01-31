@@ -21,8 +21,4 @@ public interface NoticeService {
 
 	int countNoticeListTotal(SearchCriteria scri);
 
-//	List<NoticeVO> searchNotice(String searchWord,Criteria cri) throws Exception;
-//
-//	List<String> keywordSearch(String keyword) throws Exception;
-
 }

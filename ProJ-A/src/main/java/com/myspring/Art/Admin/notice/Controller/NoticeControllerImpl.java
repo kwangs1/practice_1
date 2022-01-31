@@ -121,42 +121,4 @@ public class NoticeControllerImpl extends BaseController implements NoticeContro
 
 		return mav;
 	}
-	
-//	@RequestMapping(value="/keywordSearch.do",method = RequestMethod.GET,produces = "application/text; charset=utf8")
-//	public @ResponseBody String  keywordSearch(@RequestParam("keyword") String keyword,
-//			                                  HttpServletRequest request, HttpServletResponse response) throws Exception{
-//		response.setContentType("text/html;charset=utf-8");
-//		response.setCharacterEncoding("utf-8");
-//		if(keyword == null || keyword.equals(""))
-//		   return null ;
-//	
-//		keyword = keyword.toUpperCase();
-//	    List<String> keywordList =noticeService.keywordSearch(keyword);
-//	    
-//
-//		JSONObject jsonObject = new JSONObject();
-//		jsonObject.put("keyword", keywordList);
-//		 		
-//	    String jsonInfo = jsonObject.toString();
-//	    return jsonInfo ;
-//	}
-//	
-//	@RequestMapping(value="/searchNotice.do" ,method = RequestMethod.GET)
-//	public ModelAndView searchGoods(@RequestParam("searchWord") String searchWord,Criteria cri,
-//			                       HttpServletRequest request, HttpServletResponse response) throws Exception{
-//		String viewName=(String)request.getAttribute("viewName");
-//		
-//		List<NoticeVO> noticeList=noticeService.searchNotice(searchWord,cri);
-//		
-//		PageMaker pageMaker = new PageMaker();
-//		pageMaker.setCri(cri);
-//		pageMaker.setTotalCount(noticeService.countNoticeListTotal());
-//		
-//		ModelAndView mav = new ModelAndView(viewName);
-//		mav.addObject("noticeList", noticeList);
-//		mav.addObject("list",noticeList);
-//		mav.addObject("pageMaker",pageMaker);
-//		return mav;
-//		
-//	}
 }

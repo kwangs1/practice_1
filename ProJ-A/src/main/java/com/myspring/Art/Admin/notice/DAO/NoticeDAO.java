@@ -24,8 +24,4 @@ public interface NoticeDAO {
 
 	int countNoticeList(SearchCriteria scri);
 
-//	List<String> selectKeywordSearch(String keyword) throws DataAccessException;
-//
-//	ArrayList selectNoticeBySearchWord(String searchWord,Criteria cri) throws DataAccessException;
-
 }
