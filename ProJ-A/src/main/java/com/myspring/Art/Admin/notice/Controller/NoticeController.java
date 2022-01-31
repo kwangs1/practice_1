@@ -16,9 +16,9 @@ public interface NoticeController {
 
 	ModelAndView addNewNotice(NoticeVO vo, HttpServletRequest request, HttpServletResponse response) throws Exception;
 
-	ModelAndView NoticeDetail(int bno, Criteria cri,HttpServletRequest request, HttpServletResponse response) throws Exception;
+	ModelAndView NoticeDetail(int bno, SearchCriteria scri,HttpServletRequest request, HttpServletResponse response) throws Exception;
 
-	ModelAndView removerNotice(int bno, Criteria cri, RedirectAttributes redAttr,HttpServletRequest request, HttpServletResponse response) throws Exception;
+	ModelAndView removerNotice(int bno, SearchCriteria scri, RedirectAttributes redAttr,HttpServletRequest request, HttpServletResponse response) throws Exception;
 
-	ModelAndView modifyNotice(NoticeVO vo, Criteria cri,RedirectAttributes redAttr,HttpServletRequest request, HttpServletResponse response) throws Exception;
+	ModelAndView modifyNotice(NoticeVO vo, SearchCriteria scri,RedirectAttributes redAttr,HttpServletRequest request, HttpServletResponse response) throws Exception;
 }

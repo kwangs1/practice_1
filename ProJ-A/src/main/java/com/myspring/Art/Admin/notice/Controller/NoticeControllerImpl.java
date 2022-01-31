@@ -52,14 +52,14 @@ public class NoticeControllerImpl extends BaseController implements NoticeContro
 	//글 상세보기
 	@Override
 	@RequestMapping(value="NoticeDetail.do", method=RequestMethod.GET)
-	public ModelAndView NoticeDetail(@RequestParam("bno") int bno, Criteria cri,
+	public ModelAndView NoticeDetail(@RequestParam("bno") int bno,@ModelAttribute("scri") SearchCriteria scri,
 				HttpServletRequest request, HttpServletResponse response)throws Exception{
 		String viewName=(String)request.getAttribute("viewName");
 		noticeVO = noticeService.NoticeDetail(bno);
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName(viewName);
 		mav.addObject("notice",noticeVO);
-		mav.addObject("cri",cri);
+		mav.addObject("scri",scri);
 		return mav;
 	}
 	//등록뷰에서 데이터넣기
@@ -84,18 +84,22 @@ public class NoticeControllerImpl extends BaseController implements NoticeContro
 	//글 삭제
 	@Override
 	@RequestMapping(value="/removeNotice.do", method=RequestMethod.GET)
-	public ModelAndView removerNotice(@RequestParam("bno")int bno,Criteria cri, RedirectAttributes redAttr,
+	public ModelAndView removerNotice(@RequestParam("bno")int bno,@ModelAttribute("scri") SearchCriteria scri, RedirectAttributes redAttr,
 				HttpServletRequest request, HttpServletResponse response)throws Exception{
 		request.setCharacterEncoding("utf-8");
 		noticeService.removeNotice(bno);
-		ModelAndView mav = new ModelAndView("redirect:/admin/notice/noticeList.do");
-		redAttr.addAttribute("page", cri.getPage());
-	     redAttr.addAttribute("perPagNum", cri.getPerPageNum());
+		
+		redAttr.addAttribute("page", scri.getPage());
+	    redAttr.addAttribute("perPagNum", scri.getPerPageNum());
+	    redAttr.addAttribute("searchType",scri.getSearchType());
+	    redAttr.addAttribute("keyword",scri.getKeyword());
+	    
+	    ModelAndView mav = new ModelAndView("redirect:/admin/notice/noticeList.do");
 		return mav;
 	}
 	//수정뷰 가기
 	@RequestMapping(value="/modifyNoticeForm.do", method = RequestMethod.GET)
-		public ModelAndView modifyNotice(@RequestParam("bno") int bno,Criteria cri,
+		public ModelAndView modifyNotice(@RequestParam("bno") int bno,@ModelAttribute("scri") SearchCriteria scri,
 				HttpServletRequest request, HttpServletResponse response)throws Exception{
 		String viewName=(String)request.getAttribute("viewName");
 		noticeVO = noticeService.NoticeDetail(bno);
@@ -103,21 +107,23 @@ public class NoticeControllerImpl extends BaseController implements NoticeContro
 		mav.setViewName(viewName);
 		mav.addObject("notice",noticeVO);
 		
-		mav.addObject("cri", cri);
+		mav.addObject("scri", scri);
 		return mav;
 	}
 	//수정 데이터부분
 	@Override
 	@RequestMapping(value="/modifyNotice.do", method=RequestMethod.POST)
-	public ModelAndView modifyNotice(@ModelAttribute("notice")NoticeVO vo, Criteria cri, RedirectAttributes redAttr,
+	public ModelAndView modifyNotice(@ModelAttribute("notice")NoticeVO vo, @ModelAttribute("scri") SearchCriteria scri, RedirectAttributes redAttr,
 			HttpServletRequest request,HttpServletResponse response)throws Exception{
 		request.setCharacterEncoding("utf-8");
 		int result = 0;
 		result = noticeService.modifyNotice(vo);
 		ModelAndView mav = new ModelAndView("redirect:/admin/notice/noticeList.do");
 		
-		 redAttr.addAttribute("page", cri.getPage());
-	     redAttr.addAttribute("perPagNum", cri.getPerPageNum());
+		redAttr.addAttribute("page", scri.getPage());
+	    redAttr.addAttribute("perPagNum", scri.getPerPageNum());
+	    redAttr.addAttribute("searchType",scri.getSearchType());
+	    redAttr.addAttribute("keyword",scri.getKeyword());
 
 		return mav;
 	}

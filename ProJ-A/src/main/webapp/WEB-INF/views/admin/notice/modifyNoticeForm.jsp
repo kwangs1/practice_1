@@ -26,10 +26,13 @@ table td {
 table tr td input{
 	border:none;
 }
+a {
+  text-decoration-line: none;
+}
 </style>
 </head>
 <body>
-<form method="post"  action="${contextPath}/admin/notice/modifyNotice.do?bno=${notice.bno}&page=${cri.page }&perPageNum=${cri.perPageNum }">
+<form method="post"  action="${contextPath}/admin/notice/modifyNotice.do?bno=${notice.bno}&page=${scri.page }&perPageNum=${scri.perPageNum }">
 <h1>　</h1>
   <table>
   <tr>
@@ -59,9 +62,16 @@ table tr td input{
     <tr>
    <td>
   	 <input type="hidden" name="bno" value="${notice.bno }">
-	 <input type="hidden" name="page" value="${cri.page }">
-	 <input type="hidden" name="perPageNum" value="${cri.perPageNum }">
+	 <input type="hidden" name="page" value="${scri.page }">
+	 <input type="hidden" name="perPageNum" value="${scri.perPageNum }">
+	 <input type="hidden" id="searchType" name="searchType" value="${scri.searchType}"> 
+  	 <input type="hidden" id="keyword" name="keyword" value="${scri.keyword}"> 
 	   <input type=button value="수정반영하기" style='cursor:pointer;' onClick="fn_enable(this.form)">
+	    	<a style='cursor:pointer;'
+	      	 href='<c:url value='/admin/notice/noticeList.do?page=${scri.page }
+	      	 							&perPageNum=${scri.perPageNum }
+	      	 							&searchType=${scri.searchType}
+	      	 							&keyword=${scri.keyword}'/>'>수정취소</a>
    </td>
   </tr>
   </table>
@@ -77,6 +87,7 @@ table tr td input{
 
 	 obj.submit();
  }
+
  </script>
 </body>
 </html>

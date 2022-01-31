@@ -64,19 +64,29 @@ a {
     <tr  id="tr_btn"    >
    <td>
         <c:if test="${isLogOn == true and memberInfo.member_id =='admin' }">
-<%-- 	      <input type=button value="삭제하기"  style='cursor:pointer;' 
-	      	onClick="fn_remove_bno('${contextPath}/admin/notice/removeNotice.do', ${notice.bno})"> --%>
    <a style='cursor:pointer;' onClick="fn_remove_bno" 
-   		href='<c:url value="/admin/notice/removeNotice.do?bno=${notice.bno }&page=${cri.page }&perPageNum=${cri.perPageNum }"/>'> 삭제</a>      	
+   		href='<c:url value="/admin/notice/removeNotice.do?bno=${notice.bno }&page=${scri.page }
+   														&perPageNum=${scri.perPageNum }"/>'> 삭제</a>      	
    <a style='cursor:pointer;' 
-   		href='<c:url value="/admin/notice/modifyNoticeForm.do?bno=${notice.bno }&page=${cri.page }&perPageNum=${cri.perPageNum }"/>'> 수정</a>
+   		href='<c:url value="/admin/notice/modifyNoticeForm.do?bno=${notice.bno }&page=${scri.page }&perPageNum=${scri.perPageNum }"/>'> 수정</a>
 	    </c:if>	    
 	    <br>
-	      	<a style='cursor:pointer;' href='<c:url value='/admin/notice/noticeList.do?page=${cri.page }&perPageNum=${cri.perPageNum }'/>'>목록으로</a>
+	      	<a style='cursor:pointer;'
+	      	 href='<c:url value='/admin/notice/noticeList.do?page=${scri.page }
+	      	 							&perPageNum=${scri.perPageNum }
+	      	 							&searchType=${scri.searchType}
+	      	 							&keyword=${scri.keyword}'/>'>목록으로</a>
    </td>
   </tr>
   </table>
   </form>
+  <form name="readForm" role="form" method="post">
+  	<input type="hidden" id="bno" name="bno" value="${notice.bno}" />
+  	<input type="hidden" id="page" name="page" value="${scri.page}"> 
+  	<input type="hidden" id="perPageNum" name="perPageNum" value="${scri.perPageNum}"> 
+  	<input type="hidden" id="searchType" name="searchType" value="${scri.searchType}"> 
+  	<input type="hidden" id="keyword" name="keyword" value="${scri.keyword}"> 
+</form>
  <script  src="http://code.jquery.com/jquery-latest.min.js"></script> 
  <script type="text/javascript">
  function fn_remove_bno(url,bno){
