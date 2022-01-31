@@ -87,10 +87,26 @@ a:hover {
 	color:#999999;
 	text-decoration:none;
 }
+
 </style>
 </head>
 <body>
+<form method="get">
 	<h1></h1>
+	<div class="search" align="center">
+    <select name="searchType">
+      <option value="n"<c:out value="${scri.searchType == null ? 'selected' : ''}"/>>-----</option>
+      <option value="t"<c:out value="${scri.searchType eq 't' ? 'selected' : ''}"/>>제목</option>
+      <option value="c"<c:out value="${scri.searchType eq 'c' ? 'selected' : ''}"/>>내용</option>
+      <option value="w"<c:out value="${scri.searchType eq 'w' ? 'selected' : ''}"/>>작가</option>
+      <option value="tc"<c:out value="${scri.searchType eq 'tc' ? 'selected' : ''}"/>>제목+내용</option>
+    </select>
+
+    <input type="text" name="keyword" id="keywordInput" value="${scri.keyword}"/>
+
+    <button id="searchBtn" type="button">검색</button>
+
+  </div>
 	<DIV class="clear"></DIV>
 	<TABLE class="list_view">
 		<TBODY align=center>
@@ -124,12 +140,13 @@ a:hover {
 								style='cursor: pointer; font-size: 1em; font-weight: 700; color:#A3CCA3;'>
 									<strong>${item.goods_note}</strong>
 							</a></TD>
-							<td>
+							<td>	
 							<input type=button value="삭제" style='cursor: pointer; border:none;'
 								onClick="fn_remove_goods('${contextPath}/admin/goods/removeGoods.do', ${item.goods_id})">
 								&#9;
-							<input type=button value="수정" style='cursor: pointer; border:none;'
-								onClick="location.href='${contextPath}/admin/goods/modifyGoodsForm.do?goods_id=${item.goods_id}'">
+							<a style='cursor:pointer;' 
+   								href='<c:url value="/admin/goods/modifyGoodsForm.do?goods_id=${item.goods_id }
+   											&page=${scri.page }&perPageNum=${scri.perPageNum }"/>'> 수정</a>
 							</td>
 						</TR>
 					</c:forEach>
@@ -138,32 +155,29 @@ a:hover {
 		</TBODY>
 
 	</TABLE>
-		<div class="page_wrap">
+			<div class="page_wrap">
   				<div class="page_nation">
-				<c:forEach var="page" begin="1" end="10" step="1">
-						<c:if test="${section >1 && page==1 }">
-							<a
-								href="${contextPath}/admin/goods/adminGoodsMain.do?chapter=${section-1}&pageNum=${(section-1)*10 +1 }">&nbsp;
-								&nbsp;</a>
-						</c:if>
-						<a
-							href="${contextPath}/admin/goods/adminGoodsMain.do?chapter=${section}&pageNum=${page}">${(section-1)*10 +page }
-						</a>
-						<c:if test="${page ==10 }">
-							<a
-								href="${contextPath}/admin/goods/adminGooodsMain.do?chapter=${section+1}&pageNum=${section*10+1}">&nbsp;
-								▶</a>
-						</c:if>
-					</c:forEach>
-	</div>
-	</div>
+				<c:if test="${pageMaker.prev }">
+					<a  href='<c:url value="/admin/goods/adminGoodsMain.do${pageMaker.makeSearch(pageMaker.startPage - 1) }"/>'>
+					<i class="fa fa-chevron-left"></i>◀</a>
+				</c:if>
+				<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="pageNum">
+					<a href='<c:url value="/admin/goods/adminGoodsMain.do${pageMaker.makeSearch(pageNum)}"/>'><i
+							class="fa">${pageNum }</i></a>
+				</c:forEach>
+				<c:if test="${pageMaker.next && pageMaker.endPage >0 }">
+					<a href='<c:url value="/admin/goods/adminGoodsMain.do${pageMaker.makeSearch(pageMaker.endPage + 1)}"/>'>
+					<i class="fa fa-chevron-right">▶</i></a>
+				</c:if>
+			</div>
+			</div>
 	<DIV id="search">
 		<a href="${contextPath}/admin/goods/addNewGoodsForm.do"
 			style='cursor: pointer; font-size: 1.5em; font-weight: 700; color: #000;'>등록하기</a>
 	</DIV>
-
-	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-	<script>
+</form>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script>
 function fn_remove_goods(url,goods_id){
 	 var form = document.createElement("form");
 	 form.setAttribute("method", "post");
@@ -178,6 +192,12 @@ function fn_remove_goods(url,goods_id){
     form.submit();
 
 }
+
+$(function(){
+    $('#searchBtn').click(function() {
+      self.location = "adminGoodsMain.do" + '${pageMaker.makeQuery(1)}' + "&searchType=" + $("select option:selected").val() + "&keyword=" + encodeURIComponent($('#keywordInput').val());
+    });
+  }); 
 </script>
 
 </body>

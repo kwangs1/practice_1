@@ -22,11 +22,7 @@
        <put-attribute name="title" value="글 수정" />
        <put-attribute name="body" value="/WEB-INF/views/admin/notice/modifyNoticeForm.jsp" />
     </definition>
-    
-      <definition name="/admin/notice/searchNotice" extends="baseLayout">
-         <put-attribute name="title" value="상품 검색 결과 페이지" />
-         <put-attribute name="body" value="/WEB-INF/views/admin/notice/searchNotice.jsp" />
-      </definition>
+
 </tiles-definitions>
 
 

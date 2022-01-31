@@ -23,6 +23,8 @@ import com.myspring.Art.Collectible.VO.CollectibleVO;
 import com.myspring.Art.common.Reply.Service.ReplyService;
 import com.myspring.Art.common.Reply.VO.ReplyVO;
 import com.myspring.Art.common.base.BaseController;
+import com.myspring.Art.common.domain.PageMaker;
+import com.myspring.Art.common.domain.SearchCriteria;
 
 @Controller("collectibleController")
 @RequestMapping(value="/collectible")
@@ -37,28 +39,19 @@ public class CollectibleControllerImpl extends BaseController implements Collect
 	
 	@Override
 	@RequestMapping(value="/collectibleList.do" ,method={RequestMethod.POST,RequestMethod.GET})
-	public ModelAndView collectibleList(@RequestParam Map<String, String> dateMap,
+	public ModelAndView collectibleList(@ModelAttribute("scri") SearchCriteria scri,
 			                           HttpServletRequest request, HttpServletResponse response)  throws Exception {
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(scri);
+		pageMaker.setTotalCount(collectibleService.countListTotal(scri));
+		
 		String viewName=(String)request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView(viewName);
 		
-		String section = dateMap.get("section");
-		String pageNum = dateMap.get("pageNum");
-		
-		Map<String,Object> condMap=new HashMap<String,Object>();
-		if(section== null) {
-			section = "1";
-		}
-		condMap.put("section",section);
-		if(pageNum== null) {
-			pageNum = "1";
-		}
-		condMap.put("pageNum",pageNum);
-		List<CollectibleVO> collectibleList=collectibleService.collectibleList(condMap);
+		List<CollectibleVO> collectibleList=collectibleService.collectibleList(scri);
 		mav.addObject("collectible", collectibleList);
-		
-		mav.addObject("section", section);
-		mav.addObject("pageNum", pageNum);
+		mav.addObject("pageMaker",pageMaker);
+	
 
 		return mav;
 	}
@@ -66,7 +59,7 @@ public class CollectibleControllerImpl extends BaseController implements Collect
 	@Override
 	@RequestMapping(value="/collectibleDetail.do", method=RequestMethod.GET)
 	public ModelAndView collectibleDetail(@RequestParam("goods_id") int goods_id,
-				HttpServletRequest request, HttpServletResponse response)throws Exception{
+					HttpServletRequest request, HttpServletResponse response)throws Exception{
 		String viewName=(String)request.getAttribute("viewName");
 		collectibleVO = collectibleService.collectibleDetail(goods_id);
 		ModelAndView mav = new ModelAndView();

@@ -11,6 +11,7 @@ import com.myspring.Art.Admin.notice.VO.NoticeVO;
 import com.myspring.Art.Collectible.DAO.CollectibleDAO;
 import com.myspring.Art.Collectible.VO.CollectibleVO;
 import com.myspring.Art.Collectible.VO.ImageFileVO;
+import com.myspring.Art.common.domain.SearchCriteria;
 
 @Service("collectibleService")
 public class CollectibleServiceImpl implements CollectibleService{
@@ -19,8 +20,13 @@ public class CollectibleServiceImpl implements CollectibleService{
 
 	
 	@Override
-	public List<CollectibleVO> collectibleList(Map condMap) throws Exception{
-		return collectibleDAO.selectAllCollectibleList(condMap);
+	public List<CollectibleVO> collectibleList(SearchCriteria scri) throws Exception{
+		return collectibleDAO.selectAllCollectibleList(scri);
+	}
+	
+	@Override
+	public int countListTotal(SearchCriteria scri) {
+	    return collectibleDAO.countList(scri);
 	}
 	
 	@Override

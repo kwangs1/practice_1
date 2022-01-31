@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import com.myspring.Art.Admin.notice.VO.NoticeVO;
 import com.myspring.Art.Collectible.VO.CollectibleVO;
 import com.myspring.Art.Collectible.VO.ImageFileVO;
+import com.myspring.Art.common.domain.SearchCriteria;
 
 @Repository("adminGoodsDAO")
 public class AdminGoodsDAOImpl implements AdminGoodsDAO{
@@ -33,9 +34,14 @@ public class AdminGoodsDAOImpl implements AdminGoodsDAO{
 	}
 	
 	@Override
-	public List<CollectibleVO>selectNewGoodsList(Map condMap) throws DataAccessException {
-		ArrayList<CollectibleVO>  goodsList=(ArrayList)sqlSession.selectList("mapper.admin.goods.selectNewGoodsList",condMap);
-		return goodsList;
+	public List<CollectibleVO>selectNewGoodsList(SearchCriteria scri) throws DataAccessException {
+		ArrayList<CollectibleVO>  listNewGoods=(ArrayList)sqlSession.selectList("mapper.admin.goods.selectNewGoodsList",scri);
+		return listNewGoods;
+	}
+	
+	@Override
+	public int countList(SearchCriteria scri){
+	    return (Integer) sqlSession.selectOne("mapper.admin.goods.countList",scri);
 	}
 	
 	@Override

@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.myspring.Art.Admin.goods.DAO.AdminGoodsDAO;
 import com.myspring.Art.Collectible.VO.CollectibleVO;
 import com.myspring.Art.Collectible.VO.ImageFileVO;
+import com.myspring.Art.common.domain.SearchCriteria;
 
 @Service("adminGoodsService")
 @Transactional(propagation = Propagation.REQUIRED)
@@ -32,8 +33,13 @@ public class AdminGoodsServiceImpl implements AdminGoodsService{
 	}
 	
 	@Override
-	public List<CollectibleVO> listNewGoods(Map condMap) throws Exception{
-		return adminGoodsDAO.selectNewGoodsList(condMap);
+	public List<CollectibleVO> listNewGoods(SearchCriteria scri) throws Exception{
+		return adminGoodsDAO.selectNewGoodsList(scri);
+	}
+	
+	@Override
+	public int countListTotal(SearchCriteria scri) {
+	    return adminGoodsDAO.countList(scri);
 	}
 	
 	@Override

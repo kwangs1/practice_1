@@ -16,12 +16,14 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.myspring.Art.Admin.goods.Service.AdminGoodsService;
 import com.myspring.Art.Collectible.VO.CollectibleVO;
@@ -30,6 +32,7 @@ import com.myspring.Art.Member.VO.MemberVO;
 import com.myspring.Art.common.base.BaseController;
 import com.myspring.Art.common.domain.Criteria;
 import com.myspring.Art.common.domain.PageMaker;
+import com.myspring.Art.common.domain.SearchCriteria;
 
 @Controller("adminGoodsController")
 @RequestMapping(value="/admin/goods")
@@ -106,32 +109,23 @@ public class AdminGoodsControllerImpl extends BaseController implements AdminGoo
 	
 	@Override
 	@RequestMapping(value="/adminGoodsMain.do" ,method={RequestMethod.POST,RequestMethod.GET})
-	public ModelAndView adminGoodsMain(@RequestParam Map<String, String> dateMap,
+	public ModelAndView adminGoodsMain(@ModelAttribute("scri") SearchCriteria scri,
 			                           HttpServletRequest request, HttpServletResponse response)  throws Exception {
 		String viewName=(String)request.getAttribute("viewName");
-		ModelAndView mav = new ModelAndView(viewName);
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(scri);
+		pageMaker.setTotalCount(adminGoodsService.countListTotal(scri));
 		
-		String section = dateMap.get("section");
-		String pageNum = dateMap.get("pageNum");
+		ModelAndView mav = new ModelAndView(viewName);		
 		
-		Map<String,Object> condMap=new HashMap<String,Object>();
-		if(section== null) {
-			section = "1";
-		}
-		condMap.put("section",section);
-		if(pageNum== null) {
-			pageNum = "1";
-		}
-		condMap.put("pageNum",pageNum);
-		List<CollectibleVO> newGoodsList=adminGoodsService.listNewGoods(condMap);
+		List<CollectibleVO> newGoodsList=adminGoodsService.listNewGoods(scri);
 		mav.addObject("newGoodsList", newGoodsList);
+		mav.addObject("pageMaker",pageMaker);
 		
-		mav.addObject("section", section);
-		mav.addObject("pageNum", pageNum);
 		return mav;
 	}
 	
-	  @Override
+	@Override
 	  @RequestMapping(value="/removeGoods.do" ,method = RequestMethod.POST)
 	  @ResponseBody
 	  public ResponseEntity  removeGoods(@RequestParam("goods_id") int goods_id,
@@ -165,7 +159,7 @@ public class AdminGoodsControllerImpl extends BaseController implements AdminGoo
 
 	  //수정화면만
 	  @RequestMapping(value="/modifyGoodsForm.do", method=RequestMethod.GET)
-	  public ModelAndView modifyGoods(@RequestParam("goods_id") int goods_id,
+	  public ModelAndView modifyGoods(@RequestParam("goods_id") int goods_id,@ModelAttribute("scri") SearchCriteria scri,
 			  HttpServletRequest request, HttpServletResponse response)throws Exception{
 			
 		    String viewName=(String)request.getAttribute("viewName");
@@ -173,7 +167,7 @@ public class AdminGoodsControllerImpl extends BaseController implements AdminGoo
 			
 			Map goodsMap=adminGoodsService.goodsDetail(goods_id);
 			mav.addObject("goodsMap",goodsMap);
-			
+			mav.addObject("scri", scri);
 			return mav;
 	  }	 
 		@RequestMapping(value="/modifyGoodsImageInfo.do" ,method={RequestMethod.POST})

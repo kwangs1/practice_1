@@ -117,13 +117,15 @@
 			</td>
 			<td>
 				<input  type="button" value="수정"  onClick="modifyImageFile('main_image','${item.goods_id}','${item.image_id}','${item.fileType}')"/>
+				  
 			</td> 
 				</tr>
 			 </c:when>
 			  </c:choose>		
 			    </c:forEach>
-			    </tr>
+			    </tr>			    
 	</table>
+	<a href="javascript:history.back();">이전 페이지로 이동</a>
 	</form>
 	</DIV>
 	</DIV>
@@ -142,10 +144,6 @@ window.onload=function()
 
 function init(){
 	var frm_mod_goods=document.frm_mod_goods;
-/* 	var h_goods_status=frm_mod_goods.h_goods_status;
-	var goods_status=h_goods_status.value;
-	var select_goods_status=frm_mod_goods.goods_status;
-	 select_goods_status.value=goods_status; */
 }
 </script>
 </c:when>
@@ -251,6 +249,7 @@ function fn_modify_goods(goods_id, attribute){
 		});
 
 	});
+
 
 
 </script>

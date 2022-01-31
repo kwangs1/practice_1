@@ -100,7 +100,11 @@ text-decoration-line: underline;
 			<tr align="center">
 			<td>${Notice.bno}</td>
 			<td style=" color:green;">
-			<a href='<c:url value='/admin/notice/NoticeDetail.do${pageMaker.makeQuery(pageMaker.cri.page) }&bno=${Notice.bno }'/>'>${Notice.title }</a>
+			<a href='<c:url value='/admin/notice/NoticeDetail.do?bno=${Notice.bno }
+										&page=${scri.page }
+	      	 							&perPageNum=${scri.perPageNum }
+	      	 							&searchType=${scri.searchType}
+	      	 							&keyword=${scri.keyword}'/>'>${Notice.title }</a>
 			</td>
 			<td>${Notice.department}</td>
 			<td>${Notice.regdate}</td>

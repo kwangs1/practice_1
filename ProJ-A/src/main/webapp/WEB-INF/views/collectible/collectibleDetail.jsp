@@ -196,6 +196,7 @@ table tr td input{
     <br/>
     <label for="content">댓글 내용</label><input type="text" id="content" name="content" />
  	 <button type="button" class="replyWriteBtn" style='cursor:pointer;'>작성</button>
+ 	 	<a href="javascript:history.back();">목록으로</a>
   </div>
 </form>
 

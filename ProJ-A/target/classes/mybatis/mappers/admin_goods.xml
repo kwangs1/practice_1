@@ -73,9 +73,7 @@
 
 	<select id="selectNewGoodsList" resultMap="goodsResult"
 		parameterType="java.util.Map">
-	    <![CDATA[
-		  select * from (
-			   select rowNum as recNum,
+			   select 
 			   		  goods_id,
 			          goods_title,
 			          goods_year,
@@ -95,16 +93,27 @@
 			          			 goods_standard,
 			          			 goods_note,
 			          			 goods_status,
-			             		 goods_regDate
+			             		 goods_regDate,
+			             		 ROW_NUMBER() OVER(ORDER BY goods_id DESC) AS RNUM
 			              from gallery_collectible 
-			               order by goods_regDate desc
-					    )
-				)							
-			where				
-		recNum between (#{section}-1)*100+ (#{pageNum}-1)*10+1 and (#{section}-1)*100+(#{pageNum})*10				        
-    	]]>
+		         where 1=1
+		         	<include refid="search"></include>
+		                       ) 
+		WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd}
+		ORDER BY goods_id DESC		        
+
 	</select>
 
+		<select id="countList" resultType="Integer">
+   		SELECT
+    			count(*)
+    		FROM
+    			gallery_collectible
+    		where 1=1
+    			<include refid="search"></include>
+    		and goods_id >0
+	</select>
+	
 	<delete id="deleteGoods" parameterType="int">
     <![CDATA[
       delete from gallery_collectible
@@ -169,4 +178,13 @@
 	    goods_id=#{goods_id}
 	
 	</update>
+	
+	<sql id="search">
+	<if test="searchType != null">
+		<if test="searchType == 't'.toString()">and goods_title like '%'|| #{keyword}||'%'</if>
+		<if test="searchType == 'c'.toString()">and goods_note like '%'|| #{keyword}||'%'</if>
+		<if test="searchType == 'w'.toString()">and goods_author like '%'|| #{keyword}||'%'</if>
+		<if test="searchType == 'tc'.toString()">and (goods_title like '%'|| #{keyword}||'%') or (goods_note like '%'|| #{keyword}||'%')</if>
+	</if>
+</sql>
 </mapper>
