@@ -82,6 +82,17 @@ create table notice_reply(
     regdate date DEFAULT sysdate,
     constraint fk_notice_bno foreign key (goods_id) references GALLERY_COLLECTIBLE(goods_id)
 );
+
+    CREATE TABLE video_board
+   (	
+    VNO NUMBER(20,0) primary key, 
+    TITLE VARCHAR2(100 BYTE), 
+    NOTE VARCHAR2(1000 BYTE),
+    REG_ID VARCHAR2(20 BYTE),
+    MOVIEFILENAME VARCHAR2(50 BYTE),
+    MOVIENAME VARCHAR2(60 BYTE),
+    REGDATE DATE default sysdate
+   ) ;
 --------------------------------------------------------
 --  DDL for Sequence SEQ_GOODS_ID
 --------------------------------------------------------
@@ -101,4 +112,7 @@ CREATE SEQUENCE  "SEQ_IMAGE_ID"  MINVALUE 1 MAXVALUE 11111111 INCREMENT BY 1 STA
 --  DDL for Sequence SEQ_REPLY_ID
 --------------------------------------------------------
 CREATE SEQUENCE  "SEQ_REPLY_ID"  MINVALUE 1 MAXVALUE 11111111 INCREMENT BY 1 START WITH 1 NOCACHE  NOORDER  NOCYCLE ;
-
+--------------------------------------------------------
+--  DDL for Sequence SEQ_VNO
+--------------------------------------------------------
+CREATE SEQUENCE  "SEQ_VNO"  MINVALUE 100 MAXVALUE 1000000 INCREMENT BY 1 START WITH 400 CACHE 20 ORDER  NOCYCLE ;
