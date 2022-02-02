@@ -98,7 +98,6 @@ a:hover {
       <option value="n"<c:out value="${scri.searchType == null ? 'selected' : ''}"/>>-----</option>
       <option value="t"<c:out value="${scri.searchType eq 't' ? 'selected' : ''}"/>>제목</option>
       <option value="c"<c:out value="${scri.searchType eq 'c' ? 'selected' : ''}"/>>내용</option>
-      <option value="w"<c:out value="${scri.searchType eq 'w' ? 'selected' : ''}"/>>작가</option>
       <option value="tc"<c:out value="${scri.searchType eq 'tc' ? 'selected' : ''}"/>>제목+내용</option>
     </select>
 
@@ -121,31 +120,28 @@ a:hover {
 				<td></td>
 			</tr>
 			<c:choose>
-				<c:when test="${empty newGoodsList }">
+				<c:when test="${empty list }">
 					<TR>
 						<TD colspan=8 class="fixed"><strong>조회된 상품이 없습니다.</strong></TD>
 					</TR>
 				</c:when>
 				<c:otherwise>
-					<c:forEach var="item" items="${newGoodsList }">
+					<c:forEach var="item" items="${list }">
 						<TR>
-							<TD><strong>${item.goods_title}</strong></TD>
-							<TD><strong>${item.goods_no} </strong></TD>
-							<TD><strong>${item.goods_author} </strong></TD>
-							<TD><strong>${item.goods_year}</strong></TD>
-							<TD><strong>${item.goods_stuff}</strong></TD>
-							<TD><strong>${item.goods_standard}</strong></TD>
+							<TD><strong>${item.vno}</strong></TD>
+							<TD><strong>${item.title} </strong></TD>
 							<TD><a
-								href="${contextPath}/collectible/collectibleDetail.do?goods_id=${item.goods_id}"
+								href="${contextPath}/collectible/collectibleDetail.do?vno=${item.vno}"
 								style='cursor: pointer; font-size: 1em; font-weight: 700; color:#A3CCA3;'>
-									<strong>${item.goods_note}</strong>
+									<strong>${item.note}</strong>
 							</a></TD>
+							<TD><strong>${item.regDate}</strong></TD>
 							<td>	
 							<input type=button value="삭제" style='cursor: pointer; border:none;'
-								onClick="fn_remove_goods('${contextPath}/admin/goods/removeGoods.do', ${item.goods_id})">
+								onClick="fn_remove_video('${contextPath}/admin/video/removeVideo.do', ${item.vno})">
 								&#9;
 							<a style='cursor:pointer;' 
-   								href='<c:url value="/admin/goods/modifyGoodsForm.do?goods_id=${item.goods_id }
+   								href='<c:url value="/admin/video/modifyVideoForm.do?vno=${item.vno }
    											&page=${scri.page }&perPageNum=${scri.perPageNum }"/>'> 수정</a>
 							</td>
 						</TR>
@@ -158,36 +154,36 @@ a:hover {
 			<div class="page_wrap">
   				<div class="page_nation">
 				<c:if test="${pageMaker.prev }">
-					<a  href='<c:url value="/admin/goods/adminGoodsMain.do${pageMaker.makeSearch(pageMaker.startPage - 1) }"/>'>
+					<a  href='<c:url value="/admin/video/adminVideoMain.do${pageMaker.makeSearch(pageMaker.startPage - 1) }"/>'>
 					<i class="fa fa-chevron-left"></i>◀</a>
 				</c:if>
 				<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="pageNum">
-					<a href='<c:url value="/admin/goods/adminGoodsMain.do${pageMaker.makeSearch(pageNum)}"/>'><i
+					<a href='<c:url value="/admin/video/adminVideoMain.do${pageMaker.makeSearch(pageNum)}"/>'><i
 							class="fa">${pageNum }</i></a>
 				</c:forEach>
 				<c:if test="${pageMaker.next && pageMaker.endPage >0 }">
-					<a href='<c:url value="/admin/goods/adminGoodsMain.do${pageMaker.makeSearch(pageMaker.endPage + 1)}"/>'>
+					<a href='<c:url value="/admin/video/adminVideoMain.do${pageMaker.makeSearch(pageMaker.endPage + 1)}"/>'>
 					<i class="fa fa-chevron-right">▶</i></a>
 				</c:if>
 			</div>
 			</div>
 	<DIV id="search">
-		<a href="${contextPath}/admin/goods/addNewGoodsForm.do"
+		<a href="${contextPath}/admin/video/addNewVideoForm.do"
 			style='cursor: pointer; font-size: 1.5em; font-weight: 700; color: #000;'>등록하기</a>
 	</DIV>
 </form>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
-function fn_remove_goods(url,goods_id){
+function fn_remove_video(url,vno){
 	 var form = document.createElement("form");
 	 form.setAttribute("method", "post");
 	 form.setAttribute("action", url);
-    var GoodsInput = document.createElement("input");
-    GoodsInput.setAttribute("type","hidden");
-    GoodsInput.setAttribute("name","goods_id");
-    GoodsInput.setAttribute("value", goods_id);
+    var VideoInput = document.createElement("input");
+    VideoInput.setAttribute("type","hidden");
+    VideoInput.setAttribute("name","vno");
+    VideoInput.setAttribute("value", vno);
 	 
-    form.appendChild(GoodsInput);
+    form.appendChild(VideoInput);
     document.body.appendChild(form);
     form.submit();
 
@@ -195,7 +191,7 @@ function fn_remove_goods(url,goods_id){
 
 $(function(){
     $('#searchBtn').click(function() {
-      self.location = "adminGoodsMain.do" + '${pageMaker.makeQuery(1)}' + "&searchType=" + $("select option:selected").val() + "&keyword=" + encodeURIComponent($('#keywordInput').val());
+      self.location = "adminVideoMain.do" + '${pageMaker.makeQuery(1)}' + "&searchType=" + $("select option:selected").val() + "&keyword=" + encodeURIComponent($('#keywordInput').val());
     });
   }); 
 </script>

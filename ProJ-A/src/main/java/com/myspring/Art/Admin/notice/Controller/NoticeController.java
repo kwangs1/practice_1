@@ -1,5 +1,7 @@
 package com.myspring.Art.Admin.notice.Controller;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -12,8 +14,6 @@ import com.myspring.Art.common.domain.SearchCriteria;
 
 public interface NoticeController {
 
-	ModelAndView NoticeList(SearchCriteria scri, HttpServletRequest request, HttpServletResponse response) throws Exception;
-
 	ModelAndView addNewNotice(NoticeVO vo, HttpServletRequest request, HttpServletResponse response) throws Exception;
 
 	ModelAndView NoticeDetail(int bno, SearchCriteria scri,HttpServletRequest request, HttpServletResponse response) throws Exception;
@@ -21,4 +21,6 @@ public interface NoticeController {
 	ModelAndView removerNotice(int bno, SearchCriteria scri, RedirectAttributes redAttr,HttpServletRequest request, HttpServletResponse response) throws Exception;
 
 	ModelAndView modifyNotice(NoticeVO vo, SearchCriteria scri,RedirectAttributes redAttr,HttpServletRequest request, HttpServletResponse response) throws Exception;
+
+	ModelAndView NoticeList(SearchCriteria scri,  HttpServletRequest request, HttpServletResponse response) throws Exception;
 }

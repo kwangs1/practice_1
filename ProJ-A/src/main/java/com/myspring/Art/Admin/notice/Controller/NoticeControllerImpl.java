@@ -1,5 +1,6 @@
 package com.myspring.Art.Admin.notice.Controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -18,7 +19,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.myspring.Art.Admin.notice.Service.NoticeService;
 import com.myspring.Art.Admin.notice.VO.NoticeVO;
 import com.myspring.Art.common.base.BaseController;
-import com.myspring.Art.common.domain.Criteria;
 import com.myspring.Art.common.domain.PageMaker;
 import com.myspring.Art.common.domain.SearchCriteria;
 
@@ -35,7 +35,8 @@ public class NoticeControllerImpl extends BaseController implements NoticeContro
 	//±Û ¸ñ·Ï
 	@Override
 	@RequestMapping(value="/noticeList.do", method = RequestMethod.GET)
-	public ModelAndView NoticeList(@ModelAttribute("scri") SearchCriteria scri,HttpServletRequest request, HttpServletResponse response)throws Exception{
+	public ModelAndView NoticeList(@ModelAttribute("scri") SearchCriteria scri,
+			HttpServletRequest request, HttpServletResponse response)throws Exception{
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(scri);
 		pageMaker.setTotalCount(noticeService.countNoticeListTotal(scri));

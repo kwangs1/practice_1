@@ -64,8 +64,37 @@ function showDivs(n) {
   }
   x[slideIndex-1].style.display = "block";  
   dots[slideIndex-1].className += " w3-white";
-  setTimeout(showSlides, 4000); 
 }
+
+
+window.onload = pageLoad;//웹 페이지가 실행될때 pageLoad()함수를 호출하여 실행
+function pageLoad(){
+	notShowPop = getCookieValue();//notShowPop의 쿠기 값을 getCookieValue()를 호출하여 얻는다
+	if(notShowPop != "true"){
+		//notShowPop의 값이 true가 아니면 팝업창을 나타낸다
+		window.open("http://localhost:8090/Art/main/popUp.do"
+				,"pop","width=400, height=500, history=no, resizeable=no,status=no, scrollbars=yes, menubar=no")
+	}
+}
+
+function getCookieValue(){
+	var result = "false";
+	if(document.cookie != ""){
+		//document의 cookie 속성으로 쿠키 정보를 문자열로 가져온 후 세미클론으로 분리해 각각의 쿠키를 얻는다
+		cookie = document.cookie.split(";")
+		for(var i=0; i<cookie.length; i++){
+			element = cookie[i].split("=");
+			value = element[0];
+			value = value.replace(/^\s*/,'');//정규식을 이용해 쿠키 이름 문자열의 공백을 제거
+			if(value == "notShowPop"){
+				result = element[1];//쿠키이름이 notShowPop이면 해당하는 쿠키 값을 가져와 반환
+			}
+		}
+	}
+	return result;
+}
+
+
 </script>
 
 </body>

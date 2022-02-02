@@ -138,7 +138,7 @@ text-decoration-line: underline;
 <script type="text/javascript">
 $(function(){
     $('#searchBtn').click(function() {
-      self.location = "list" + '${pageMaker.makeQuery(1)}' + "&searchType=" + $("select option:selected").val() + "&keyword=" + encodeURIComponent($('#keywordInput').val());
+      self.location = "noticeList.do" + '${pageMaker.makeQuery(1)}' + "&searchType=" + $("select option:selected").val() + "&keyword=" + encodeURIComponent($('#keywordInput').val());
     });
   });   
 </script>

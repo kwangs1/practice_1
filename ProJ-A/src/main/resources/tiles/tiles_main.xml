@@ -3,7 +3,7 @@
        "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
        "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
 <tiles-definitions>
-		<definition name="baseLayout"
+	<definition name="baseLayout"
 		template="/WEB-INF/views/common/layout.jsp">
 		<put-attribute name="title" value="레이아웃 페이지" />
 		<put-attribute name="header" value="/WEB-INF/views/common/header.jsp" />
@@ -11,10 +11,18 @@
 		<put-attribute name="footer" value="" />
 	</definition>
 	
+	<definition name="/main/popUp"  template="/WEB-INF/views/main/popUp.jsp">
+	  <put-attribute name="title" value="" />
+      <put-attribute name="side" value="" />
+      <put-attribute name="body" value="" />
+   	</definition>
+	
 	<definition name="/main/main" extends="baseLayout">
 		<put-attribute name="title" value="미술관" />
 		<put-attribute name="body" value="/WEB-INF/views/main/main.jsp" />
 	</definition>
+
+
 </tiles-definitions>
 
 

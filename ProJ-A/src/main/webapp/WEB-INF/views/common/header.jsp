@@ -155,6 +155,7 @@ li.dropdown {
 		</c:choose><br>
 		<c:if test="${isLogOn == true and memberInfo.member_id =='admin' }">
 			<a href="${contextPath}/admin/goods/adminGoodsMain.do">▶작품관리 &#124;</a>
+			<a href="${contextPath}/admin/video/adminVideoMain.do">▶프로그램 관리 &#124;</a>
 			<a href="${contextPath}/admin/notice/noticeList.do">▶공지사항관리</a>
 		</c:if>
 		</div>

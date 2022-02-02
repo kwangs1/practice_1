@@ -14,10 +14,12 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.myspring.Art.Admin.video.VO.videoVO;
 import com.myspring.Art.Collectible.VO.ImageFileVO;
 
 public abstract class BaseController {
 	private static final String CURR_IMAGE_REPO_PATH = "C:\\gallery\\file_repo";
+	private static final String CURR_VIDEO_REPO_PATH = "C:\\gallery\\video_repo";
 
 	protected List<ImageFileVO> upload(MultipartHttpServletRequest multipartRequest) throws Exception {
 		List<ImageFileVO> fileList = new ArrayList<ImageFileVO>();// 파일 정보를 저장할 fileList 선언
@@ -47,24 +49,31 @@ public abstract class BaseController {
 		return fileList;
 	}
 	
-	protected String upload2(MultipartHttpServletRequest multipartRequest) throws Exception{
-		String imageFileName= null;
+	protected List<videoVO> VideoUpload(MultipartHttpServletRequest multipartRequest) throws Exception {
+		List<videoVO> fileList = new ArrayList<videoVO>();// 파일 정보를 저장할 fileList 선언
 		Iterator<String> fileNames = multipartRequest.getFileNames();
-		
-		while(fileNames.hasNext()){
+		// 상품 등록창에서 전송된 파일들의 정보를 filelist에 저장
+		while (fileNames.hasNext()) {
+			videoVO videoVO = new videoVO();
 			String fileName = fileNames.next();
 			MultipartFile mFile = multipartRequest.getFile(fileName);
-			imageFileName=mFile.getOriginalFilename();
-			File file = new File(CURR_IMAGE_REPO_PATH +"\\"+"temp"+"\\" + fileName);
-			if(mFile.getSize()!=0){ //File Null Check
-				if(!file.exists()){ //경로상에 파일이 존재하지 않을 경우
-					file.getParentFile().mkdirs();  //경로에 해당하는 디렉토리들을 생성
-					mFile.transferTo(new File(CURR_IMAGE_REPO_PATH +"\\"+"temp"+ "\\"+imageFileName)); //임시로 저장된 multipartFile을 실제 파일로 전송
+			String originalFileName = mFile.getOriginalFilename();
+			videoVO.setMovieName(originalFileName);
+			fileList.add(videoVO);
+
+			File file = new File(CURR_VIDEO_REPO_PATH + "\\" + fileName);
+			if (mFile.getSize() != 0) {// file null check
+				if (!file.exists()) {// 경로상에 파일이 존재하지 않는경우
+					if (file.getParentFile().mkdirs()) {// 경로에 해당하는 디렉토리 생성
+						file.createNewFile();// 이후 파일생성
+					}
 				}
+				mFile.transferTo(new File(CURR_VIDEO_REPO_PATH + "\\" + "temp" + "\\" + originalFileName));// 임시로 정장된
+																											// 멀티파트파일을
+																											// 실제파일로 전송
 			}
-			
 		}
-		return imageFileName;
+		return fileList;
 	}
 
 	private void deleteFile(String fileName) {
@@ -113,4 +122,5 @@ public abstract class BaseController {
 		}
 		return viewName;
 	}
+
 }
