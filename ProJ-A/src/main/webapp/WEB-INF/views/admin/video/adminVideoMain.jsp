@@ -15,7 +15,7 @@
 }
 
 .list_view {
-	width: 80%;
+	width: 40%;
 	color: rgb(51, 51, 51);
 	font-size: 0.8em;
 	margin-top: 20px;
@@ -110,13 +110,8 @@ a:hover {
 	<TABLE class="list_view">
 		<TBODY align=center>
 			<tr>
-				<td>제목</td>
-				<td>등록번호</td>
-				<td>작가</td>
-				<td>제작년도</td>
-				<td>재료 및 기법</td>
-				<td>작품규격</td>
-				<td style=" background-color:#D6E6F0;">내용</td>
+				<td style="width:40%;">제목</td>
+				<td style=" background-color:#D6E6F0; width:60%;">내용</td>
 				<td></td>
 			</tr>
 			<c:choose>
@@ -128,15 +123,13 @@ a:hover {
 				<c:otherwise>
 					<c:forEach var="item" items="${list }">
 						<TR>
-							<TD><strong>${item.vno}</strong></TD>
-							<TD><strong>${item.title} </strong></TD>
+							<TD><strong>${item.v_title} </strong></TD>
 							<TD><a
-								href="${contextPath}/collectible/collectibleDetail.do?vno=${item.vno}"
+								href="${contextPath}/admin/video/adminVideoDetail.do?vno=${item.vno}"
 								style='cursor: pointer; font-size: 1em; font-weight: 700; color:#A3CCA3;'>
-									<strong>${item.note}</strong>
+									<strong>${item.v_note}</strong>
 							</a></TD>
-							<TD><strong>${item.regDate}</strong></TD>
-							<td>	
+							<td style="width: 40px;">	
 							<input type=button value="삭제" style='cursor: pointer; border:none;'
 								onClick="fn_remove_video('${contextPath}/admin/video/removeVideo.do', ${item.vno})">
 								&#9;
@@ -176,7 +169,7 @@ a:hover {
 <script>
 function fn_remove_video(url,vno){
 	 var form = document.createElement("form");
-	 form.setAttribute("method", "post");
+	 form.setAttribute("method", "get");
 	 form.setAttribute("action", url);
     var VideoInput = document.createElement("input");
     VideoInput.setAttribute("type","hidden");

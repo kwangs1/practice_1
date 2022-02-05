@@ -12,4 +12,16 @@
        <put-attribute name="title" value="영상관리 메인 페이지" />
        <put-attribute name="body" value="/WEB-INF/views/admin/video/adminVideoMain.jsp" />
     </definition>
+    <definition name="/admin/video/adminVideoDetail" extends="baseLayout">
+       <put-attribute name="title" value="영상관리 상세 페이지" />
+       <put-attribute name="body" value="/WEB-INF/views/admin/video/adminVideoDetail.jsp" />
+    </definition>
+    <definition name="/admin/video/videoListView" extends="baseLayout">
+       <put-attribute name="title" value="프로그램 페이지" />
+       <put-attribute name="body" value="/WEB-INF/views/admin/video/videoListView.jsp" />
+    </definition>
+    <definition name="/admin/video/modifyVideoForm" extends="baseLayout">
+       <put-attribute name="title" value="프로그램 수정 페이지" />
+       <put-attribute name="body" value="/WEB-INF/views/admin/video/modifyVideoForm.jsp" />
+    </definition>
 </tiles-definitions>

@@ -6,26 +6,30 @@
 <mapper namespace="mapper.admin.video">
 	<resultMap id="videoResult" type="videoVO">
 		<result property="vno" column="vno" />
-		<result property="title" column="title" />
-		<result property="note" column="note" />
-		<result property="reg_id" column="reg_id" />
-		<result property="movieFileName" column="movieFileName" />
-		<result property="movieName" column="movieName" />
-		<result property="regDate" column="regDate" />
+		<result property="v_title" column="v_title" />
+		<result property="v_addr" column="v_addr" />
+		<result property="v_note" column="v_note" />
 	</resultMap>
-	
+
+<insert id ="youtubeInsert" parameterType="videoVO">
+	<selectKey resultType="int" keyProperty="vno" order="BEFORE">
+			select seq_vno_id.nextval from dual
+	</selectKey>
+<![CDATA[
+	insert into video_board(vno, v_title, v_addr, v_note)
+	values(#{vno}, #{v_title}, #{v_addr} , #{v_note})
+]]>	
+</insert>
 <select id="selectVideoList" resultMap="videoResult"
 		parameterType="java.util.Map">
 			   select 
 			   		  vno,
-			          title,
-			          note,
-			          regDate
+			          v_title,
+			          v_note
 			       from (
 			             select  vno,
-			          			title,
-			          			note,
-			          			regDate,
+			          			v_title,
+			          			v_note,
 			             	ROW_NUMBER() OVER(ORDER BY vno DESC) AS RNUM
 			              from video_board 
 		         where 1=1
@@ -45,38 +49,52 @@
     			<include refid="search"></include>
     		and vno >0
 	</select>
-	
-	<insert id="insertNewVideo" parameterType="java.util.Map">
-		<selectKey resultType="String" keyProperty="vno"
-			order="BEFORE">
-			select seq_vno.nextval from dual
-		</selectKey>
-		<![CDATA[
-		   insert into video_board(
-		               					vno, 
-                   						title,
-										note,
-										reg_id,
-										movieFileName,					
-										movieName,
-										regDate
-										)
-					  			values(
-					  			      #{vno},
-					  			      #{title},
-					  			      #{note},
-					  			      #{reg_id},					  			     
-					  			      #{movieFileName },
-					  			      #{movieName},
-					  			      #{regDate}
-					 			 )
-		]]>
-	</insert>	
+
+<select id="selectVideoDetail" resultMap="videoResult" parameterType="int">
+<![CDATA[
+
+	select * from video_board
+	where vno = #{vno}
+]]>
+</select>
+<select id="selectVideoView" resultMap="videoResult"
+		parameterType="java.util.Map">
+			   select vno,
+			   		v_title,
+			   		v_addr
+			       from (
+			             select  vno,
+			             	v_title,
+			             	v_addr,
+			             	ROW_NUMBER() OVER(ORDER BY vno DESC) AS RNUM
+			              from video_board 
+		         where 1=1
+		         	<include refid="search"></include>
+		                       ) 
+		WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd}
+		ORDER BY vno DESC		        
+
+		
+</select>
+
+<delete id="deleteVideoList" parameterType="int">
+	delete from video_board
+	where vno = #{vno}
+</delete>
+
+<update id="modifyVideo" parameterType="videoVO">
+	<![CDATA[
+		update video_board
+		set v_title=#{v_title}, v_note=#{v_note}
+		where vno=#{vno}
+	]]>
+	</update>
+
 <sql id="search">
 	<if test="searchType != null">
-		<if test="searchType == 't'.toString()">and title like '%'|| #{keyword}||'%'</if>
-		<if test="searchType == 'c'.toString()">and note like '%'|| #{keyword}||'%'</if>
-		<if test="searchType == 'tc'.toString()">and (title like '%'|| #{keyword}||'%') or (note like '%'|| #{keyword}||'%')</if>
+		<if test="searchType == 't'.toString()">and v_title like '%'|| #{keyword}||'%'</if>
+		<if test="searchType == 'c'.toString()">and v_note like '%'|| #{keyword}||'%'</if>
+		<if test="searchType == 'tc'.toString()">and (v_title like '%'|| #{keyword}||'%') or (v_note like '%'|| #{keyword}||'%')</if>
 	</if>
 </sql>
 </mapper>

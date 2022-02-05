@@ -10,12 +10,18 @@ import com.myspring.Art.common.domain.SearchCriteria;
 
 public interface videoDAO {
 
-	int insertNewVideo(Map newVideoMap) throws DataAccessException;
-
-	void insertNewVideoFile(List fileList) throws DataAccessException;
-
 	int countList(SearchCriteria scri);
 
 	List<videoVO> selectVideoList(SearchCriteria scri) throws DataAccessException;
+
+	videoVO selectVideoDetail(int vno) throws DataAccessException;
+
+	int youtubeInsert(videoVO videoVO) throws DataAccessException;
+
+	List<videoVO> selectVideoView(SearchCriteria scri) throws DataAccessException;
+
+	int deleteVideoList(int vno) throws DataAccessException;
+
+	int modifyVideo(videoVO vo) throws DataAccessException;
 
 }

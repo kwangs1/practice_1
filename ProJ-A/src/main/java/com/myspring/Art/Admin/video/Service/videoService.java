@@ -8,10 +8,18 @@ import com.myspring.Art.common.domain.SearchCriteria;
 
 public interface videoService {
 
-	int addNewVideo(Map newVideoMap) throws Exception;
-
 	List<videoVO> selectVideoList(SearchCriteria scri) throws Exception;
 
 	int countListTotal(SearchCriteria scri);
+
+	videoVO videoDetail(int vno) throws Exception;
+
+	int youtubeInsert(videoVO videoVO) throws Exception;
+
+	List<videoVO> selectVideoView(SearchCriteria scri) throws Exception;
+
+	int removeVideo(int vno) throws Exception;
+
+	int modifyVideo(videoVO vo) throws Exception;
 
 }

@@ -7,12 +7,9 @@ import org.springframework.stereotype.Component;
 @Component("videoVO")
 public class videoVO {
 	private int vno;
-	private String title;
-	private String note;
-	private String movieName;
-	private Date regDate;
-	private String reg_id;
-	private String movieFileName;
+	private String v_title;
+	private String v_note;
+	private String v_addr;
 	
 	public int getVno() {
 		return vno;
@@ -20,42 +17,26 @@ public class videoVO {
 	public void setVno(int vno) {
 		this.vno = vno;
 	}
-	public String getTitle() {
-		return title;
+	public String getV_title() {
+		return v_title;
 	}
-	public void setTitle(String title) {
-		this.title = title;
+	public void setV_title(String v_title) {
+		this.v_title = v_title;
 	}
-	public String getNote() {
-		return note;
+	public String getV_note() {
+		return v_note;
 	}
-	public void setNote(String note) {
-		this.note = note;
+	public void setV_note(String v_note) {
+		this.v_note = v_note;
 	}
-	public String getMovieName() {
-		return movieName;
+	public String getV_addr() {
+		return v_addr;
 	}
-	public void setMovieName(String movieName) {
-		this.movieName = movieName;
+	public void setV_addr(String v_addr) {
+		this.v_addr = v_addr;
 	}
-	public Date getRegDate() {
-		return regDate;
-	}
-	public void setRegDate(Date regDate) {
-		this.regDate = regDate;
-	}
-	public String getReg_id() {
-		return reg_id;
-	}
-	public void setReg_id(String reg_id) {
-		this.reg_id = reg_id;
-	}
-	public String getMovieFileName() {
-		return movieFileName;
-	}
-	public void setMovieFileName(String movieFileName) {
-		this.movieFileName = movieFileName;
-	}
+
+	
 	
 	
 }

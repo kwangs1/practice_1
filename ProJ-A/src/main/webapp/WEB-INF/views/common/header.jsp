@@ -172,7 +172,7 @@ li.dropdown {
 				</div>
 				</li>
 				
-				<li><a href="#">프로그램</a></li>		
+				<li><a href="${contextPath}/admin/video/videoListView.do">프로그램</a></li>		
 				<li><a href="${contextPath}/collectible/collectibleList.do">소장품</a></li>
 				<li><a href="${contextPath}/admin/notice/noticeList.do">공지사항</a></li>
 			</ul>

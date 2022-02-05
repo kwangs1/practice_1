@@ -1,31 +1,26 @@
 package com.myspring.Art.Admin.video.Controller;
 
-import java.io.File;
-import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import org.apache.commons.io.FileUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.myspring.Art.Admin.notice.VO.NoticeVO;
 import com.myspring.Art.Admin.video.Service.videoService;
 import com.myspring.Art.Admin.video.VO.videoVO;
-import com.myspring.Art.Collectible.VO.CollectibleVO;
-import com.myspring.Art.Member.VO.MemberVO;
 import com.myspring.Art.common.base.BaseController;
 import com.myspring.Art.common.domain.PageMaker;
 import com.myspring.Art.common.domain.SearchCriteria;
@@ -33,74 +28,13 @@ import com.myspring.Art.common.domain.SearchCriteria;
 @Controller("videoController")
 @RequestMapping("/admin/video")
 public class videoControllerImpl extends BaseController implements videoController{
-	private static final String CURR_VIDEO_REPO_PATH = "C:\\gallery\\video_repo";
+	private static final Logger log = LoggerFactory.getLogger(videoControllerImpl.class);
 	@Autowired
 	private videoService videoService;
-	
-	@Override
-	@RequestMapping(value="/addNewVideo.do" , method = RequestMethod.POST)
-	public ResponseEntity addNewVideo(MultipartHttpServletRequest multipartRequest, HttpServletResponse response)throws Exception{
-		multipartRequest.setCharacterEncoding("utf-8");
-		response.setContentType("text/html; charset=UTF-8");
-		String movieFileName = null;
-		
-		Map newVideoMap = new HashMap();
-		Enumeration enu = multipartRequest.getParameterNames();
-		
-		while(enu.hasMoreElements()) {
-			String name = (String)enu.nextElement();
-			String value = multipartRequest.getParameter(name);
-			newVideoMap.put(name, value);
-		}
-		
-		HttpSession session = multipartRequest.getSession();
-		MemberVO memberVO = (MemberVO)session.getAttribute("memberInfo");
-		String reg_id = memberVO.getMember_id();
-		
-		List<videoVO> movieFileList = VideoUpload(multipartRequest);
-		if(movieFileList != null && movieFileList.size() != 0) {
-			for(videoVO videoVO : movieFileList) {
-				videoVO.setReg_id(reg_id);
-			}
-			newVideoMap.put("movieFileList", movieFileList);
-		}
-		
-		String message = null;
-		ResponseEntity resEntity = null;
-		HttpHeaders responseHeaders = new HttpHeaders();
-		responseHeaders.add("Content-Type", "text/html; charset=utf-8");
-		try {
-			int vno = videoService.addNewVideo(newVideoMap);
-			if(movieFileList != null && movieFileList.size() != 0) {
-				for(videoVO videoVO : movieFileList) {
-					movieFileName = videoVO.getMovieFileName();
-					File srcFile = new File(CURR_VIDEO_REPO_PATH + "\\" + "temp" + "\\" + movieFileName);
-					File destDir = new File(CURR_VIDEO_REPO_PATH + "\\" + vno);
-					FileUtils.moveFileToDirectory(srcFile, destDir, true);
-				}
-			}
-			message = "<script>";
-			message += "alert('등록 완료');";
-			message += "location.href='"+ multipartRequest.getContextPath()+"/admin/video/addNewVideo.do';";
-			message += "</script>";
-		}catch(Exception e) {
-			if(movieFileList != null && movieFileList.size() != 0) {
-				for(videoVO videoVO: movieFileList) {
-					movieFileName = videoVO.getMovieFileName();
-					File srcFile = new File(CURR_VIDEO_REPO_PATH +"\\" +"temp"+"\\"+movieFileName);
-					srcFile.delete();
-				}
-			}
-			message="<script>";
-			message +=" alert('오류가 발생했습니다. 다시 시도해 주세요');";
-			message +=" location.href='"+multipartRequest.getContextPath()+"/admin/video/addNewVideo.do';";
-			message +="</script>)";
-			e.printStackTrace();
-		}
-		resEntity = new ResponseEntity(message, responseHeaders, HttpStatus.OK);
-		return resEntity;
-	}
-	
+	@Autowired
+	private videoVO videoVO;
+
+	//관리자 화면 목록
 	@Override
 	@RequestMapping(value="/adminVideoMain.do" ,method={RequestMethod.POST,RequestMethod.GET})
 	public ModelAndView adminVideoMain(@ModelAttribute("scri") SearchCriteria scri,
@@ -116,6 +50,108 @@ public class videoControllerImpl extends BaseController implements videoControll
 		mav.addObject("list", list);
 		mav.addObject("pageMaker",pageMaker);
 		
+		return mav;
+	}
+	
+	//사용자 목록페이지
+	@Override
+	@RequestMapping(value="/videoListView.do" , method=RequestMethod.GET)
+	public ModelAndView VideoList(@ModelAttribute("scri") SearchCriteria scri,
+				HttpServletRequest request,HttpServletResponse response)throws Exception{
+		String viewName=(String)request.getAttribute("viewName");
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(scri);
+		pageMaker.setTotalCount(videoService.countListTotal(scri));
+		
+		ModelAndView mav = new ModelAndView(viewName);		
+		
+		List<videoVO> videolist=videoService.selectVideoView(scri);
+		mav.addObject("videolist", videolist);
+//		log.info("videolist{}",videolist);
+		mav.addObject("pageMaker",pageMaker);
+		
+		return mav;
+	}
+	//등록 post
+	@Override
+	@RequestMapping(value="/youtube/addAction.do" , method = RequestMethod.POST)
+	public ModelAndView createAction(@ModelAttribute("videoVO")videoVO videoVO, MultipartHttpServletRequest multiRequest,
+				BindingResult bindingResult)throws Exception{
+		
+		int result = 0;
+		videoVO.setV_addr("https://youtu.be/" + videoVO.getV_addr());
+		result =videoService.youtubeInsert(videoVO);
+		
+		ModelAndView mav = new ModelAndView("redirect:/admin/video/adminVideoMain.do");
+		return mav;
+	}
+	//등록 get
+	@RequestMapping(value="/addNewVideoForm.do", method = RequestMethod.GET)
+	public ModelAndView addNewNotice(HttpServletRequest request,HttpServletResponse response)throws Exception{
+		ModelAndView mav = new ModelAndView();
+		String viewName = (String)request.getAttribute("viewName");
+		mav.setViewName(viewName);
+		
+		return mav;
+	}
+	//상세페이지
+	@Override
+	@RequestMapping(value="/adminVideoDetail.do" , method=RequestMethod.GET)
+	public ModelAndView adminVideoDetail(@RequestParam("vno")int vno,
+				HttpServletRequest request, HttpServletResponse response)throws Exception{
+		String viewName = (String)request.getAttribute("viewName");
+		videoVO = videoService.videoDetail(vno);
+	
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName(viewName);
+		mav.addObject("video",videoVO);
+		
+		return mav;
+	}
+	//삭제
+	@Override
+	@RequestMapping(value="/removeVideo.do" ,method=RequestMethod.GET)
+	public ModelAndView removeVideo(@RequestParam("vno")int vno, @ModelAttribute("scri") SearchCriteria scri, RedirectAttributes redAttr,
+			HttpServletRequest request, HttpServletResponse response)throws Exception{
+		request.setCharacterEncoding("utf-8");
+		videoService.removeVideo(vno);
+		
+		redAttr.addAttribute("page", scri.getPage());
+	    redAttr.addAttribute("perPagNum", scri.getPerPageNum());
+	    redAttr.addAttribute("searchType",scri.getSearchType());
+	    redAttr.addAttribute("keyword",scri.getKeyword());
+	    
+	    ModelAndView mav = new ModelAndView("redirect:/admin/video/adminVideoMain.do");
+		return mav;
+	}
+	//수정 get
+	@RequestMapping(value="/modifyVideoForm.do", method = RequestMethod.GET)
+	public ModelAndView modifyVideoForm(@RequestParam("vno")int vno,@ModelAttribute("scri") SearchCriteria scri,
+			HttpServletRequest request, HttpServletResponse response)throws Exception{
+		String viewName=(String)request.getAttribute("viewName");
+		videoVO = videoService.videoDetail(vno);
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName(viewName);
+		mav.addObject("video",videoVO);
+		
+		mav.addObject("scri", scri);
+		return mav;
+}
+	//수정 post
+	@Override
+	@RequestMapping(value="/modifyVideo.do", method=RequestMethod.POST)
+	public ModelAndView modifyVideo(@ModelAttribute("video")videoVO vo, @ModelAttribute("scri") SearchCriteria scri, RedirectAttributes redAttr,
+			HttpServletRequest request,HttpServletResponse response)throws Exception{
+		request.setCharacterEncoding("utf-8");
+		int result = 0;
+		result = videoService.modifyVideo(vo);
+		ModelAndView mav = new ModelAndView("redirect:/admin/video/adminVideoMain.do");
+		
+		redAttr.addAttribute("page", scri.getPage());
+	    redAttr.addAttribute("perPagNum", scri.getPerPageNum());
+	    redAttr.addAttribute("searchType",scri.getSearchType());
+	    redAttr.addAttribute("keyword",scri.getKeyword());
+
 		return mav;
 	}
 }
