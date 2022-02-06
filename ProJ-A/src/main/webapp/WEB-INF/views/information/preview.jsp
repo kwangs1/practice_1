@@ -33,10 +33,33 @@ img{
  .color_green{
  	color:#337c29; font-size:1.2em; font-weight:700;
  }
+ .active{
+float: left; 
+text-align: center; 
+display:inline-block;
+font-size:1.0em; 
+font-weight:700;
+ }
+.active a{
+  text-decoration-line: none;
+ }
+.warp{
+  width: 300px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.active a:hover{
+background-color:#999;
+}
 </style>
 </head>
 <body>
 	<img alt="banner" src="${contextPath }/resources/image/banner.png">
+	<ul class="warp">
+	<li class="active" ><a href="${contextPath }/information/preview.do">관람안내　</a></li>
+	<li class="active"><a href="${contextPath }/information/navigator.do">오시는길　</a></li>
+	<li class="active"><a href="${contextPath }/information/grouptour.do">단체관람 안내</a></li>
+	</ul>
 	<div class="content">
 		<h1 class="titPage02">관람시간</h1>
 	<ul>

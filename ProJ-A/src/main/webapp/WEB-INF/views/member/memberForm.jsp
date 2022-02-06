@@ -19,7 +19,7 @@ table td{
 </head>
 <body>
 <h1>　</h1>
-	<form action="${contextPath}/member/addMember.do" method="post">	
+	<form action="${contextPath}/member/addMember.do" method="post" name="frm" onsubmit="return checkAll()">	
 	<div id="detail_table">
 		<table>
 			<tbody>
@@ -32,23 +32,23 @@ table td{
 				</tr>
 				<tr>
 					<td>비밀번호 &#124;
-					<input name="member_pw" type="password" size="20" />
+					<input name="member_pw" id="member_pw" type="password" size="20" />
 					</td>
 				</tr>
 				<tr>
 					<td>이름 &#124;
-					<input name="member_name" type="text" size="20" /></td>
+					<input name="member_name" id="member_name" type="text" size="20" /></td>
 				</tr>
 				<tr>
 					<td>성별
-					<input type="radio" name="member_gender" value="102" />
+					<input type="radio" name="member_gender" id="member_gender" value="102" />
 						여성<span style="padding-left:120px"></span>
 						 <input type="radio" name="member_gender" value="101" checked />남성
 					</td>
 				</tr>
 				<tr>
 					<td>법정생년월일 &#124;
-					<select name="member_birth_y">
+					<select name="member_birth_y" id="member_birth_y">
 					 
 					     <c:forEach var="year" begin="1" end="180">
 					       <c:choose>
@@ -62,7 +62,7 @@ table td{
 					   	</c:forEach> 
 							
 					</select>년 
-					 <select name="member_birth_m" >
+					 <select name="member_birth_m" id="member_birth_m">
 					   <c:forEach var="month" begin="1" end="12">
 					       <c:choose>
 					         <c:when test="${month==5 }">
@@ -74,7 +74,7 @@ table td{
 							</c:choose>
 					   	</c:forEach>
 					</select>월  
-					<select name="member_birth_d">
+					<select name="member_birth_d" id="member_birth_d">
 							<c:forEach var="day" begin="1" end="31">
 					       <c:choose>
 					         <c:when test="${day==10 }">
@@ -93,7 +93,7 @@ table td{
 				</tr>
 				<tr>
 					<td>전화번호 &#124;
-					<select  name="tel1">
+					<select  name="tel1" id="tel1">
 							<option>없음</option>
 							<option value="02">02</option>
 							<option value="031">031</option>
@@ -119,12 +119,12 @@ table td{
 							<option value="0507">0507</option>
 							<option value="0508">0508</option>
 							<option value="070">070</option>
-					   </select> - <input  size="10px" type="text" name="tel2"> - <input size="10px"  type="text" name="tel3">
+					   </select> - <input  size="10px" type="text" name="tel2" id="tel2"> - <input size="10px"  type="text" name="tel3" id="tel3">
 					</td>
 				</tr>
 				<tr>
 					<td>휴대폰번호 &#124;
-					<select  name="hp1">
+					<select  name="hp1" id="hp1">
 							<option>없음</option>
 							<option selected value="010">010</option>
 							<option value="011">011</option>
@@ -132,13 +132,13 @@ table td{
 							<option value="017">017</option>
 							<option value="018">018</option>
 							<option value="019">019</option>
-					</select> - <input size="10px"  type="text" name="hp2"> - <input size="10px"  type="text"name="hp3"><br> <br> 
+					</select> - <input size="10px"  type="text" name="hp2" id="hp2"> - <input size="10px"  type="text"name="hp3" id="hp3"><br> <br> 
 					<input type="checkbox"	name="smssts_yn" value="Y" checked /> 쇼핑몰에서 발송하는 SMS 소식을 수신합니다.</td>
 				</tr>
 				<tr>
 					<td>이메일 &#124;<br>(e-mail)
-					<input size="10px"   type="text" name="email1" /> @ <input  size="10px"  type="text"name="email2" /> 
-						  <select name="email2" onChange=""	title="직접입력">
+					<input size="10px"   type="text" name="email1" id="email1"/> @ <input  size="10px"  type="text"name="email2" id="email2"/> 
+						  <select name="email2" id="email2" onChange=""	title="직접입력">
 									<option value="non">직접입력</option>
 									<option value="hanmail.net">hanmail.net</option>
 									<option value="naver.com">naver.com</option>
@@ -173,7 +173,7 @@ table td{
 		<table align=center>
 		<tr >
 			<td >
-				<input type="submit"  value="회원 가입">
+				<input type="button"  value="회원 가입" onclick="check_onclick()">
 				<input  type="reset"  value="다시입력">
 			</td>
 		</tr>
@@ -184,8 +184,63 @@ table td{
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
-
-
+function check_onclick(){
+	theForm = document.frm;
+	if(theForm.member_id.value==""){
+		alert("아이디 입력해주세요.");
+		return theForm.member_id.focus();
+	}
+	if(theForm.member_pw.value==""){
+		alert("비밀번호를 입력해주세요.");
+		return theForm.member_pw.focus();
+	}
+	if(theForm.member_name.value==""){
+		alert("이름을 입력해주세요.");
+		return theForm.member_name.focus();
+	}
+	if(theForm.tel1.value==""){
+		alert("전화번호를 입력해주세요.");
+		return theForm.tel1.focus();
+	}
+	if(theForm.tel2.value==""){
+		alert("전화번호를 입력해주세요.");
+		return theForm.tel2.focus();
+	}
+	if(theForm.tel3.value==""){
+		alert("전화번호를 입력해주세요.");
+		return theForm.tel3.focus();
+	}
+	if(theForm.hp2.value=="" ){
+		alert("휴대번호를 입력해주세요.");
+		return theForm.hp2.focus();
+	}
+	if(theForm.hp3.value==""){
+		alert("휴대번호를 입력해주세요.");
+		return theForm.hp3.focus();
+	}
+	if(theForm.email1.value==""){
+		alert("이메일을 입력해주세요.");
+		return theForm.email1.focus();
+	}
+	if(theForm.zipcode.value==""){
+		alert("주소를 입력해주세요.");
+		return theForm.zipcode.focus();
+	}
+	if(theForm.roadAddress.value==""){
+		alert("도로명을 입력해주세요.");
+		return theForm.roadAddress.focus();
+	}
+	if(theForm.jibunAddress.value==""){
+		alert("지번주소를 입력해주세요.");
+		return theForm.hp3.focus();
+	}
+	if(theForm.namujiAddress.value==""){
+		alert("나머지 주소를 입력해주세요.");
+		return theForm.hp3.focus();
+	}
+	
+	theForm.submit();
+}
 function execDaumPostcode() {
   new daum.Postcode({
     oncomplete: function(data) {
@@ -236,7 +291,8 @@ function execDaumPostcode() {
 
 }
 
-function fn_overlapped(){
+	 
+function fn_overlapped(id){
     var _id=$("#_member_id").val();
     if(_id==''){
    	 alert("ID를 입력하세요");
@@ -259,10 +315,7 @@ function fn_overlapped(){
           }
        },
        error:function(data,textStatus){
-          alert("에러가 발생했습니다.");ㅣ
-       },
-       complete:function(data,textStatus){
-          //alert("작업을완료 했습니다");
+          alert("에러가 발생했습니다.");
        }
     });  //end ajax	 
  }	

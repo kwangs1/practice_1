@@ -34,12 +34,14 @@ enctype="multipart/form-data" >
   </tr>
 <tr>
 <td>
-     <iframe width="1000" height="720" src="https://www.youtube.com/embed/${key}" 
+      <iframe width="1000" height="720" src="https://www.youtube.com/embed/${key}" 
     title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; 
     		encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
     </iframe>
+                
       <textarea class="note" rows="20" cols="80"  name="v_note"  id="v_note" >${video.v_note }</textarea>
-</td>
+        </td>
+
 </tr>
     <tr>
         <td>  

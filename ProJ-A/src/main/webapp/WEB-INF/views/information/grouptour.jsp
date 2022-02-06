@@ -50,10 +50,33 @@
     width: 100%;
     border: 5px solid #c0c0c0;
  }
+  .active{
+float: left; 
+text-align: center; 
+display:inline-block;
+font-size:1.0em; 
+font-weight:700;
+ }
+.active a{
+  text-decoration-line: none;
+ }
+.warp{
+  width: 300px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.active a:hover{
+background-color:#999;
+}
 </style>
 </head>
 <body>
 <img alt="banner" src="${contextPath }/resources/image/banner.png" style="width:100%; height:250px;">
+	<ul class="warp">
+	<li class="active" ><a href="${contextPath }/information/preview.do">관람안내　</a></li>
+	<li class="active"><a href="${contextPath }/information/navigator.do">오시는길　</a></li>
+	<li class="active"><a href="${contextPath }/information/grouptour.do">단체관람 안내</a></li>
+	</ul>
 	<div class="div_box">
 		<div class="div_center">
 				<table class="tableColRow1">

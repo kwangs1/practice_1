@@ -18,7 +18,7 @@ public interface MemberController {
 	
 	ModelAndView form(HttpServletRequest request, HttpServletResponse response) throws Exception;
 
-	ResponseEntity  addMember(MemberVO _memberVO, HttpServletRequest request, HttpServletResponse response)
+	ResponseEntity   addMember(MemberVO _memberVO, HttpServletRequest request, HttpServletResponse response)
 			throws Exception;
 
 	ResponseEntity overlapped(String id, HttpServletRequest request, HttpServletResponse response) throws Exception;

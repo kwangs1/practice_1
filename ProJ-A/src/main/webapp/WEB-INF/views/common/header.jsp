@@ -93,38 +93,6 @@ h1, h2, h3, h4, h5, h6
 {
     font-size: 1.5em;
 }
-/* dropdown */
-li a, .dropbtn {
-  display: inline-block;
-  color: white;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-}
-li.dropdown {
-  display: block;
-}
-.dropdown-content{
-  display: none;
-  position: absolute;
-  background-color: #f9f9f9;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
-}
-.dropdown-content a {
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-  text-align: left;
-}
-.dropdown-content a:hover {
-	background-color: #f1f1f1;
-}
-.dropdown:hover .dropdown-content {
-  display: inline;
-}
 </style>
 </head>
 <body>
@@ -163,15 +131,7 @@ li.dropdown {
 		<!-- 메뉴 영역-->
 	<div id="menucontainer">
 			<ul id="menu">
-				<li class="dropdown">
-				<a href="javascript:void(0)" class="dropbtn">이용안내</a>
-				<div class="dropdown-content">
-				<a href="${contextPath }/information/preview.do">관람안내</a>
-				<a href="${contextPath }/information/navigator.do">오시는길</a>
-				<a href="${contextPath }/information/grouptour.do">단체관람 안내</a>
-				</div>
-				</li>
-				
+				<li><a href="${contextPath}/information/preview.do">이용안내</a></li>
 				<li><a href="${contextPath}/admin/video/videoListView.do">프로그램</a></li>		
 				<li><a href="${contextPath}/collectible/collectibleList.do">소장품</a></li>
 				<li><a href="${contextPath}/admin/notice/noticeList.do">공지사항</a></li>

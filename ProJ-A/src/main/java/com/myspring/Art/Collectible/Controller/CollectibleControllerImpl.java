@@ -1,8 +1,6 @@
 package com.myspring.Art.Collectible.Controller;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -44,10 +42,10 @@ public class CollectibleControllerImpl extends BaseController implements Collect
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(scri);
 		pageMaker.setTotalCount(collectibleService.countListTotal(scri));
-		
+
 		String viewName=(String)request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView(viewName);
-		
+
 		List<CollectibleVO> collectibleList=collectibleService.collectibleList(scri);
 		mav.addObject("collectible", collectibleList);
 		mav.addObject("pageMaker",pageMaker);
@@ -59,7 +57,8 @@ public class CollectibleControllerImpl extends BaseController implements Collect
 	@Override
 	@RequestMapping(value="/collectibleDetail.do", method=RequestMethod.GET)
 	public ModelAndView collectibleDetail(@RequestParam("goods_id") int goods_id,
-					HttpServletRequest request, HttpServletResponse response)throws Exception{
+				HttpServletRequest request, HttpServletResponse response)throws Exception{
+		
 		String viewName=(String)request.getAttribute("viewName");
 		collectibleVO = collectibleService.collectibleDetail(goods_id);
 		ModelAndView mav = new ModelAndView();
@@ -69,6 +68,7 @@ public class CollectibleControllerImpl extends BaseController implements Collect
 		//´ñ±Û±â´É
 		List<ReplyVO> replyList = replyService.readReply(collectibleVO.getGoods_id());
 		mav.addObject("replyList",replyList);
+		
 		
 		return mav;
 	}

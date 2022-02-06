@@ -7,10 +7,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.myspring.Art.Admin.notice.VO.NoticeVO;
 import com.myspring.Art.Collectible.DAO.CollectibleDAO;
 import com.myspring.Art.Collectible.VO.CollectibleVO;
-import com.myspring.Art.Collectible.VO.ImageFileVO;
 import com.myspring.Art.common.domain.SearchCriteria;
 
 @Service("collectibleService")
@@ -34,4 +32,5 @@ public class CollectibleServiceImpl implements CollectibleService{
 		CollectibleVO collectibleVO = collectibleDAO.selectCollectibleDetail(goods_id);
 		return collectibleVO;
 	}
+	
 }

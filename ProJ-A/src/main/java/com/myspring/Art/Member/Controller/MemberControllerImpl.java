@@ -46,10 +46,9 @@ public class MemberControllerImpl extends BaseController implements MemberContro
 			session.setAttribute("isLogOn", true);
 			session.setAttribute("memberInfo", memberVO);
 			
-	
 			String action=(String)session.getAttribute("action");
 			if(action!=null && action.equals("/")) {
-				mav.setViewName("forword:" + action);
+				mav.setViewName("redirect:" + action);
 			}else {
 				mav.setViewName("redirect:/main/main.do");
 			}
@@ -72,7 +71,7 @@ public class MemberControllerImpl extends BaseController implements MemberContro
 	
 	@Override
 	@RequestMapping(value="/addMember.do" ,method = RequestMethod.POST)
-	public ResponseEntity addMember(@ModelAttribute("memberVO") MemberVO _memberVO,//회원 가입창에서 전송된 회원 정보를 _memberVO에 설정
+	public ResponseEntity  addMember(@ModelAttribute("memberVO") MemberVO _memberVO,//회원 가입창에서 전송된 회원 정보를 _memberVO에 설정
 			                HttpServletRequest request, HttpServletResponse response) throws Exception {
 		response.setContentType("text/html; charset=UTF-8");
 		request.setCharacterEncoding("utf-8");
@@ -82,7 +81,7 @@ public class MemberControllerImpl extends BaseController implements MemberContro
 		responseHeaders.add("Content-Type", "text/html; charset=utf-8");
 		try {
 		    memberService.addMember(_memberVO);//회원정보를 sql문으로 전달
-		    message  = "<script>";
+		    message  = "<script>";	
 		    message +=" alert('회원 가입을 마쳤습니다.로그인창으로 이동합니다.');";
 		    message += " location.href='"+request.getContextPath()+"/member/loginForm.do';";
 		    message += " </script>";

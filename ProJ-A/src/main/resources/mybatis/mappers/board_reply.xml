@@ -17,6 +17,7 @@
 			rno,content,writer,regdate
 		from notice_reply
 		where goods_id =#{goods_id}
+		order by rno desc
 	]]>
 </select>
 

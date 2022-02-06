@@ -12,7 +12,7 @@
 <div>
 	<div>
 		<h3>공지 사항</h3>
-		<div>- Github 주소 : <a href="https://github.com/kwangs1/ProJect-A">클릭</a></div>
+		<div>- Github 주소 : <a href="https://github.com/kwangs1/ProJect-A" target="_blank">클릭</a></div>
 		<div>- 새로운 기능이 추가되었습니다.</div>
 
 	</div>

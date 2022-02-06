@@ -7,18 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<c:if test='${not empty message }'>
-<script>
-window.onload=function()
-{
-  result();
-}
 
-function result(){
-	alert("아이디나  비밀번호가 틀립니다. 다시 로그인해주세요");
-}
-</script>
-</c:if>
 <style>
 *{
 margin:0; 
@@ -112,11 +101,33 @@ top:1px;
 		</div>
 		<div class="btnwrap">
 			<a href="${contextPath}/member/memberForm.do">회원가입</a>
-			<input type="submit" id="loginbtn" value="로그인"  style='cursor:pointer;'/>
+			<input type="submit" id="loginbtn" value="로그인"  style='cursor:pointer;' onClick="fn_log_ref()"/>
 			<label for="loginbtn">로그인 버튼</label>
 		</div>
 		</form>
 	</div>
 
+<c:if test='${not empty message }'>
+<script>
+window.onload=function()
+{
+  result();
+}
+
+function result(){
+	alert("아이디나  비밀번호가 틀립니다. 다시 로그인해주세요");
+}
+
+function fn_log_ref(){
+	var referrer = document.referrer;
+	
+	if(referrer.indexOf(page)!= -1){
+		window.location.href="http://localhost:8090/Art/main/main.do"
+	}else{
+		window.location.href = referrer;
+	}
+}
+</script>
+</c:if>
 </body>
 </html>

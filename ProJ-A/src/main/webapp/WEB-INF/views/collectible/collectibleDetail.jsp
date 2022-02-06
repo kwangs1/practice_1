@@ -4,7 +4,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <% request.setCharacterEncoding("UTF-8"); %>
 <c:set var="contextPath"  value="${pageContext.request.contextPath}"  />
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -160,6 +159,14 @@ table tr td input{
 		<br>
 <br/><br/>
  <form name="replyForm" method="post" > 
+ 	<input type="hidden" name="goods_id" value="${collectible.goods_id}" readonly="readonly"/>
+
+  <div class="addreply">
+    <label for="writer">댓글 작성자</label><input type="text" id="writer" name="writer" value="${memberInfo.member_name}"readonly/>
+    <br/>
+    <label for="content">댓글 내용</label><input type="text" id="content" name="content" />
+ 	 <button type="button" class="replyWriteBtn" style='cursor:pointer;'>작성</button> 
+  </div>
 <table>
 	 <c:choose>
 			<c:when test="${empty replyList }">
@@ -176,6 +183,7 @@ table tr td input{
 			<td>내용 &#124; ${item.content}  	  		   
    		</td>
 			</tr>
+		<c:if test="${item.writer == memberInfo.member_name }">
 			<tr>
 				<td>
 				 <button type="button" class="replyUpdateBtn" data-rno="${item.rno}">수정</button> 
@@ -183,21 +191,14 @@ table tr td input{
 	      	onClick="fn_remove_reply('${contextPath}/collectible/removeReply.do?rno=${item.rno }&goods_id=${collectible.goods_id }')">삭제</button>	
 	      		</td>		
 			</tr>
-		
+		</c:if>
 		</c:forEach>
 		</c:otherwise>
 		</c:choose>		
-		</table>
-		
-	<input type="hidden" name="goods_id" value="${collectible.goods_id}" readonly="readonly"/>
 
-  <div class="addreply">
-    <label for="writer">댓글 작성자</label><input type="text" id="writer" name="writer" value="${memberInfo.member_name}"readonly/>
-    <br/>
-    <label for="content">댓글 내용</label><input type="text" id="content" name="content" />
- 	 <button type="button" class="replyWriteBtn" style='cursor:pointer;'>작성</button>
- 	 	<a href="javascript:history.back();">목록으로</a>
-  </div>
+
+		</table>
+
 </form>
 
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
@@ -224,9 +225,15 @@ span.onclick = function() {
 }
 
 $(".replyWriteBtn").on("click", function(){
-	  var formObj = $("form[name='replyForm']"); 
+	  var formObj = $("form[name='replyForm']");
+	  var isLogOn = "${memberInfo.member_id}"
+			if(isLogOn == ""){
+				alert("로그인 후 댓글 작성이 가능하십니다.!");
+			window.location.href="${contextPath}/member/loginForm.do"; 
+			}else{
 	  formObj.attr("action", "${contextPath}/collectible/replyWrite.do");
 	  formObj.submit();
+			}
 	});
 
 $(".replyUpdateBtn").on("click", function(){
@@ -248,6 +255,7 @@ function fn_remove_reply(url,rno){
     form.submit();
 
 }
+
 </script>
 </body>
 </html>
