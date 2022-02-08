@@ -21,4 +21,6 @@ public interface NoticeService {
 
 	int countNoticeListTotal(SearchCriteria scri);
 
+	int boardHit(int bno) throws Exception;
+
 }

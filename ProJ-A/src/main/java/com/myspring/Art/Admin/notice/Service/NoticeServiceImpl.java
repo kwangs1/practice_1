@@ -38,7 +38,6 @@ public class NoticeServiceImpl implements NoticeService{
 	@Override
 	public NoticeVO NoticeDetail(int bno)throws Exception{
 		NoticeVO noticeVO = noticeDAO.selectNoticeDetail(bno);
-		noticeDAO.boardHit(bno);
 		return noticeVO;
 	}
 	
@@ -51,6 +50,9 @@ public class NoticeServiceImpl implements NoticeService{
 	public int modifyNotice(NoticeVO vo) throws Exception {
 		return noticeDAO.modifyNotice(vo);
 	}
-
+	@Override
+	public int boardHit(int bno)throws Exception{
+		return noticeDAO.boardHit(bno);
+	}
 
 }

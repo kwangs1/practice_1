@@ -174,7 +174,7 @@ table td{
 		<tr >
 			<td >
 				<input type="button"  value="회원 가입" onclick="check_onclick()">
-				<input  type="reset"  value="다시입력">
+				<input  type="button"  value="취소" onClick="history.go(-1)">
 			</td>
 		</tr>
 	</table>

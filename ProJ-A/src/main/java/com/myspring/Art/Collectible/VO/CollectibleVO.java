@@ -17,8 +17,15 @@ public class CollectibleVO {
 	private int goods_year;
 	private String goods_fileName;
 	private String goods_regDate;
+	private int likehit;
 
 	
+	public int getLikehit() {
+		return likehit;
+	}
+	public void setLikehit(int likehit) {
+		this.likehit = likehit;
+	}
 	public String getGoods_fileName() {
 		return goods_fileName;
 	}

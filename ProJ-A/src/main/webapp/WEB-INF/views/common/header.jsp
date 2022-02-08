@@ -111,7 +111,7 @@ h1, h2, h3, h4, h5, h6
 		<div id="logindisplay">
 		<c:choose>
 			<c:when test="${isLogOn == true and not empty memberInfo }">
-				<a href="${contextPath}/member/logout.do" onClick="window.location.reload()">로그아웃 |</a>
+				<a href="${contextPath}/member/logout.do" onClick="cookieRemove()">로그아웃 |</a>
 				<a href="${contextPath}/member/memberInfo.do">마이페이지 &#124;</a>
 
 				<a href="#">고객센터</a>
@@ -139,5 +139,22 @@ h1, h2, h3, h4, h5, h6
 		</div>
 
 	</div>
+	
+<script type="text/javascript">
+function cookieRemove() {
+
+    // 변수를 선언한다.
+    var date = new Date();
+    date.setDate(date.getDate() - 1);
+
+    var willCookie = "";
+    willCookie += "CookieName=Value;";
+    willCookie += "Expires=" + date.toUTCString();
+
+    // 쿠키를 집어넣는다.
+    document.cookie = willCookie;
+    window.location.reload();
+   }
+</script>
 </body>
 </html>

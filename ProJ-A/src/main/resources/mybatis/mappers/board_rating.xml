@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.rating">
+<resultMap id="ratingResult" type="RatingVO">
+		<result property="rseq" column="rseq" />
+		<result property="good" column="good" />
+		<result property="usually" column="usually" />
+		<result property="bad" column="bad" />
+		<result property="member_id" column="member_id" />
+		<result property="goods_id" column="goods_id" />
+	</resultMap>
+
+<insert id="writeRating" parameterType="RatingVO">
+<selectKey resultType="int" keyProperty="rseq" order="BEFORE">
+		select SEQ_RATING_ID.nextval from dual
+	</selectKey>
+	<![CDATA[
+	INSERT INTO GALLERY_RATING(
+		  rseq
+		, good
+		, usually
+		, bad
+		,member_id
+		,goods_id
+	)
+	VALUES(   #{rseq}
+			, #{good}
+			, #{usually}
+			, #{bad}
+			, #{member_id}
+			, #{goods_id}
+		)
+	]]>
+</insert>
+</mapper>

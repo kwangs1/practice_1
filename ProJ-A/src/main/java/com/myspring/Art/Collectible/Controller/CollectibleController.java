@@ -15,8 +15,6 @@ import com.myspring.Art.common.domain.SearchCriteria;
 
 public interface CollectibleController {
 
-	ModelAndView replyWrite(ReplyVO vo,RedirectAttributes rttr, HttpServletRequest request, HttpServletResponse response) throws Exception;
-
 	ModelAndView modifyReply(ReplyVO vo, RedirectAttributes rttr,  HttpServletRequest request,
 			HttpServletResponse response) throws Exception;
 
@@ -28,4 +26,8 @@ public interface CollectibleController {
 
 	ModelAndView collectibleDetail(int goods_id, HttpServletRequest request, HttpServletResponse response)
 			throws Exception;
+
+	ModelAndView replyWrite(ReplyVO vo, RedirectAttributes rttr, HttpServletRequest request,
+			HttpServletResponse response) throws Exception;
+
 }

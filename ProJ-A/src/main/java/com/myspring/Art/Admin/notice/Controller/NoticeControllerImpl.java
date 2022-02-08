@@ -1,9 +1,9 @@
 package com.myspring.Art.Admin.notice.Controller;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 
 import com.myspring.Art.Admin.notice.Service.NoticeService;
 import com.myspring.Art.Admin.notice.VO.NoticeVO;
@@ -31,6 +32,7 @@ public class NoticeControllerImpl extends BaseController implements NoticeContro
 	private NoticeService noticeService;
 	@Autowired
 	private NoticeVO noticeVO;
+
 	
 	//글 목록
 	@Override
@@ -61,6 +63,62 @@ public class NoticeControllerImpl extends BaseController implements NoticeContro
 		mav.setViewName(viewName);
 		mav.addObject("notice",noticeVO);
 		mav.addObject("scri",scri);
+		
+		int result = 0;
+		
+		
+		//쿠키
+		Cookie viewCookie=null;
+		Cookie[] cookies=request.getCookies();
+
+		System.out.println("cookie : "+cookies);
+		
+        
+        if(cookies !=null) {
+
+			for (int i = 0; i < cookies.length; i++) {
+				//System.out.println("쿠키 이름 : "+cookies[i].getName());
+                
+                //만들어진 쿠키들을 확인하며, 만약 들어온 적 있다면 생성되었을 쿠키가 있는지 확인
+				if(cookies[i].getName().equals("|"+bno+"|")) {
+					System.out.println("if문 쿠키 이름 : "+cookies[i].getName());
+				
+                //찾은 쿠키를 변수에 저장
+					viewCookie=cookies[i];
+				}
+			}
+			
+		}else {
+			System.out.println("cookies 확인 로직 : 쿠키가 없습니다.");
+		}
+
+
+		//만들어진 쿠키가 없음을 확인
+		if(viewCookie==null) {
+        
+          	System.out.println("viewCookie 확인 로직 : 쿠키 없당");
+			
+            try {
+            
+            	//이 페이지에 왔다는 증거용(?) 쿠키 생성
+				Cookie newCookie=new Cookie("|"+bno+"|","readCount");
+				response.addCookie(newCookie);
+                
+                //쿠키가 없으니 증가 로직 진행
+				result =noticeService.boardHit(bno);
+                
+			} catch (Exception e) {
+				System.out.println("쿠키 넣을때 오류 나나? : "+e.getMessage());
+				e.getStackTrace();
+
+			}
+		
+        //만들어진 쿠키가 있으면 증가로직 진행하지 않음
+		}else {
+			System.out.println("viewCookie 확인 로직 : 쿠키 있당");
+			String value=viewCookie.getValue();
+			System.out.println("viewCookie 확인 로직 : 쿠키 value : "+value);
+		}
 		return mav;
 	}
 	//등록뷰에서 데이터넣기

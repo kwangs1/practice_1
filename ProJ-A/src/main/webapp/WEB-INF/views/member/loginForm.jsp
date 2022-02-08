@@ -117,16 +117,6 @@ window.onload=function()
 function result(){
 	alert("아이디나  비밀번호가 틀립니다. 다시 로그인해주세요");
 }
-
-function fn_log_ref(){
-	var referrer = document.referrer;
-	
-	if(referrer.indexOf(page)!= -1){
-		window.location.href="http://localhost:8090/Art/main/main.do"
-	}else{
-		window.location.href = referrer;
-	}
-}
 </script>
 </c:if>
 </body>

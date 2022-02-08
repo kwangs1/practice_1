@@ -53,8 +53,9 @@ public class NoticeDAOImpl implements NoticeDAO{
 	}
 	
 	@Override
-	public void boardHit(int bno) throws Exception {
-		sqlSession.update("mapper.admin.notice.boardHit", bno);
+	public int boardHit(int bno) throws Exception {
+		int result = sqlSession.update("mapper.admin.notice.boardHit", bno);
+		return result;
 	}
 	
 

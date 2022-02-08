@@ -33,4 +33,8 @@ public class CollectibleServiceImpl implements CollectibleService{
 		return collectibleVO;
 	}
 	
+//	@Override
+//	public int likehit(int goods_id)throws Exception{
+//		return collectibleDAO.updateLikeHit(goods_id);
+//	}
 }

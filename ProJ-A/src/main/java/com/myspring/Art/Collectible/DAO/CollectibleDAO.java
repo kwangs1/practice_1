@@ -17,5 +17,6 @@ public interface CollectibleDAO {
 
 	List<CollectibleVO> selectAllCollectibleList(SearchCriteria scri) throws DataAccessException;
 
+//	int updateLikeHit(int goods_id) throws Exception;
 
 }

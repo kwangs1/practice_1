@@ -125,7 +125,7 @@
 			    </c:forEach>
 			    </tr>			    
 	</table>
-	<a href="javascript:history.back();">이전 페이지로 이동</a>
+	<input type="button" value="수정 완료" onClick="javascript:history.back();" />
 	</form>
 	</DIV>
 	</DIV>
@@ -154,18 +154,25 @@ function fn_modify_goods(goods_id, attribute){
 	var value="";
 	if(attribute=='goods_title'){
 		value=frm_mod_goods.goods_title.value;
+		location.reload();
 	}else if(attribute=='goods_no'){
 		value=frm_mod_goods.goods_no.value;
+		location.reload();
 	}else if(attribute=='goods_author'){
-		value=frm_mod_goods.goods_author.value;   
+		value=frm_mod_goods.goods_author.value;
+		location.reload();
 	}else if(attribute=='goods_year'){
 		value=frm_mod_goods.goods_year.value;
+		location.reload();
 	}else if(attribute=='goods_stuff'){
 		value=frm_mod_goods.goods_stuff.value;
+		location.reload();
 	}else if(attribute=='goods_standard'){
 		value=frm_mod_goods.goods_standard.value;
+		location.reload();
 	}else if(attribute=='goods_note'){
 		value=frm_mod_goods.goods_note.value;
+		location.reload();
 	}
 
 	$.ajax({
@@ -228,30 +235,6 @@ function fn_modify_goods(goods_id, attribute){
 	       }
       });
   }
-  
-  $(document).ready(function() {
-
-		//When page loads...
-		$(".tab_content").hide(); //Hide all content
-		$("ul.tabs li:first").addClass("active").show(); //Activate first tab
-		$(".tab_content:first").show(); //Show first tab content
-
-		//On Click Event
-		$("ul.tabs li").click(function() {
-
-			$("ul.tabs li").removeClass("active"); //Remove any "active" class
-			$(this).addClass("active"); //Add "active" class to selected tab
-			$(".tab_content").hide(); //Hide all tab content
-
-			var activeTab = $(this).find("a").attr("href"); //Find the href attribute value to identify the active tab + content
-			$(activeTab).fadeIn(); //Fade in the active ID content
-			return false;
-		});
-
-	});
-
-
-
 </script>
 	
 </BODY>

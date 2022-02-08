@@ -15,6 +15,7 @@
 		<typeAlias type="com.myspring.Art.Admin.notice.VO.NoticeVO" alias="NoticeVO" />
 		
 		<typeAlias type="com.myspring.Art.common.Reply.VO.ReplyVO" alias="ReplyVO" />
+		<typeAlias type="com.myspring.Art.common.Rating.VO.RatingVO" alias="RatingVO" />
 		
 		<typeAlias type="com.myspring.Art.Admin.video.VO.videoVO" alias="videoVO" />
 </typeAliases>       

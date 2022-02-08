@@ -35,7 +35,8 @@
 	VALUES(#{goods_id}
 			, #{rno}
 			, #{content}
-			, #{writer}	)
+			, #{writer}
+		)
 	]]>
 </insert>
 

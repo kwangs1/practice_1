@@ -18,7 +18,7 @@ public interface NoticeDAO {
 
 	int modifyNotice(NoticeVO vo) throws DataAccessException;
 
-	void boardHit(int bno) throws Exception;
+	int boardHit(int bno) throws Exception;
 
 	List<Map<String, Object>> selectAllNoticeList(SearchCriteria scri);
 

@@ -1,5 +1,6 @@
 package com.myspring.Art.Collectible.Controller;
 
+
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -34,6 +35,8 @@ public class CollectibleControllerImpl extends BaseController implements Collect
 	private CollectibleVO collectibleVO;
 	@Autowired
 	private ReplyService replyService;
+
+
 	
 	@Override
 	@RequestMapping(value="/collectibleList.do" ,method={RequestMethod.POST,RequestMethod.GET})
@@ -60,27 +63,30 @@ public class CollectibleControllerImpl extends BaseController implements Collect
 				HttpServletRequest request, HttpServletResponse response)throws Exception{
 		
 		String viewName=(String)request.getAttribute("viewName");
-		collectibleVO = collectibleService.collectibleDetail(goods_id);
+		collectibleVO= collectibleService.collectibleDetail(goods_id);
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName(viewName);
-		mav.addObject("collectible",collectibleVO);
+		mav.addObject("collectible",collectibleVO); 
 		
 		//¥Ò±€±‚¥…
 		List<ReplyVO> replyList = replyService.readReply(collectibleVO.getGoods_id());
 		mav.addObject("replyList",replyList);
 		
-		
+//		int result = 0;
+//		result =collectibleService.likehit(goods_id);
+
 		return mav;
 	}
-	
+
 	//¥Ò±€¿€º∫
 	@Override
 	@RequestMapping(value="/replyWrite.do", method=RequestMethod.POST)
-	public ModelAndView replyWrite(@ModelAttribute("reply")ReplyVO vo,  RedirectAttributes rttr,
-			HttpServletRequest request, HttpServletResponse response)throws Exception {
-		logger.info("reply Write");
-		replyService.writeReply(vo);
+	public ModelAndView replyWrite(@ModelAttribute("reply")ReplyVO vo,
+			RedirectAttributes rttr,HttpServletRequest request, HttpServletResponse response)throws Exception {
+
+		replyService.writeReply(vo);	
 		rttr.addAttribute("goods_id", vo.getGoods_id());
+		
 		ModelAndView mav = new ModelAndView("redirect:/collectible/collectibleDetail.do");
 		return mav;
 	}
@@ -125,5 +131,4 @@ public class CollectibleControllerImpl extends BaseController implements Collect
 
 		return mav;
 	}
-
 }

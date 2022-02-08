@@ -14,4 +14,6 @@ public interface CollectibleService {
 
 	List<CollectibleVO> collectibleList(SearchCriteria scri) throws Exception;
 
+//	int likehit(int goods_id) throws Exception;
+
 }

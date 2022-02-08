@@ -9,6 +9,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <style>
 *{
 margin:0 auto;
@@ -110,10 +111,30 @@ table tr td input{
 .addreply{
 	text-align:center;
 }
+.rating{
+text-align:center;
+}
+.btn-like {
+  color: transparent;
+  text-shadow: 0 0 2px rgba(255,255,255,.7), 0 0 0 #000;
+}
+.btn-like:hover {
+  text-shadow: 0 0 0 #ea0;
+}
+.btn-like.done {
+  color: inherit;
+  text-shadow: 0;
+}
+.btn-like.done:hover {
+  color: transparent;
+  text-shadow: 0 0 0 #777;
+}
 </style>
 </head>
 <body>
+<form name="form1" method="post">
 <h1>　</h1>
+			<input type="hidden" name="member_id" value="${memberInfo.member_id}" />								
 	<div style="text-align:center">
 			<img width="180" height="154" id="myImg"
 				  src="${contextPath}/thumbnails.do?goods_id=${collectible.goods_id}&fileName=${collectible.goods_fileName}">
@@ -126,7 +147,7 @@ table tr td input{
 			<div id="caption"></div>
 		</div>
 		<table>
-			<tbody>								
+			<tbody>
 				<tr>
 					<td>제목</td>
 					<td>${collectible.goods_title}</td>
@@ -156,10 +177,26 @@ table tr td input{
 					<td>${collectible.goods_note}</td>
 				</tr>
 		</table>
-		<br>
+		</form>
+		<br><br>
+<form name="ratingForm" method="post">
+	<input type="hidden" id="member_id" name="member_id" value="${memberInfo.member_id}"readonly/>
+	<input type="hidden" id="goods_id" name="goods_id" value="${collectible.goods_id}"readonly/>
+<table class="rating">
+<tr>
+	<td>
+		<label><input type="checkbox" class='checkbox-test' name="good" id="good" value="1">만족</label>	
+		<label><input type="checkbox" class='checkbox-test' name="usually" id="usually" value="1">보통</label>
+		<label><input type="checkbox" class='checkbox-test' name="bad"  id="bad" value="1">불만족</label>
+		<button type ="button" class="btn_goods" data-id="${collectible.goods_id}">평가하기</button>
+	</td>
+</tr>
+</table>
+</form>
+
 <br/><br/>
  <form name="replyForm" method="post" > 
- 	<input type="hidden" name="goods_id" value="${collectible.goods_id}" readonly="readonly"/>
+ 	<input type="hidden" name="goods_id" value="${collectible.goods_id}" />
 
   <div class="addreply">
     <label for="writer">댓글 작성자</label><input type="text" id="writer" name="writer" value="${memberInfo.member_name}"readonly/>
@@ -167,6 +204,8 @@ table tr td input{
     <label for="content">댓글 내용</label><input type="text" id="content" name="content" />
  	 <button type="button" class="replyWriteBtn" style='cursor:pointer;'>작성</button> 
   </div>
+	<a style='cursor:pointer;'
+	      	 href='<c:url value='/collectible/collectibleList.do'/>'>목록으로</a>
 <table>
 	 <c:choose>
 			<c:when test="${empty replyList }">
@@ -201,7 +240,7 @@ table tr td input{
 
 </form>
 
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
 // Get the modal
 var modal = document.getElementById("myModal");
@@ -230,11 +269,16 @@ $(".replyWriteBtn").on("click", function(){
 			if(isLogOn == ""){
 				alert("로그인 후 댓글 작성이 가능하십니다.!");
 			window.location.href="${contextPath}/member/loginForm.do"; 
-			}else{
-	  formObj.attr("action", "${contextPath}/collectible/replyWrite.do");
-	  formObj.submit();
+			}else if(replyForm.content.value==""){
+				alert("내용을 입력하세요.");
+				return replyForm.content.focus();		
+			}
+			else{
+	  			formObj.attr("action", "${contextPath}/collectible/replyWrite.do");
+	  			formObj.submit();
 			}
 	});
+
 
 $(".replyUpdateBtn").on("click", function(){
 	location.href = "${contextPath}/collectible/modifyReplyForm.do?goods_id=${collectible.goods_id}"
@@ -255,7 +299,49 @@ function fn_remove_reply(url,rno){
     form.submit();
 
 }
-
+$(".btn_goods").on("click", function(){
+	  var formObj = $("form[name='ratingForm']");
+	  var isLogOn = "${memberInfo.member_id}"
+			if(isLogOn == ""){
+				alert("로그인 후 평가 가능하십니다.!");
+			window.location.href="${contextPath}/member/loginForm.do"; 
+			}
+			else{
+				alert("평가 완료!");
+	  			formObj.attr("action", "${contextPath}/rating/ratingWrite.do");
+	  			formObj.submit();
+			}
+	});
+	
+$(".checkbox-test").click(function () {
+	  let chekObj = document.getElementsByClassName("checkbox-test");
+	  let lenth = chekObj.length;
+	  let checked = 0;
+	  let checkboxTest;
+	  
+	  for (i = 0; i < lenth; i++) {
+	    if (chekObj[i].checked === true) {
+	      checked += 1;
+	      checkboxTest = chekObj[i].getAttribute("id");
+	      console.log(checkboxTest);
+	  		}
+	    }
+	  if (checked >= 2){
+	    alert("체크 해제 후 한 가지만 선택해 주세요");
+	    return false;
+	  }
+	});
+	
+	//name 에 있는 value 값 가져오기위해 선언
+$("input:checkbox[name=good]:checked").each(function(){
+	var checkVal = $(this).val();
+})
+$("input:checkbox[name=usually]:checked").each(function(){
+	var checkVal = $(this).val();
+})
+$("input:checkbox[name=bad]:checked").each(function(){
+	var checkVal = $(this).val();
+})
 </script>
 </body>
 </html>
