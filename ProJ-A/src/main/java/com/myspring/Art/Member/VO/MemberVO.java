@@ -28,7 +28,7 @@ public class MemberVO {
 	private String namujiAddress;
 	private String joinDate;
 	private String del_yn;
-	
+
 	public String getMember_id() {
 		return member_id;
 	}

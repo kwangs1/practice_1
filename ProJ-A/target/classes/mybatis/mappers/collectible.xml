@@ -24,7 +24,7 @@
 	   <result property="image_id" column="image_id" />
 	   <result property="fileType" column="fileType" />
 	</resultMap>
-	
+
 	<select id="selectAllCollectibleList" resultMap="goodsResult" parameterType="java.util.Map">  
    select * 
    		from(
@@ -63,6 +63,7 @@
 			and col.goods_id = #{col.goods_id}
 		]]>
 	</select>
+	
 <sql id="search">
 	<if test="searchType != null">
 		<if test="searchType == 't'.toString()">and goods_title like '%'|| #{keyword}||'%'</if>

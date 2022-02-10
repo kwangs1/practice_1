@@ -14,11 +14,15 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.myspring.Art.Collectible.Service.CollectibleService;
 import com.myspring.Art.Collectible.VO.CollectibleVO;
+import com.myspring.Art.Member.VO.MemberVO;
+import com.myspring.Art.common.Rating.Service.RatingService;
+import com.myspring.Art.common.Rating.VO.RatingVO;
 import com.myspring.Art.common.Reply.Service.ReplyService;
 import com.myspring.Art.common.Reply.VO.ReplyVO;
 import com.myspring.Art.common.base.BaseController;
@@ -35,6 +39,8 @@ public class CollectibleControllerImpl extends BaseController implements Collect
 	private CollectibleVO collectibleVO;
 	@Autowired
 	private ReplyService replyService;
+	@Autowired
+	private RatingService ratingService;
 
 
 	
@@ -67,13 +73,19 @@ public class CollectibleControllerImpl extends BaseController implements Collect
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName(viewName);
 		mav.addObject("collectible",collectibleVO); 
-		
+
+        
+        mav.addObject("heart",collectibleVO);
 		//댓글기능
 		List<ReplyVO> replyList = replyService.readReply(collectibleVO.getGoods_id());
 		mav.addObject("replyList",replyList);
 		
-//		int result = 0;
-//		result =collectibleService.likehit(goods_id);
+		
+		//평가기능
+		List<RatingVO> rating = ratingService.readRating(collectibleVO.getGoods_id());
+		mav.addObject("rating",rating);
+		
+		
 
 		return mav;
 	}

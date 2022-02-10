@@ -31,4 +31,5 @@ public class RatingControllerImpl extends BaseController implements RatingContro
 		ModelAndView mav = new ModelAndView("redirect:/collectible/collectibleDetail.do");
 		return mav;
 	}
+
 }

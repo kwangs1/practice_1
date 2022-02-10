@@ -18,5 +18,7 @@
 		<typeAlias type="com.myspring.Art.common.Rating.VO.RatingVO" alias="RatingVO" />
 		
 		<typeAlias type="com.myspring.Art.Admin.video.VO.videoVO" alias="videoVO" />
+		
+		
 </typeAliases>       
 </configuration>

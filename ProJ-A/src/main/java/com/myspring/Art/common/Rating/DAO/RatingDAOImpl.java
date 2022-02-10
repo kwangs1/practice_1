@@ -1,5 +1,7 @@
 package com.myspring.Art.common.Rating.DAO;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -16,5 +18,9 @@ public class RatingDAOImpl implements RatingDAO{
 	public void writeRating(RatingVO vo)throws DataAccessException{
 		sqlSession.insert("mapper.rating.writeRating",vo);
 
+	}
+	@Override
+	public List<RatingVO>readRating(int goods_id)throws DataAccessException{
+		return sqlSession.selectList("mapper.rating.readRating",goods_id);
 	}
 }

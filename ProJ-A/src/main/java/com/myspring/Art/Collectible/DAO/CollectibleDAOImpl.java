@@ -1,9 +1,7 @@
 package com.myspring.Art.Collectible.DAO;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,11 +33,5 @@ public class CollectibleDAOImpl implements CollectibleDAO{
 	public CollectibleVO selectCollectibleDetail(int goods_id)throws DataAccessException{
 		return sqlSession.selectOne("mapper.collectible.selectCollectibleDetail",goods_id);
 	}
-	
-//	@Override
-//	public int updateLikeHit(int goods_id) throws Exception {
-//		int result = sqlSession.update("mapper.collectible.updateLikeHit", goods_id);
-//		return result;
-//	}
 
 }

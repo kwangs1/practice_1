@@ -1,5 +1,7 @@
 package com.myspring.Art.common.Rating.Service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -17,5 +19,10 @@ public class RatingServiceImpl implements RatingService{
 	@Override
 	public void writeRating(RatingVO vo)throws Exception{
 		ratingDAO.writeRating(vo);
+	}
+	
+	@Override
+	public List<RatingVO>readRating(int goods_id)throws Exception{
+		return ratingDAO.readRating(goods_id);
 	}
 }

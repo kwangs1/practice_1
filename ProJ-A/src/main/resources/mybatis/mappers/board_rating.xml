@@ -34,4 +34,12 @@
 		)
 	]]>
 </insert>
+
+<select id="readRating" resultType="RatingVO">
+	<![CDATA[
+		select good,usually,bad
+		from gallery_rating
+		where goods_id = #{goods_id}
+	]]>
+</select>
 </mapper>

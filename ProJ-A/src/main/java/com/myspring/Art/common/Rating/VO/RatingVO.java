@@ -46,6 +46,11 @@ public class RatingVO {
 	}
 	public void setGoods_id(String goods_id) {
 		this.goods_id = goods_id;
+	}
+	@Override
+	public String toString() {
+		return "RatingVO [rseq=" + rseq + ", good=" + good + ", usually=" + usually + ", bad=" + bad + ", member_id="
+				+ member_id + ", goods_id=" + goods_id + "]";
 	}	
 	
 	
