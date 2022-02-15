@@ -8,6 +8,5 @@ public interface RatingService {
 
 	void writeRating(RatingVO vo) throws Exception;
 
-	List<RatingVO> readRating(int goods_id) throws Exception;
-
+	List<RatingVO> selectRating(int goods_id) throws Exception;
 }

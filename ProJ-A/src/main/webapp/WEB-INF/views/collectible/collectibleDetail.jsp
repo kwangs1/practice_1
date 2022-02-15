@@ -184,20 +184,17 @@ text-align:center;
 	<input type="hidden" id="member_id" name="member_id" value="${memberInfo.member_id}"readonly/>
 	<input type="hidden" id="goods_id" name="goods_id" value="${collectible.goods_id}"readonly/>
 <table class="rating">
-
 <tr>
 	<td>
 		<label><input type="checkbox" class='checkbox-test' name="good" id="good" value="1" checked>만족</label>	
 		<label><input type="checkbox" class='checkbox-test' name="usually" id="usually" value="1">보통</label>
 		<label><input type="checkbox" class='checkbox-test' name="bad"  id="bad" value="1">불만족</label>
-	<c:if test = "${empty rating and not empty memberInfo.member_id}">
-		<button type ="button" class="btn_goods" data-id="${collectible.goods_id}" >평가하기</button>
+    <c:if test = "${empty ratingList}">
+		<button type ="button" class="btn_goods">평가하기</button>
 	</c:if>
-	<c:if test = "${not empty rating }">
-		<button type ="button" data-id="${collectible.goods_id}" >수정하기</button>
+	<c:if test = "${!empty ratingList}">
+		<button type ="button" disabled>평가하기</button>
 	</c:if>
-	</td>
-</tr>
 </table>
 </form>
 
@@ -306,6 +303,7 @@ function fn_remove_reply(url,rno){
     form.submit();
 
 }
+
 $(".btn_goods").on("click", function(){
 	  var formObj = $("form[name='ratingForm']");
 	  var isLogOn = "${memberInfo.member_id}";
@@ -316,8 +314,7 @@ $(".btn_goods").on("click", function(){
 			window.location.href="${contextPath}/member/loginForm.do"; 
 			}else if(isLogOn == 'admin'){
 				alert("관리자는 평가할 수 없습니다.");	
-			}
-			else{
+			}else{
 				alert("평가 완료!");
 	  			formObj.attr("action", "${contextPath}/rating/ratingWrite.do");
 	  			formObj.submit();

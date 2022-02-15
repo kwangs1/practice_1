@@ -22,7 +22,8 @@ public class RatingServiceImpl implements RatingService{
 	}
 	
 	@Override
-	public List<RatingVO>readRating(int goods_id)throws Exception{
-		return ratingDAO.readRating(goods_id);
+	public List<RatingVO>selectRating(int goods_id)throws Exception{
+		return ratingDAO.selectRating(goods_id);
 	}
+
 }

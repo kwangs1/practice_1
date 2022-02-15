@@ -10,6 +10,6 @@ public interface RatingDAO {
 
 	void writeRating(RatingVO vo) throws DataAccessException;
 
-	List<RatingVO> readRating(int goods_id) throws DataAccessException;
+	List<RatingVO> selectRating(int goods_id) throws DataAccessException;
 
 }

@@ -35,9 +35,9 @@
 	]]>
 </insert>
 
-<select id="readRating" resultType="RatingVO">
+<select id="selectRating" resultType="RatingVO">
 	<![CDATA[
-		select good,usually,bad
+		select rseq,good,usually,bad
 		from gallery_rating
 		where goods_id = #{goods_id}
 	]]>

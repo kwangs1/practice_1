@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -75,18 +74,14 @@ public class CollectibleControllerImpl extends BaseController implements Collect
 		mav.addObject("collectible",collectibleVO); 
 
         
-        mav.addObject("heart",collectibleVO);
+
 		//댓글기능
 		List<ReplyVO> replyList = replyService.readReply(collectibleVO.getGoods_id());
 		mav.addObject("replyList",replyList);
+		//평가
+		List<RatingVO> ratingList = ratingService.selectRating(collectibleVO.getGoods_id());
+		mav.addObject("ratingList",ratingList);
 		
-		
-		//평가기능
-		List<RatingVO> rating = ratingService.readRating(collectibleVO.getGoods_id());
-		mav.addObject("rating",rating);
-		
-		
-
 		return mav;
 	}
 

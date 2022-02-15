@@ -9,7 +9,7 @@ public class RatingVO {
 	private int usually;
 	private int bad;
 	private String member_id;
-	private String goods_id;
+	private int goods_id;
 
 	public int getRseq() {
 		return rseq;
@@ -41,10 +41,10 @@ public class RatingVO {
 	public void setMember_id(String member_id) {
 		this.member_id = member_id;
 	}
-	public String getGoods_id() {
+	public int getGoods_id() {
 		return goods_id;
 	}
-	public void setGoods_id(String goods_id) {
+	public void setGoods_id(int goods_id) {
 		this.goods_id = goods_id;
 	}
 	@Override
