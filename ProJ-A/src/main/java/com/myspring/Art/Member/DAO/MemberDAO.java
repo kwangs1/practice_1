@@ -18,4 +18,6 @@ public interface MemberDAO {
 
 	MemberVO selectMemberInfo() throws DataAccessException;
 
+	void selectMemberSearch(MemberVO memberVO) throws DataAccessException;
+
 }

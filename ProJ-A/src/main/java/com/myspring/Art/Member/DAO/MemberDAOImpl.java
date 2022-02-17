@@ -39,4 +39,8 @@ public class MemberDAOImpl implements MemberDAO{
 	public void modifyMyInfo(Map memberMap)throws DataAccessException{
 		sqlSession.update("mapper.member.modifyMyInfo",memberMap);
 	}
+	@Override
+	public void selectMemberSearch(MemberVO memberVO)throws DataAccessException{
+		sqlSession.selectOne("mapper.member.selectMemberSearch",memberVO);
+	}
 }

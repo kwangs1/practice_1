@@ -243,13 +243,7 @@ public class AdminGoodsControllerImpl extends BaseController implements AdminGoo
 			resEntity =new ResponseEntity(message, responseHeaders, HttpStatus.OK);
 			return resEntity;
 		}
-	@RequestMapping(value = "/*Form.do", method = RequestMethod.GET)
-	private ModelAndView form(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		String viewName = (String) request.getAttribute("viewName");
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName(viewName);
-		return mav;
-	}
+
 	
 	
 

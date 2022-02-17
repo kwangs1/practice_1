@@ -169,4 +169,13 @@
 		where 
 		member_id=#{member_id}
 	</update>
+	
+<select id="selectMemberSearch" resultType="memberVO">
+	<![CDATA[
+		select member_id
+		from gallery_member
+		where email1 = ${email1}
+		 and email2 = ${email2} and member_name =${member_name}
+	]]>
+</select>
 </mapper>

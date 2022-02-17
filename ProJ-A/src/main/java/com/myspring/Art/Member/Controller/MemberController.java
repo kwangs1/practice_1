@@ -15,8 +15,6 @@ public interface MemberController {
 
 	ModelAndView login(Map<String, String> loginMap, HttpServletRequest request, HttpServletResponse response)
 			throws Exception;
-	
-	ModelAndView form(HttpServletRequest request, HttpServletResponse response) throws Exception;
 
 	ResponseEntity   addMember(MemberVO _memberVO, HttpServletRequest request, HttpServletResponse response)
 			throws Exception;

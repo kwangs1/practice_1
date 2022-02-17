@@ -43,4 +43,9 @@ public class MemberServiceImpl implements MemberService{
 		memberDAO.modifyMyInfo(memberMap);
 		return memberDAO.selectMemberInfo();
 	}
+	
+	@Override
+	public void memberSearch(MemberVO memberVO)throws Exception{
+		memberDAO.selectMemberSearch(memberVO);
+	}
 }

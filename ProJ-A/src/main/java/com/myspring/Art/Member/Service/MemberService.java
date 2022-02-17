@@ -16,4 +16,6 @@ public interface MemberService {
 
 	MemberVO memberInfo() throws Exception;
 
+	void memberSearch(MemberVO memberVO) throws Exception;
+
 }

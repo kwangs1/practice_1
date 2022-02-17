@@ -17,6 +17,11 @@
          <put-attribute name="title" value="회원 정보 페이지" />
          <put-attribute name="body" value="/WEB-INF/views/member/memberInfo.jsp" />
       </definition>
+      
+      <definition name="/member/memberSearchForm" extends="baseLayout">
+         <put-attribute name="title" value="ID/PW 찾기 페이지" />
+         <put-attribute name="body" value="/WEB-INF/views/member/memberSearchForm.jsp" />
+      </definition>
 </tiles-definitions>
 
 
