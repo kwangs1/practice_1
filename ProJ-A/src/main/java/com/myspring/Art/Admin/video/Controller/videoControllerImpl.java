@@ -34,6 +34,8 @@ public class videoControllerImpl extends BaseController implements videoControll
 	@Autowired
 	private videoVO videoVO;
 
+	//YouTube에 등록된 영상을 볼 수 있게 하였음.
+	
 	//관리자 화면 목록
 	@Override
 	@RequestMapping(value="/adminVideoMain.do" ,method={RequestMethod.POST,RequestMethod.GET})
@@ -67,11 +69,11 @@ public class videoControllerImpl extends BaseController implements videoControll
 		
 		List<videoVO> videolist=videoService.selectVideoView(scri);
 		mav.addObject("videolist", videolist);
-//		log.info("videolist{}",videolist);
 		mav.addObject("pageMaker",pageMaker);
 		
 		return mav;
 	}
+	
 	//등록 post
 	@Override
 	@RequestMapping(value="/youtube/addAction.do" , method = RequestMethod.POST)
@@ -79,9 +81,11 @@ public class videoControllerImpl extends BaseController implements videoControll
 				BindingResult bindingResult)throws Exception{
 		
 		int result = 0;
+		//영상 등록 시 YouTube 동영상 URL에 대한 값을 가져오기 위해
 		videoVO.setV_addr("https://youtu.be/" + videoVO.getV_addr());
 		result =videoService.youtubeInsert(videoVO);
 		
+		//영상 등록이 완료되면 영상 메인페이지로 redirect하게 함.
 		ModelAndView mav = new ModelAndView("redirect:/admin/video/adminVideoMain.do");
 		return mav;
 	}

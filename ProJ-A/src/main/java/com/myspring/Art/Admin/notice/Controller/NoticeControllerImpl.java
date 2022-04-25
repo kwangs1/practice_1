@@ -34,7 +34,7 @@ public class NoticeControllerImpl extends BaseController implements NoticeContro
 	private NoticeVO noticeVO;
 
 	
-	//글 목록
+	//게시글 목록
 	@Override
 	@RequestMapping(value="/noticeList.do", method = RequestMethod.GET)
 	public ModelAndView NoticeList(@ModelAttribute("scri") SearchCriteria scri,
@@ -67,7 +67,7 @@ public class NoticeControllerImpl extends BaseController implements NoticeContro
 		int result = 0;
 		
 		
-		//쿠키
+		//게시글 상세보기를 누를 때 마다 조회수가 올라가지 않기 위해 쿠키를 생성하여 조회수가 계속 올라가는것을 방지하고자 만듬.
 		Cookie viewCookie=null;
 		Cookie[] cookies=request.getCookies();
 
@@ -121,6 +121,7 @@ public class NoticeControllerImpl extends BaseController implements NoticeContro
 		}
 		return mav;
 	}
+	
 	//등록뷰에서 데이터넣기
 	@Override
 	@RequestMapping(value="/addNewNotice.do", method = RequestMethod.POST)
@@ -140,6 +141,7 @@ public class NoticeControllerImpl extends BaseController implements NoticeContro
 		
 		return mav;
 	}
+	
 	//글 삭제
 	@Override
 	@RequestMapping(value="/removeNotice.do", method=RequestMethod.GET)
@@ -156,6 +158,7 @@ public class NoticeControllerImpl extends BaseController implements NoticeContro
 	    ModelAndView mav = new ModelAndView("redirect:/admin/notice/noticeList.do");
 		return mav;
 	}
+	
 	//수정뷰 가기
 	@RequestMapping(value="/modifyNoticeForm.do", method = RequestMethod.GET)
 		public ModelAndView modifyNotice(@RequestParam("bno") int bno,@ModelAttribute("scri") SearchCriteria scri,
@@ -169,6 +172,7 @@ public class NoticeControllerImpl extends BaseController implements NoticeContro
 		mav.addObject("scri", scri);
 		return mav;
 	}
+	
 	//수정 데이터부분
 	@Override
 	@RequestMapping(value="/modifyNotice.do", method=RequestMethod.POST)

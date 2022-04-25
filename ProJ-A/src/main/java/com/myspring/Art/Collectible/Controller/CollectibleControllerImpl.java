@@ -38,11 +38,11 @@ public class CollectibleControllerImpl extends BaseController implements Collect
 	private CollectibleVO collectibleVO;
 	@Autowired
 	private ReplyService replyService;
-	@Autowired
-	private RatingService ratingService;
+//	@Autowired
+//	private RatingService ratingService;
 
 
-	
+	//이미지 게시판 목록
 	@Override
 	@RequestMapping(value="/collectibleList.do" ,method={RequestMethod.POST,RequestMethod.GET})
 	public ModelAndView collectibleList(@ModelAttribute("scri") SearchCriteria scri,
@@ -62,6 +62,7 @@ public class CollectibleControllerImpl extends BaseController implements Collect
 		return mav;
 	}
 	
+	//글 상세보기
 	@Override
 	@RequestMapping(value="/collectibleDetail.do", method=RequestMethod.GET)
 	public ModelAndView collectibleDetail(@RequestParam("goods_id") int goods_id,
@@ -79,8 +80,8 @@ public class CollectibleControllerImpl extends BaseController implements Collect
 		List<ReplyVO> replyList = replyService.readReply(collectibleVO.getGoods_id());
 		mav.addObject("replyList",replyList);
 		//평가
-		List<RatingVO> ratingList = ratingService.selectRating(collectibleVO.getGoods_id());
-		mav.addObject("ratingList",ratingList);
+//		List<RatingVO> ratingList = ratingService.selectRating(collectibleVO.getGoods_id());
+//		mav.addObject("ratingList",ratingList);
 		
 		return mav;
 	}
@@ -94,6 +95,7 @@ public class CollectibleControllerImpl extends BaseController implements Collect
 		replyService.writeReply(vo);	
 		rttr.addAttribute("goods_id", vo.getGoods_id());
 		
+		//댓글 작성 완료시 해당글로 redirect하게 함
 		ModelAndView mav = new ModelAndView("redirect:/collectible/collectibleDetail.do");
 		return mav;
 	}
@@ -103,6 +105,7 @@ public class CollectibleControllerImpl extends BaseController implements Collect
 			HttpServletRequest request, HttpServletResponse response)throws Exception{
 		
 		String viewName = (String)request.getAttribute("viewName");
+		//댓글 수정 시 댓글을 적었던 게시판 글의 상세보기 값들을 jsp에서  같이 사용하기 위해 선언함
 		collectibleVO = collectibleService.collectibleDetail(goods_id);
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName(viewName);
