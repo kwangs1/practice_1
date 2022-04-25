@@ -8,7 +8,7 @@
 ● oralce XE 11g-winx64
 ● Spring FrameWork 4.1.1.RELEASE
 
-# 업데이트 내역
+# 개발과정
 ● 게시판 CRUD
 ● 이미지 게시판 CRUD
 ● YouTube 동영상 업로드
