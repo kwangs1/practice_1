@@ -95,10 +95,10 @@ top:1px;
       		<input type="text" name="member_id" id="loginid" ><br>
       		<label for="loginpw" class="labelpw">비밀번호</label>
       		<input type="password" name="member_pw" id="loginpw" >
-		<div class="search">
+<%-- 		<div class="search">
 			<span class="text">아이디 또는 비밀번호를 잊으셨나요?</span>
 			<a href="${contextPath }/member/memberSearchForm.do" style='cursor:pointer;'>ID/PW 찾기</a>
-		</div>
+		</div> --%>
 		<div class="btnwrap">
 			<a href="${contextPath}/member/memberForm.do">회원가입</a>
 			<input type="submit" id="loginbtn" value="로그인"  style='cursor:pointer;' onClick="fn_log_ref()"/>
@@ -106,7 +106,8 @@ top:1px;
 		</div>
 		</form>
 	</div>
-
+	
+<!-- Controller에서 login 메서드 부분의 메시지부분을 출력하기위해 만듬 -->
 <c:if test='${not empty message }'>
 <script>
 window.onload=function()

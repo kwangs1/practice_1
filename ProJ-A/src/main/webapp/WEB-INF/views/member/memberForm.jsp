@@ -184,6 +184,7 @@ table td{
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
+/* 회원가입 시 입력되지 않는 부분이 있으면 그 부분으로 커서가 가게끔 예외처리 함 */
 function check_onclick(){
 	theForm = document.frm;
 	if(theForm.member_id.value==""){
@@ -241,6 +242,8 @@ function check_onclick(){
 	
 	theForm.submit();
 }
+
+/* 우편번호 검색API */
 function execDaumPostcode() {
   new daum.Postcode({
     oncomplete: function(data) {
@@ -291,7 +294,7 @@ function execDaumPostcode() {
 
 }
 
-	 
+/* ID중복체크 Ajax */ 
 function fn_overlapped(id){
     var _id=$("#_member_id").val();
     if(_id==''){
@@ -300,13 +303,14 @@ function fn_overlapped(id){
     }
     $.ajax({
        type:"post",
-       async:false,  
+       async:false,
        url:"${contextPath}/member/overlapped.do",
        dataType:"text",
-       data: {id:_id},
+       data: {id:_id},//controller에서 RequestParam 어노테이션으로 id준 것에 member_id의 값을 넣기위해 
        success:function (data,textStatus){
           if(data=='false'){
        	    alert("사용할 수 있는 ID입니다.");
+       	    //사용가능 id면 아이디 부분을 비활성화 시킴
        	    $('#btnOverlapped').prop("disabled", true);
        	    $('#_member_id').prop("disabled", true);
        	    $('#member_id').val(_id);

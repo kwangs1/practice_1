@@ -180,7 +180,7 @@ text-align:center;
 		</form>
 
 	<br><br>
-<form name="ratingForm" method="post">
+<%-- <form name="ratingForm" method="post">
 	<input type="hidden" id="member_id" name="member_id" value="${memberInfo.member_id}"readonly/>
 	<input type="hidden" id="goods_id" name="goods_id" value="${collectible.goods_id}"readonly/>
 <table class="rating">
@@ -196,7 +196,7 @@ text-align:center;
 		<button type ="button" disabled>평가하기</button>
 	</c:if>
 </table>
-</form>
+</form> --%>
 
 <br/><br/>
  <form name="replyForm" method="post" > 
