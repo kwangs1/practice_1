@@ -125,6 +125,3 @@ CREATE SEQUENCE  "SEQ_REPLY_ID"  MINVALUE 1 MAXVALUE 11111111 INCREMENT BY 1 STA
 --------------------------------------------------------
 CREATE SEQUENCE  "SEQ_VNO_ID"  MINVALUE 1 MAXVALUE 11111111 INCREMENT BY 1 START WITH 1 NOCACHE  NOORDER  NOCYCLE ;
 --------------------------------------------------------
---  DDL for Sequence SEQ_RATING_ID
---------------------------------------------------------
-CREATE SEQUENCE  "SEQ_RATING_ID"  MINVALUE 1 MAXVALUE 11111111 INCREMENT BY 1 START WITH 1 NOCACHE  NOORDER  NOCYCLE ;
