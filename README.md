@@ -3,18 +3,21 @@
 
 
 # 개발환경
-● jdk1.8.0_281
+● Server OS : Windows10
 
-● Eclipse Ide for Java EE Developers
+● Language : JAVA 1.8
 
-● apache-tomcat-9.0.11
+● WEB Server : Apache 
 
-● apache-maven-2.5.1
+● WAS Server : Tomcat 9.0.11
 
-● oralce XE 11g-winx64
+● build tool : maven 2.5.1
 
-● Spring FrameWork 4.1.1.RELEASE
+● DB: Oralce XE 11g-winx64
 
+● FrameWork : Spring 4.1.1.RELEASE
+
+● ORM : mybatis 3.1.0
 
 
 # 개발과정
