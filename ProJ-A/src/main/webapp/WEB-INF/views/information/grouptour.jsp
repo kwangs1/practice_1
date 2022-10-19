@@ -71,12 +71,6 @@ background-color:#999;
 </style>
 </head>
 <body>
-<img alt="banner" src="${contextPath }/resources/image/banner.png" style="width:100%; height:250px;">
-	<ul class="warp">
-	<li class="active" ><a href="${contextPath }/information/preview.do">관람안내　</a></li>
-	<li class="active"><a href="${contextPath }/information/navigator.do">오시는길　</a></li>
-	<li class="active"><a href="${contextPath }/information/grouptour.do">단체관람 안내</a></li>
-	</ul>
 	<div class="div_box">
 		<div class="div_center">
 				<table class="tableColRow1">

@@ -19,9 +19,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.myspring.Art.Collectible.Service.CollectibleService;
 import com.myspring.Art.Collectible.VO.CollectibleVO;
-import com.myspring.Art.Member.VO.MemberVO;
-import com.myspring.Art.common.Rating.Service.RatingService;
-import com.myspring.Art.common.Rating.VO.RatingVO;
 import com.myspring.Art.common.Reply.Service.ReplyService;
 import com.myspring.Art.common.Reply.VO.ReplyVO;
 import com.myspring.Art.common.base.BaseController;
@@ -38,8 +35,6 @@ public class CollectibleControllerImpl extends BaseController implements Collect
 	private CollectibleVO collectibleVO;
 	@Autowired
 	private ReplyService replyService;
-//	@Autowired
-//	private RatingService ratingService;
 
 
 	//이미지 게시판 목록
@@ -80,8 +75,7 @@ public class CollectibleControllerImpl extends BaseController implements Collect
 		List<ReplyVO> replyList = replyService.readReply(collectibleVO.getGoods_id());
 		mav.addObject("replyList",replyList);
 		//평가
-//		List<RatingVO> ratingList = ratingService.selectRating(collectibleVO.getGoods_id());
-//		mav.addObject("ratingList",ratingList);
+
 		
 		return mav;
 	}

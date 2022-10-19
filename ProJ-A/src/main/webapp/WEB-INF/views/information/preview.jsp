@@ -10,30 +10,47 @@
 <meta charset="UTF-8">
 <title>관람안내</title>
 <style>
-ul{
-   list-style:none;
-   }
-#content{
+.div_box{
+	width:50%; 
+	padding: 40px;
 	margin: 0 auto;
-	text-align:center;
 }
-img{
-	width:100%;
-	height:200px;
+.tableColRow1{
+	width:50%;
+	margin-top: 10px;
+	border-collapse: collapse; 
+	border: 0; 
+	border-spacing: 0;
+	border-top: 5px solid #333; 
+	border-bottom: 5px solid #333; 
+	height:130px; 
+	display: table-cell;
 }
-.titPage02{  
+ .color_black{
+ 	color:#000; font-size:1.2em; font-weight:700;
+ }
+  .color_red{
+ 	color:red; font-size:1.2em; font-weight:700;
+ }
+  .color_green{
+ 	color:#337c29; font-size:1.2em; font-weight:700;
+ }
+ .titPage02{  
 	font-size: 160%;  
 	line-height: 1.1; 
 	color: #333; 
 	margin: 100px 0 50px 0;
 }
-.content{
-	float:left;
-}
- .color_green{
- 	color:#337c29; font-size:1.2em; font-weight:700;
+ .text-align{
+ 	text-align:left; 
+ 	padding-left:1%;
+ 	list-style:none;
  }
- .active{
+ .tdstyle2{
+    width: 100%;
+    border: 5px solid #c0c0c0;
+ }
+  .active{
 float: left; 
 text-align: center; 
 display:inline-block;
@@ -54,12 +71,6 @@ background-color:#999;
 </style>
 </head>
 <body>
-	<img alt="banner" src="${contextPath }/resources/image/banner.png">
-	<ul class="warp">
-	<li class="active" ><a href="${contextPath }/information/preview.do">관람안내　</a></li>
-	<li class="active"><a href="${contextPath }/information/navigator.do">오시는길　</a></li>
-	<li class="active"><a href="${contextPath }/information/grouptour.do">단체관람 안내</a></li>
-	</ul>
 	<div class="content">
 		<h1 class="titPage02">관람시간</h1>
 	<ul>

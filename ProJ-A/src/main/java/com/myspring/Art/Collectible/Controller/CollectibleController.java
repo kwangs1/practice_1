@@ -1,17 +1,11 @@
 package com.myspring.Art.Collectible.Controller;
 
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.myspring.Art.Collectible.VO.CollectibleVO;
-import com.myspring.Art.Member.VO.MemberVO;
-import com.myspring.Art.common.Rating.VO.RatingVO;
 import com.myspring.Art.common.Reply.VO.ReplyVO;
 import com.myspring.Art.common.domain.SearchCriteria;
 

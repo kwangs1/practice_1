@@ -102,12 +102,6 @@ background-color:#999;
 </style>
 </head>
 <body>
-<img alt="banner" src="${contextPath }/resources/image/banner.png" style="width:100%; height:250px;">
-	<ul class="warp">
-	<li class="active" ><a href="${contextPath }/information/preview.do">관람안내　</a></li>
-	<li class="active"><a href="${contextPath }/information/navigator.do">오시는길　</a></li>
-	<li class="active"><a href="${contextPath }/information/grouptour.do">단체관람 안내</a></li>
-	</ul>
 <div id="content">
 	<h1 class="titPage02">교통안내</h1>
 	<p>주소: 경상남도 김해시 분성로155(외동) 전화 000-000-0000</p>
