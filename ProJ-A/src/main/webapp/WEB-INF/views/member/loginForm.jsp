@@ -15,7 +15,7 @@ padding:0;
 }
 .loginbox{
 width:330px;
-height:320px;
+height:200px;
 border:1px solid #ccc;
 margin:0 auto;
 padding:0 auto;
@@ -85,9 +85,20 @@ font-weight:bold;
 position:relative;
 top:1px;
 }
+.logo{
+
+text-align:center;
+}
+.logo img{
+width : 150px; 
+height : 150px;
+}
 </style>
 </head>
 <body>
+<div class="logo">
+	<img src="${contextPath }/resources/image/logo.svg" >
+</div>
 	<div class="loginbox">
 		<h1>Login</h1>
 		<form action="${contextPath }/member/login.do" method="post">
@@ -95,10 +106,7 @@ top:1px;
       		<input type="text" name="member_id" id="loginid" ><br>
       		<label for="loginpw" class="labelpw">비밀번호</label>
       		<input type="password" name="member_pw" id="loginpw" >
-<%-- 		<div class="search">
-			<span class="text">아이디 또는 비밀번호를 잊으셨나요?</span>
-			<a href="${contextPath }/member/memberSearchForm.do" style='cursor:pointer;'>ID/PW 찾기</a>
-		</div> --%>
+
 		<div class="btnwrap">
 			<a href="${contextPath}/member/memberForm.do">회원가입</a>
 			<input type="submit" id="loginbtn" value="로그인"  style='cursor:pointer;' onClick="fn_log_ref()"/>

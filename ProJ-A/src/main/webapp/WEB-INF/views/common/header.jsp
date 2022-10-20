@@ -26,19 +26,17 @@
             <div class="socials">
                 <c:choose>
                     <c:when test="${isLogOn == true and not empty memberInfo }">
-                        <a href="${contextPath}/member/logout.do" onClick="cookieRemove()">로그아웃 |</a>
-                        <a href="${contextPath}/member/memberInfo.do">마이페이지 &#124;</a>
-        
-                        <a href="#">고객센터</a>
+                        <a href="${contextPath}/member/logout.do" onClick="cookieRemove()">▶로그아웃</a>
+                        <a href="${contextPath}/member/memberInfo.do">▶마이페이지</a>
                     </c:when>
                     <c:otherwise>
-                    <a href="${contextPath }/member/loginForm.do">로그인 &#124;</a> 
-                    <a href="${contextPath }/member/memberForm.do">회원가입</a> 
+                    <a href="${contextPath }/member/loginForm.do">▶로그인</a> 
+                    <a href="${contextPath }/member/memberForm.do">▶회원가입</a> 
                     </c:otherwise>
                 </c:choose><br>
                 <c:if test="${isLogOn == true and memberInfo.member_id =='admin' }">
-                    <a href="${contextPath}/admin/goods/adminGoodsMain.do">▶작품관리 &#124;</a>
-                    <a href="${contextPath}/admin/video/adminVideoMain.do">▶프로그램 관리 &#124;</a>
+                    <a href="${contextPath}/admin/goods/adminGoodsMain.do">▶작품관리</a>
+                    <a href="${contextPath}/admin/video/adminVideoMain.do">▶프로그램 관리</a>
                     <a href="${contextPath}/admin/notice/noticeList.do">▶공지사항관리</a>
                 </c:if>
             </div>
@@ -89,7 +87,7 @@
     <!-- End Of Page Second Navigation -->
     
         <!-- page-header -->
-    <header class="page-header" style="background: url(${contextPath }/resources/image/header.jpg) no-repeat center top fixed"></header>
+    <%-- <header class="page-header" style="background: url(${contextPath }/resources/image/header.jpg) no-repeat center top fixed"></header> --%>
     <!-- end of page header -->
 
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>

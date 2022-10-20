@@ -38,6 +38,17 @@ a {
    <td>
     <input type=text style="font-size:2.5em; font-weight:700; color:#000;"
     value="${notice.title }" name="title"  disabled />
+    
+
+        <c:if test="${isLogOn == true and memberInfo.member_id =='admin' }">
+   <a style='cursor:pointer; color:black;' onClick="fn_remove_bno" 
+   		href='<c:url value="/admin/notice/removeNotice.do?bno=${notice.bno }&page=${scri.page }
+   														&perPageNum=${scri.perPageNum }"/>'> ▶삭제</a>      	
+   	&nbsp;
+   <a style='cursor:pointer; color:black;' 
+   		href='<c:url value="/admin/notice/modifyNoticeForm.do?bno=${notice.bno }&page=${scri.page }&perPageNum=${scri.perPageNum }"/>'> ▶수정</a>
+	    </c:if>	    
+
    </td>
   </tr>
  
@@ -62,23 +73,15 @@ a {
    </td>  
    </tr>
     <tr  id="tr_btn"    >
+
    <td>
-        <c:if test="${isLogOn == true and memberInfo.member_id =='admin' }">
-   <a style='cursor:pointer;' onClick="fn_remove_bno" 
-   		href='<c:url value="/admin/notice/removeNotice.do?bno=${notice.bno }&page=${scri.page }
-   														&perPageNum=${scri.perPageNum }"/>'> 삭제</a>      	
-   <a style='cursor:pointer;' 
-   		href='<c:url value="/admin/notice/modifyNoticeForm.do?bno=${notice.bno }&page=${scri.page }&perPageNum=${scri.perPageNum }"/>'> 수정</a>
-	    </c:if>	    
-	    <br>
-	      	<a style='cursor:pointer;'
-	      	 href='<c:url value='/admin/notice/noticeList.do?page=${scri.page }
-	      	 							&perPageNum=${scri.perPageNum }
-	      	 							&searchType=${scri.searchType}
-	      	 							&keyword=${scri.keyword}'/>'>목록으로</a>
+	      	<a style='cursor:pointer; color:black;' 
+	      	 href='<c:url value='/admin/notice/noticeList.do'/>'>▶목록</a>
    </td>
   </tr>
   </table>
+  
+
   </form>
   <form name="readForm" role="form" method="post">
   	<input type="hidden" id="bno" name="bno" value="${notice.bno}" />
@@ -89,19 +92,24 @@ a {
 </form>
  <script  src="http://code.jquery.com/jquery-latest.min.js"></script> 
  <script type="text/javascript">
+
  function fn_remove_bno(url,bno){
+	
 	 var form = document.createElement("form");
-	 form.setAttribute("method", "get");
-	 form.setAttribute("action", url);
-     var bnoInput = document.createElement("input");
-     bnoInput.setAttribute("type","hidden");
-     bnoInput.setAttribute("name","bno");
-     bnoInput.setAttribute("value", bno);
+		 	form.setAttribute("method", "get");
+	 		form.setAttribute("action", url);
+
+	var bnoInput = document.createElement("input");
+    	 	bnoInput.setAttribute("type","hidden");
+     		bnoInput.setAttribute("name","bno");
+     		bnoInput.setAttribute("value", bno);
 	 
      form.appendChild(bnoInput);
      document.body.appendChild(form);
+
+
      form.submit();
- 
+	}
  }
  </script>
 </body>

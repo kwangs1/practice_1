@@ -73,16 +73,22 @@ text-decoration-line: underline;
 <h1>　</h1>
 		 <div class="search" align="center">
     <select name="searchType">
-      <option value="n"<c:out value="${scri.searchType == null ? 'selected' : ''}"/>>-----</option>
       <option value="t"<c:out value="${scri.searchType eq 't' ? 'selected' : ''}"/>>제목</option>
       <option value="c"<c:out value="${scri.searchType eq 'c' ? 'selected' : ''}"/>>내용</option>
       <option value="w"<c:out value="${scri.searchType eq 'w' ? 'selected' : ''}"/>>작성자</option>
       <option value="tc"<c:out value="${scri.searchType eq 'tc' ? 'selected' : ''}"/>>제목+내용</option>
     </select>
 
-    <input type="text" name="keyword" id="keywordInput" value="${scri.keyword}"/>
+    <input type="text" class="tbox" title="검색어를 입력해주세요" placeholder="검색어를 입력해주세요" 
+    	name="keyword" id="keywordInput" value="${scri.keyword}"/>
 
     <button id="searchBtn" type="button">검색</button>
+
+
+	     &nbsp; &nbsp; &nbsp; &nbsp;
+    	<c:if test="${isLogOn == true and memberInfo.member_id =='admin' }">
+		<a href="${contextPath }/admin/notice/addNewNoticeForm.do"> 작성하기</a>
+	</c:if>
 
   </div>
 	<table class="ListTb">
@@ -113,9 +119,7 @@ text-decoration-line: underline;
 		</c:forEach>
 		</tbody>
 	</table>
-	<c:if test="${isLogOn == true and memberInfo.member_id =='admin' }">
-		<a href="${contextPath }/admin/notice/addNewNoticeForm.do"><p align="center">글쓰기</p></a>
-	</c:if>
+
 			<div class="page_wrap">
   				<div class="page_nation">
 				<c:if test="${pageMaker.prev }">
@@ -132,6 +136,7 @@ text-decoration-line: underline;
 				</c:if>
 			</div>
 			</div>
+			
 </form>
 
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>

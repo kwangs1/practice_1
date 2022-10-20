@@ -66,12 +66,12 @@ a {
 	 <input type="hidden" name="perPageNum" value="${scri.perPageNum }">
 	 <input type="hidden" id="searchType" name="searchType" value="${scri.searchType}"> 
   	 <input type="hidden" id="keyword" name="keyword" value="${scri.keyword}"> 
-	   <input type=button value="수정반영하기" style='cursor:pointer;' onClick="fn_enable(this.form)">
-	    	<a style='cursor:pointer;'
+	   <input type=button value="▶수정반영하기" style='cursor:pointer;' onClick="fn_enable(this.form)">
+	    	<a style='cursor:pointer; color:black'
 	      	 href='<c:url value='/admin/notice/noticeList.do?page=${scri.page }
 	      	 							&perPageNum=${scri.perPageNum }
 	      	 							&searchType=${scri.searchType}
-	      	 							&keyword=${scri.keyword}'/>'>수정취소</a>
+	      	 							&keyword=${scri.keyword}'/>'>▶수정취소</a>
    </td>
   </tr>
   </table>
@@ -79,13 +79,27 @@ a {
  <script  src="http://code.jquery.com/jquery-latest.min.js"></script> 
  <script type="text/javascript">
  function fn_enable(obj){
-	 document.getElementById("title").disabled=false;
-	 document.getElementById("department").disabled=true;
-	 document.getElementById("tel").disabled=true;
-	 document.getElementById("writer").disabled=true;
-	 document.getElementById("content").disabled=false;
+	 var update = confirm('게시글을 수정 하시겠습니까?');
+	 
+	 if(update){
+		 alert("수정 되었습니다.");
+		 
+		 document.getElementById("title").disabled=false;
+		 document.getElementById("department").disabled=true;
+		 document.getElementById("tel").disabled=true;
+		 document.getElementById("writer").disabled=true;
+		 document.getElementById("content").disabled=false;
 
-	 obj.submit();
+		 obj.submit();
+	 }else{
+		 alert('수정이 취소되었습니다.');
+		 
+			location.reload(true);
+			location.href = location.href;
+
+			history.go(0);
+	 }
+
  }
 
  </script>

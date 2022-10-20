@@ -2,9 +2,7 @@ package com.myspring.Art.Member.Controller;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 
-import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -16,13 +14,11 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.myspring.Art.Member.Service.MemberService;
@@ -37,8 +33,6 @@ public class MemberControllerImpl extends BaseController implements MemberContro
 	private MemberService memberService;
 	@Autowired
 	private MemberVO memberVO;
-	@Autowired
-	private JavaMailSender mailSender;
 	
 	//로그인
 	@Override
@@ -182,56 +176,6 @@ public class MemberControllerImpl extends BaseController implements MemberContro
 		resEntity = new ResponseEntity(message, responseHeaders, HttpStatus.OK);
 		return resEntity;
 	}
-	
-//	@RequestMapping(value="/memberSearchForm.do" ,method = RequestMethod.GET)
-//	public ModelAndView memberSerachForm(HttpServletRequest request, HttpServletResponse response)throws Exception{
-//		String viewName = (String)request.getAttribute("viewName");
-//		ModelAndView mav = new ModelAndView();
-//		mav.setViewName(viewName);
-//		return mav;
-//	}
-//	
-//	@RequestMapping(value="/memberSearch.do" ,method = RequestMethod.POST)
-//	public ModelAndView memberSerach(@ModelAttribute("member")MemberVO vo,
-//			HttpServletRequest request, HttpServletResponse response)throws Exception{
-//		String viewName = (String)request.getAttribute("viewName");
-//		memberService.memberSearch(vo);
-//		ModelAndView mav = new ModelAndView();
-//		return mav;
-//	}
-//	
-//	@RequestMapping(value="/mailCheck.do", method = RequestMethod.GET)
-//	@ResponseBody
-//	public void mailCheck(String email1,String email2)throws Exception{
-//		
-//		logger.info("데이터 전송 확인");
-//		logger.info("이메일:"+email1+email2);
-//		
-//		Random random = new Random();
-//		int checkNum = random.nextInt(888888)+111111;
-//		logger.info("인증번호:"+checkNum);
-//		
-//		String setFrom = "cckwang2345@naver.com";
-//		String toMail = email1+email2;
-//		String title = "회원 ID/PW 찾기 인증번호입니다";
-//		String content = 
-//				"회원 ID/PW 찾기 인증번호 입니다"+
-//					"<br><br>"+
-//					"인증번호는"+checkNum+"입니다"+
-//					"<br>"+
-//					"해당 인증번호을 기입하여 주세요.";	
-//		try {
-//			MimeMessage message = mailSender.createMimeMessage();
-//			MimeMessageHelper helper = new MimeMessageHelper(message,true,"utf-8");
-//			helper.setFrom(setFrom);
-//			helper.setTo(toMail);
-//			helper.setSubject(title);
-//			helper.setText(content,true);
-//			mailSender.send(message);
-//		}catch(Exception e) {
-//			e.printStackTrace();
-//		}
-//	}
 	
 	
 
