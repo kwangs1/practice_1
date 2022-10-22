@@ -22,8 +22,8 @@ public class ReplyServiceImpl implements ReplyService{
 	}
 	
 	@Override
-	public void writeReply(ReplyVO vo)throws Exception{
-		replyDAO.writeReply(vo);
+	public int writeReply(ReplyVO vo)throws Exception{
+		return replyDAO.writeReply(vo);
 	}
 	
 	@Override

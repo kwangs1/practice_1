@@ -8,7 +8,7 @@ public interface ReplyService {
 
 	List<ReplyVO> readReply(int goods_id) throws Exception;
 
-	void writeReply(ReplyVO vo) throws Exception;
+	int writeReply(ReplyVO vo) throws Exception;
 
 	void updateReply(ReplyVO vo) throws Exception;
 

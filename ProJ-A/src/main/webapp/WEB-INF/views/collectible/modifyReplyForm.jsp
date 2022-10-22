@@ -162,7 +162,7 @@ table tr td input{
 
 </form>
 <br/><br/>
-<form name="updateForm" method="post" action="${contextPath}/collectible/modifyReply.do?goods_id=${reply.goods_id}&rno=${reply.rno}">
+<form name="updateForm" method="post" action="${contextPath}/reply/modifyReply.do?goods_id=${reply.goods_id}&rno=${reply.rno}">
 		<table>
 			<tbody>
 			<tr>  	

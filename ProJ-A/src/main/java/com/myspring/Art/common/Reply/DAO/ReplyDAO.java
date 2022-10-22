@@ -10,7 +10,7 @@ public interface ReplyDAO {
 
 	List<ReplyVO> readReply(int goods_id) throws DataAccessException;
 
-	void writeReply(ReplyVO vo) throws DataAccessException;
+	int writeReply(ReplyVO vo) throws DataAccessException;
 
 	void modifyReply(ReplyVO vo) throws DataAccessException;
 

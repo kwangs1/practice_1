@@ -96,7 +96,7 @@ public class NoticeControllerImpl extends BaseController implements NoticeContro
 		//만들어진 쿠키가 없음을 확인
 		if(viewCookie==null) {
         
-          	System.out.println("viewCookie 확인 로직 : 쿠키 없당");
+          	System.out.println("viewCookie 확인 로직 : 쿠키 없습니다");
 			
             try {
             
@@ -115,7 +115,7 @@ public class NoticeControllerImpl extends BaseController implements NoticeContro
 		
         //만들어진 쿠키가 있으면 증가로직 진행하지 않음
 		}else {
-			System.out.println("viewCookie 확인 로직 : 쿠키 있당");
+			System.out.println("viewCookie 확인 로직 : 쿠키 있습니다");
 			String value=viewCookie.getValue();
 			System.out.println("viewCookie 확인 로직 : 쿠키 value : "+value);
 		}

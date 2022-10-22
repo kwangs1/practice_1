@@ -20,8 +20,8 @@ public class ReplyDAOImpl implements ReplyDAO{
 	}
 	
 	@Override
-	public void writeReply(ReplyVO vo)throws DataAccessException{
-		sqlSession.insert("mapper.reply.writeReply",vo);
+	public int writeReply(ReplyVO vo)throws DataAccessException{
+		return sqlSession.insert("mapper.reply.writeReply",vo);
 
 	}
 	

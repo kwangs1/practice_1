@@ -3,6 +3,7 @@ package com.myspring.Art.Collectible.Controller;
 
 import java.util.List;
 
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -61,7 +62,8 @@ public class CollectibleControllerImpl extends BaseController implements Collect
 	@Override
 	@RequestMapping(value="/collectibleDetail.do", method=RequestMethod.GET)
 	public ModelAndView collectibleDetail(@RequestParam("goods_id") int goods_id,
-				HttpServletRequest request, HttpServletResponse response)throws Exception{
+			@ModelAttribute ReplyVO reply,@ModelAttribute CollectibleVO col,
+			HttpServletRequest request)throws Exception{
 		
 		String viewName=(String)request.getAttribute("viewName");
 		collectibleVO= collectibleService.collectibleDetail(goods_id);
@@ -74,65 +76,9 @@ public class CollectibleControllerImpl extends BaseController implements Collect
 		//댓글기능
 		List<ReplyVO> replyList = replyService.readReply(collectibleVO.getGoods_id());
 		mav.addObject("replyList",replyList);
-		//평가
-
 		
 		return mav;
 	}
 
-	//댓글작성
-	@Override
-	@RequestMapping(value="/replyWrite.do", method=RequestMethod.POST)
-	public ModelAndView replyWrite(@ModelAttribute("reply")ReplyVO vo,
-			RedirectAttributes rttr,HttpServletRequest request, HttpServletResponse response)throws Exception {
 
-		replyService.writeReply(vo);	
-		rttr.addAttribute("goods_id", vo.getGoods_id());
-		
-		//댓글 작성 완료시 해당글로 redirect하게 함
-		ModelAndView mav = new ModelAndView("redirect:/collectible/collectibleDetail.do");
-		return mav;
-	}
-	//댓글 수정뷰
-	@RequestMapping(value="/modifyReplyForm.do", method = RequestMethod.GET)
-	public ModelAndView modifyReplyForm(@ModelAttribute("reply")ReplyVO vo, @RequestParam("goods_id") int goods_id,
-			HttpServletRequest request, HttpServletResponse response)throws Exception{
-		
-		String viewName = (String)request.getAttribute("viewName");
-		//댓글 수정 시 댓글을 적었던 게시판 글의 상세보기 값들을 jsp에서  같이 사용하기 위해 선언함
-		collectibleVO = collectibleService.collectibleDetail(goods_id);
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName(viewName);
-		mav.addObject("collectible",collectibleVO);
-		mav.addObject("reply",replyService.selectReply(vo.getRno()));
-		
-		return mav;	
-	}
-	//댓글 수정 데이터부분
-	@Override
-	@RequestMapping(value="/modifyReply.do", method = RequestMethod.POST)
-	public ModelAndView modifyReply(@ModelAttribute("reply")ReplyVO vo, RedirectAttributes rttr,
-			HttpServletRequest request, HttpServletResponse response)throws Exception{
-
-		replyService.updateReply(vo);		
-		ModelAndView mav = new ModelAndView("redirect:/collectible/collectibleDetail.do");
-
-		rttr.addAttribute("goods_id", vo.getGoods_id());
-		return mav;
-	}
-	
-	//댓글삭제
-	@Override
-	@RequestMapping(value="/removeReply.do", method = RequestMethod.POST)
-	public ModelAndView removeReply(@ModelAttribute("reply")ReplyVO vo, RedirectAttributes rttr,
-				HttpServletRequest request, HttpServletResponse response)throws Exception{
-		logger.info("reply delete");
-		
-		replyService.deleteReply(vo);
-		
-		rttr.addAttribute("goods_id", vo.getGoods_id());
-		ModelAndView mav = new ModelAndView("redirect:/collectible/collectibleDetail.do");
-
-		return mav;
-	}
 }
