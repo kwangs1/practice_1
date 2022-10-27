@@ -14,8 +14,8 @@
 		<put-attribute name="body" value="/WEB-INF/views/collectible/collectibleDetail.jsp" />
 	</definition>
 	
-	<definition name="/collectible/modifyReplyForm" extends="baseLayout">
+	<definition name="/collectible/getUpdateReply"  extends="PopLayout">
 		<put-attribute name="title" value="댓글수정" />
-		<put-attribute name="body" value="/WEB-INF/views/collectible/modifyReplyForm.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/collectible/UpdateRe_Pop.jsp" />
 	</definition>
 </tiles-definitions>

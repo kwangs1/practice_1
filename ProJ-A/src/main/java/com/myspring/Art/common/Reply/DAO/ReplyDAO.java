@@ -12,10 +12,12 @@ public interface ReplyDAO {
 
 	int writeReply(ReplyVO vo) throws DataAccessException;
 
-	void modifyReply(ReplyVO vo) throws DataAccessException;
-
 	void deleteReply(ReplyVO vo) throws DataAccessException;
 
 	ReplyVO selectReply(int rno) throws DataAccessException;
+
+	int updateReply(ReplyVO vo);
+
+	ReplyVO getUpdateReply(int rno);
 
 }

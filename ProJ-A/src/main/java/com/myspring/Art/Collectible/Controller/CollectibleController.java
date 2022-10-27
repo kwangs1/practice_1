@@ -14,8 +14,7 @@ public interface CollectibleController {
 
 	ModelAndView collectibleList(SearchCriteria scri, HttpServletRequest request, HttpServletResponse response)
 		throws Exception;
-	
-	ModelAndView collectibleDetail(int goods_id, ReplyVO reply, CollectibleVO col, HttpServletRequest request)
-			throws Exception;
+
+	ModelAndView collectibleDetail(int goods_id, ReplyVO reply, HttpServletRequest request) throws Exception;
 
 }

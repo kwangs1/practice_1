@@ -15,7 +15,7 @@
 	<![CDATA[
 		select
 			rno,content,writer,regdate
-		from notice_reply
+		from board_reply
 		where goods_id =#{goods_id}
 		order by rno desc
 	]]>
@@ -26,7 +26,7 @@
 		select SEQ_REPLY_ID.nextval from dual
 	</selectKey>
 	<![CDATA[
-	INSERT INTO notice_reply(
+	INSERT INTO board_reply(
 		goods_id
 		, RNO
 		, CONTENT
@@ -40,22 +40,33 @@
 	]]>
 </insert>
 
-<update id="updateReply" parameterType="ReplyVO">
-	<![CDATA[
-		update notice_reply set content = #{content}
-		where rno = #{rno}
-	]]>
+<update id="updateReply">
+<![CDATA[
+	update board_reply set content = #{content}
+	where rno = #{rno}
+]]>
 </update>
 
+<select id="getUpdateReply" resultType="ReplyVO">
+<![CDATA[
+	select * from board_reply
+	where rno = #{rno}
+]]>
+</select>
+
 <delete id="deleteReply" parameterType="ReplyVO">
-	DELETE FROM notice_reply
+<![CDATA[
+		DELETE FROM board_reply
 		WHERE rno = #{rno}
+]]>
 </delete>
 
 <select id="selectReply" resultType="ReplyVO">
-select
+<![CDATA[
+	select
 	goods_id, rno, content
-	from notice_reply
+	from board_reply
 	where rno = #{rno}
+]]>
 </select>
 </mapper>

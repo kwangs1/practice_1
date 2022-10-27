@@ -63,6 +63,7 @@
 
 <br/><br/>
  <form name="replyForm" method="post" > 
+    <input type="hidden" id="rno" name="rno" value="${reply.rno}"/>
  	<input type="hidden" id="goods_id" name="goods_id" value="${collectible.goods_id}" />
     <input type="hidden" id="writer" name="writer" value="${memberInfo.member_name}"/>
 
@@ -72,6 +73,7 @@
  					 <input type="button" class="replyWriteBtn" style='cursor:pointer;' value="작성"/>
 			</div>		
   </div>
+
 	<a style='cursor:pointer;'
 	      	 href='<c:url value='/collectible/collectibleList.do'/>'>▶목록으로</a>
 <table>
@@ -93,7 +95,7 @@
 		<c:if test="${item.writer == memberInfo.member_name }">
 			<tr>
 				<td>
-				 <button type="button" class="replyUpdateBtn" data-rno="${item.rno}">수정</button> 
+				 <button type="button" class="update_reply_btn">수정</button> 
    				<button type="button"style='cursor:pointer;' 
 	      	onClick="fn_remove_reply('${contextPath}/reply/removeReply.do?rno=${item.rno }&goods_id=${collectible.goods_id }')">삭제</button>	
 	      		</td>		
@@ -105,93 +107,12 @@
 
 
 		</table>
+  </form>
 
-</form>
 
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script  src="${contextPath}/resources/board.js"></script>
 <script type="text/javascript">
-// Get the modal
-var modal = document.getElementById("myModal");
-
-// Get the image and insert it inside the modal - use its "alt" text as a caption
-var img = document.getElementById("myImg");
-var modalImg = document.getElementById("img01");
-var captionText = document.getElementById("caption");
-img.onclick = function(){
-  modal.style.display = "block";
-  modalImg.src = this.src;
-  captionText.innerHTML = this.alt;
-}
-
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() { 
-  modal.style.display = "none";
-} 
-
-//댓글 작성
-
-$(document).on("click", ".replyWriteBtn",function(){
-	var Content = $('#content').val();
-	var Writer = $('#writer').val();
-	var goods_id = $('#goods_id').val();
-	
-			if(Writer == ""){
-				alert("로그인 후 댓글 작성이 가능하십니다.!");
-			}			
-			if(Writer != "" && Content == ""){
-				alert("내용을 입력해주세요.");
-			}
-
-			
-			var paramData = JSON.stringify(
-					{"content": Content
-					,"writer" : Writer
-					,"goods_id" : goods_id
-			});
-			var headers = {"Content-Type":"application/json"
-				,"X-HTTP-Method-Override":"POST"};
-			
-			$.ajax({
-				url:"${contextPath}/reply/replyWrite.do"
-				,headers : headers
-				,data : paramData
-				,type : 'POST'
-				,dataType : 'text'
-				,success:function(result){
-					window.location.reload();
-				}
-				,error:function(error){
-					console.log("에러:" + error);
-					console.log(paramData);
-				}
-			});//end ajax
-			
-	});
-
-//댓글 수정
-$(document).on("click", ".replyUpdateBtn",function(){
-	location.href = "${contextPath}/collectible/modifyReplyForm.do?goods_id=${collectible.goods_id}"
-					+ "&rno="+$(this).attr("data-rno");
-});
-
-function fn_remove_reply(url,rno){
-	 var form = document.createElement("form");
-	 form.setAttribute("method", "post");
-	 form.setAttribute("action", url);
-    var RnoInput = document.createElement("input");
-    RnoInput.setAttribute("type","hidden");
-    RnoInput.setAttribute("name","rno");
-    RnoInput.setAttribute("value", rno);
-	 
-    form.appendChild(RnoInput);
-    document.body.appendChild(form);
-    form.submit();
-
-}
-
 
 
 </script>

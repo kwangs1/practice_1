@@ -11,11 +11,13 @@
 		<put-attribute name="footer" value="" />
 	</definition>
 	
-	<definition name="/main/popUp"  template="/WEB-INF/views/main/popUp.jsp">
-	  <put-attribute name="title" value="" />
-      <put-attribute name="side" value="" />
-      <put-attribute name="body" value="" />
-   	</definition>
+	<definition name="PopLayout"
+		template="/WEB-INF/views/common/popup.jsp">
+		<put-attribute name="title" value="" />
+		<put-attribute name="header" value="" />
+		<put-attribute name="body" value="" />
+		<put-attribute name="footer" value="" />
+	</definition>
 	
 	<definition name="/main/main" extends="baseLayout">
 		<put-attribute name="title" value="미술관" />

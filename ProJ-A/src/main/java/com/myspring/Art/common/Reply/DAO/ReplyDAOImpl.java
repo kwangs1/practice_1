@@ -26,12 +26,6 @@ public class ReplyDAOImpl implements ReplyDAO{
 	}
 	
 	@Override
-	public void modifyReply(ReplyVO vo)throws DataAccessException{
-		sqlSession.update("mapper.reply.updateReply",vo);
-
-	}
-	
-	@Override
 	public void deleteReply(ReplyVO vo)throws DataAccessException{
 		sqlSession.delete("mapper.reply.deleteReply", vo);
 	}
@@ -39,5 +33,16 @@ public class ReplyDAOImpl implements ReplyDAO{
 	@Override
 	public ReplyVO selectReply(int rno)throws DataAccessException{
 		return sqlSession.selectOne("mapper.reply.selectReply",rno);
+	}
+	
+	@Override
+	public int updateReply(ReplyVO vo) {
+		return sqlSession.update("mapper.reply.updateReply",vo);
+	}
+	
+//	´ñ±Û¼öÁ¤ºä
+	@Override
+	public ReplyVO getUpdateReply(int rno) {
+		return sqlSession.selectOne("mapper.reply.getUpdateReply",rno);
 	}
 }
