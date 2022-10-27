@@ -10,12 +10,10 @@ public interface ReplyService {
 
 	int writeReply(ReplyVO vo) throws Exception;
 
-	void deleteReply(ReplyVO vo) throws Exception;
-
-	ReplyVO selectReply(int rno) throws Exception;
-
-	int updateReply(ReplyVO vo);
+	int updateReply(ReplyVO vo) throws Exception;
 
 	ReplyVO getUpdateReply(int rno);
+
+	void deleteReply(ReplyVO vo) throws Exception;
 
 }

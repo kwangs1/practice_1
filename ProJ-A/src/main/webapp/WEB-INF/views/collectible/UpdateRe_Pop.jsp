@@ -20,7 +20,7 @@
 			<tbody>
 			<tr>  	
 			<td>
-				<input type="hidden" name="goods_id" value="${collectible.goods_id}" readonly="readonly"/>
+				<input type="hidden" name="goods_id" value="${collectible.goods_id}"/>
 				<input type="hidden" id="rno" name="rno" value="${reply.rno}" />	
 				작성자  &#124; <input type=text value="${memberInfo.member_name}" disabled />
 			</td>
@@ -39,12 +39,12 @@
 /* 등록 버튼 */
 $(".update_btn").on("click", function(){
 	
-	const rno = '${reply.rno}';
-	const goods_id = '${collectible.goods_id}';
-	const member_id = '${memberInfo.member_name}';
-	const content = '${reply.content}';		
+	var rno = $('#rno').val();
+	var goods_id = '${collectible.goods_id}';
+	var member_id = '${memberInfo.member_name}';
+	var content = $('#content').val();		
 	
-	const data = {
+	var data = {
 			rno : rno,
 			goods_id : goods_id,
 			member_id : member_id,
@@ -56,7 +56,6 @@ $(".update_btn").on("click", function(){
 		type : 'POST',
 		url : '${contextPath}/reply/updateReply.do',
 		success : function(result){
-			/* $(opener.location).attr("href", "javascript:replyListInit();"); */
 			window.close();
 		}			
 	});		

@@ -30,14 +30,10 @@ public class ReplyDAOImpl implements ReplyDAO{
 		sqlSession.delete("mapper.reply.deleteReply", vo);
 	}
 	
+	// ´ñ±Û ¼öÁ¤
 	@Override
-	public ReplyVO selectReply(int rno)throws DataAccessException{
-		return sqlSession.selectOne("mapper.reply.selectReply",rno);
-	}
-	
-	@Override
-	public int updateReply(ReplyVO vo) {
-		return sqlSession.update("mapper.reply.updateReply",vo);
+	public int updateReply(ReplyVO replyVO) throws DataAccessException {
+		return sqlSession.update("mapper.reply.updateReply", replyVO);
 	}
 	
 //	´ñ±Û¼öÁ¤ºä

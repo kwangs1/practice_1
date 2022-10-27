@@ -69,9 +69,6 @@ public class CollectibleControllerImpl extends BaseController implements Collect
 		mav.setViewName(viewName);
 		mav.addObject("collectible",collectibleVO); 
 
-        
-
-		//´ñ±Û±â´É
 		List<ReplyVO> replyList = replyService.readReply(collectibleVO.getGoods_id());
 		mav.addObject("replyList",replyList);
 		
@@ -80,17 +77,15 @@ public class CollectibleControllerImpl extends BaseController implements Collect
 	
 	//´ñ±Û ¼öÁ¤ÆË¾÷Ã¢
 	@RequestMapping(value="/getUpdateReply.do", method=RequestMethod.GET)
-	public ModelAndView getUpdateReply(@ModelAttribute ReplyVO reply, HttpServletRequest request) throws Exception {
+	public ModelAndView getUpdateReply(@RequestParam int rno, HttpServletRequest request) throws Exception {
 		
 		String viewName=(String)request.getAttribute("viewName");
 		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName(viewName);
 
-		mav.addObject("replyInfo" , replyService.getUpdateReply(reply.getRno()));
-		logger.info(reply.getRno() + ":´ñ±Û ¹øÈ£");
+		mav.addObject("reply" , replyService.getUpdateReply(rno));
+		logger.info(rno + "<<´ñ±Û ¹øÈ£");
 		return mav;
 	}
-
-
 }

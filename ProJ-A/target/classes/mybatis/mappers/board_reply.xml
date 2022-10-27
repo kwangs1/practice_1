@@ -17,7 +17,7 @@
 			rno,content,writer,regdate
 		from board_reply
 		where goods_id =#{goods_id}
-		order by rno desc
+		order by rno asc
 	]]>
 </select>
 
@@ -60,13 +60,4 @@
 		WHERE rno = #{rno}
 ]]>
 </delete>
-
-<select id="selectReply" resultType="ReplyVO">
-<![CDATA[
-	select
-	goods_id, rno, content
-	from board_reply
-	where rno = #{rno}
-]]>
-</select>
 </mapper>

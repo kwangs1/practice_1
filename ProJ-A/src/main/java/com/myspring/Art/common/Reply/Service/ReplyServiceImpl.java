@@ -31,11 +31,7 @@ public class ReplyServiceImpl implements ReplyService{
 		replyDAO.deleteReply(vo);
 	}
 	
-	@Override
-	public ReplyVO selectReply(int rno)throws Exception{
-		return replyDAO.selectReply(rno);
-	}
-	
+	//´ñ±Û¼öÁ¤
 	@Override
 	public int updateReply(ReplyVO vo) {
 		int result = replyDAO.updateReply(vo);

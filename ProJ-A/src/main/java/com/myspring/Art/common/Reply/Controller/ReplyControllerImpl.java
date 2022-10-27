@@ -3,7 +3,6 @@ package com.myspring.Art.common.Reply.Controller;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -20,12 +19,11 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.myspring.Art.Collectible.Controller.CollectibleControllerImpl;
-import com.myspring.Art.Collectible.VO.CollectibleVO;
 import com.myspring.Art.common.Reply.Service.ReplyService;
 import com.myspring.Art.common.Reply.VO.ReplyVO;
 import com.myspring.Art.common.base.BaseController;
 
-@Controller("replyController")
+@Controller
 @RequestMapping(value="/reply")
 public class ReplyControllerImpl extends BaseController implements ReplyController{
 	
@@ -33,7 +31,6 @@ public class ReplyControllerImpl extends BaseController implements ReplyControll
 
 	@Autowired
 	private ReplyService replyService;
-	
 	
 	//¥Ò±€¿€º∫
 	@ResponseBody
@@ -69,11 +66,7 @@ public class ReplyControllerImpl extends BaseController implements ReplyControll
 	//¥Ò±€ ºˆ¡§
 	@ResponseBody
 	@RequestMapping(value="/updateReply.do", method = RequestMethod.POST)
-	public void replyModifyPost(@RequestBody ReplyVO vo) {
+	public void replyModifyPost(@RequestBody ReplyVO vo) throws Exception {
 		replyService.updateReply(vo);
 	}
-	
-
-
-	
 }

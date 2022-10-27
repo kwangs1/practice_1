@@ -76,6 +76,7 @@ $(document).on('click', ' .update_reply_btn', function(){
 		window.open(popUrl,"리뷰 수정",popOption);
 });
 
+
 //댓글 삭제
 function fn_remove_reply(url,rno){
 	 var form = document.createElement("form");
