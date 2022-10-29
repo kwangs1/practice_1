@@ -1,6 +1,7 @@
 package com.myspring.Art.common.Reply.Controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,24 +15,25 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.myspring.Art.Collectible.Controller.CollectibleControllerImpl;
 import com.myspring.Art.common.Reply.Service.ReplyService;
 import com.myspring.Art.common.Reply.VO.ReplyVO;
 import com.myspring.Art.common.base.BaseController;
+
 
 @Controller
 @RequestMapping(value="/reply")
 public class ReplyControllerImpl extends BaseController implements ReplyController{
 	
-	private static final Logger logger = LoggerFactory.getLogger(CollectibleControllerImpl.class);
+	private static final Logger logger = LoggerFactory.getLogger(ReplyControllerImpl.class);
 
 	@Autowired
 	private ReplyService replyService;
-	
+
 	//¥Ò±€¿€º∫
 	@ResponseBody
 	@RequestMapping(value="/replyWrite.do", method=RequestMethod.POST )

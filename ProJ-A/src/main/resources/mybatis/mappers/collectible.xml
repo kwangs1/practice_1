@@ -14,7 +14,9 @@
 		<result property="goods_note" column="goods_note" />
 		<result property="goods_status" column="goods_status" />
 		<result property="goods_fileName" column="goods_fileName" />
-		<result property="likehit" column="likehit" />
+		<result property="member_id" column="member_id" />
+		<result property="like_count" column="like_count" />
+		<result property="reply_count" column="reply_count" />
 	</resultMap>
 		<!--상품 이미지 정보를 저장하는 resultmap  -->
 	<resultMap id="imageResult" type="ImageFileVO">
@@ -28,7 +30,7 @@
 	<select id="selectAllCollectibleList" resultMap="goodsResult" parameterType="java.util.Map">  
    select * 
    		from(
-		select rowNum as rn,col.goods_id,col.goods_title,col.goods_author,
+		select rowNum as rn,col.goods_id,col.goods_title,col.goods_author,col.like_count,reply_count,
 		(
    			select image.fileName
    			from GALLERY_IMAGE image
@@ -55,7 +57,7 @@
 	
 	<select id="selectCollectibleDetail" parameterType="int" resultMap="goodsResult" >
 		<![CDATA[
-			select col.goods_id, col.goods_title, col.goods_year, col.goods_no ,col.goods_author,col.goods_year,col.likehit,
+			select col.goods_id, col.goods_title, col.goods_year, col.goods_no ,col.goods_author,col.goods_year,
 			col.goods_stuff, col.goods_standard, col.goods_note, col.goods_status, (image.fileName) as goods_fileName 
 			from GALLERY_COLLECTIBLE col, GALLERY_IMAGE image
 			where col.goods_id = image.goods_id
@@ -63,6 +65,22 @@
 			and col.goods_id = #{col.goods_id}
 		]]>
 	</select>
+	
+<update id="UpdateLikeCount" parameterType="int">
+	<![CDATA[
+		update GALLERY_COLLECTIBLE col
+		set col.like_count = (select count(lno) from board_like where goods_id = #{goods_id})
+		where col.goods_id = #{goods_id}
+	]]>
+</update>
+
+<update id="UpdateReplyCount" parameterType="int">
+	<![CDATA[
+		update GALLERY_COLLECTIBLE col
+		set col.reply_count = (select count(rno) from board_reply where goods_id = #{goods_id})
+		where col.goods_id = #{goods_id}
+	]]>
+</update>
 	
 <sql id="search">
 	<if test="searchType != null">

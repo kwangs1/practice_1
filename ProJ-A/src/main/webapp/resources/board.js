@@ -64,9 +64,11 @@ $(document).on("click", ".replyWriteBtn",function(){
 			
 	});
 
-//댓글 수정
-$(document).on('click', ' .update_reply_btn', function(){
-	var rno = $('#rno').val();
+//댓글 수정 팝업
+$(document).on('click', ' .update_reply_btn', function(e){
+	e.preventDefault();
+	
+	var rno = $(this).attr('data-rno');
 	var goods_id = $('#goods_id').val();
 	var name = $('#writer').val();
 	
@@ -91,3 +93,4 @@ function fn_remove_reply(url,rno){
     document.body.appendChild(form);
     form.submit();
 }
+

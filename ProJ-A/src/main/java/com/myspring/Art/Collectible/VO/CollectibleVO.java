@@ -17,14 +17,29 @@ public class CollectibleVO {
 	private int goods_year;
 	private String goods_fileName;
 	private String goods_regDate;
-	private int likehit;
+	private String member_id;
+	private int like_count;
+	private int reply_count;
 
 	
-	public int getLikehit() {
-		return likehit;
+	
+	public int getReply_count() {
+		return reply_count;
 	}
-	public void setLikehit(int likehit) {
-		this.likehit = likehit;
+	public void setReply_count(int reply_count) {
+		this.reply_count = reply_count;
+	}
+	public int getLike_count() {
+		return like_count;
+	}
+	public void setLike_count(int like_count) {
+		this.like_count = like_count;
+	}
+	public String getMember_id() {
+		return member_id;
+	}
+	public void setMember_id(String member_id) {
+		this.member_id = member_id;
 	}
 	public String getGoods_fileName() {
 		return goods_fileName;

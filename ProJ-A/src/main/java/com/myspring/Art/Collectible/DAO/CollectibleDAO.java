@@ -16,4 +16,8 @@ public interface CollectibleDAO {
 	int countList(SearchCriteria scri);
 
 	List<CollectibleVO> selectAllCollectibleList(SearchCriteria scri) throws DataAccessException;
+
+	void UpdateLikeCount(int goods_id) throws DataAccessException;
+
+	void UpdateReplyCount(int goods_id) throws DataAccessException;
 }

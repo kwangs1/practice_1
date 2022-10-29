@@ -18,6 +18,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.myspring.Art.Collectible.Service.CollectibleService;
 import com.myspring.Art.Collectible.VO.CollectibleVO;
+import com.myspring.Art.common.Like.Service.LikeService;
+import com.myspring.Art.common.Like.VO.LikeVO;
 import com.myspring.Art.common.Reply.Service.ReplyService;
 import com.myspring.Art.common.Reply.VO.ReplyVO;
 import com.myspring.Art.common.base.BaseController;
@@ -34,6 +36,8 @@ public class CollectibleControllerImpl extends BaseController implements Collect
 	private CollectibleVO collectibleVO;
 	@Autowired
 	private ReplyService replyService;
+	@Autowired
+	private LikeService likeService;
 
 
 	//이미지 게시판 목록
@@ -52,14 +56,14 @@ public class CollectibleControllerImpl extends BaseController implements Collect
 		mav.addObject("collectible", collectibleList);
 		mav.addObject("pageMaker",pageMaker);
 	
-
 		return mav;
 	}
 	
 	//글 상세보기
 	@Override
 	@RequestMapping(value="/collectibleDetail.do", method=RequestMethod.GET)
-	public ModelAndView collectibleDetail(@RequestParam("goods_id") int goods_id,@ModelAttribute("reply")ReplyVO reply,
+	public ModelAndView collectibleDetail(@RequestParam("goods_id") int goods_id,String member_id,
+			@ModelAttribute("reply")ReplyVO reply,
 			HttpServletRequest request)throws Exception{
 		
 		String viewName=(String)request.getAttribute("viewName");
@@ -69,23 +73,42 @@ public class CollectibleControllerImpl extends BaseController implements Collect
 		mav.setViewName(viewName);
 		mav.addObject("collectible",collectibleVO); 
 
+		//댓글 목록
 		List<ReplyVO> replyList = replyService.readReply(collectibleVO.getGoods_id());
 		mav.addObject("replyList",replyList);
 		
+		//좋아요
+		LikeVO like = new LikeVO();
+		
+		like.setGoods_id(goods_id);
+		like.setMember_id(member_id);
+		like.setLike_type(1);
+		
+		//좋아요 체크 확인
+		mav.addObject("findLike",likeService.findLike(goods_id,member_id));
+		//좋아요 갯수
+		mav.addObject("getLike",likeService.getLike(goods_id,1));
+		
+		//게시판 list에 좋아요 갯수 출력
+		collectibleService.UpdateLikeCount(goods_id);
+		//게시판 liset 댓글 갯수 출력
+		collectibleService.UpdateReplyCount(goods_id);
 		return mav;
 	}
 	
 	//댓글 수정팝업창
 	@RequestMapping(value="/getUpdateReply.do", method=RequestMethod.GET)
-	public ModelAndView getUpdateReply(@RequestParam int rno, HttpServletRequest request) throws Exception {
+	public ModelAndView getUpdateReply(@ModelAttribute ReplyVO reply, HttpServletRequest request) throws Exception {
 		
 		String viewName=(String)request.getAttribute("viewName");
 		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName(viewName);
-
-		mav.addObject("reply" , replyService.getUpdateReply(rno));
-		logger.info(rno + "<<댓글 번호");
+		
+		collectibleVO = collectibleService.collectibleDetail(reply.getGoods_id());
+		mav.addObject("collectible",collectibleVO); 
+		
+		mav.addObject("reply" , replyService.getUpdateReply(reply.getRno()));
 		return mav;
 	}
 }

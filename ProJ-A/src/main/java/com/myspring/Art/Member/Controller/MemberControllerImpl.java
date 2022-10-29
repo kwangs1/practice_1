@@ -167,6 +167,7 @@ public class MemberControllerImpl extends BaseController implements MemberContro
 		memberVO = (MemberVO)memberService.modifyMyInfo(memberMap);
 		session.removeAttribute("memberInfo");
 		session.setAttribute("memberInfo", memberVO);
+
 		
 		String message = null;
 		ResponseEntity resEntity = null;

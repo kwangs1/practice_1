@@ -15,6 +15,13 @@ table{
 table td{
 	border-bottom: 1px solid #ccc;
 }
+a{
+color:black;
+}
+a:hover{
+text-decoration-line: underline;
+	color:black;
+}
 </style>
 </head>
 <body>
@@ -139,7 +146,7 @@ table td{
 					<td>이메일 &#124;<br>(e-mail)
 					<input size="10px"   type="text" name="email1" id="email1"/> @ <input  size="10px"  type="text"name="email2" id="email2"/> 
 						  <select name="email2" id="email2" onChange=""	title="직접입력">
-									<option value="non">직접입력</option>
+									<option value="">직접입력</option>
 									<option value="hanmail.net">hanmail.net</option>
 									<option value="naver.com">naver.com</option>
 									<option value="yahoo.co.kr">yahoo.co.kr</option>

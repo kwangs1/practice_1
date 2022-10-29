@@ -16,6 +16,13 @@ table{
 table td{
 	border-bottom: 1px solid #ccc;
 }
+a{
+color:black;
+}
+a:hover{
+text-decoration-line: underline;
+	color:black;
+}
 </style>
 </head>
 <body>
@@ -62,8 +69,8 @@ table td{
 					</td>
 				</tr>
 				<tr>
-					<td>법정생년월일 &#124;
-					   <select name="member_birth_y">
+					<td>생년월일 &#124;
+					   <select name="member_birth_y" disabled>
 					     <c:forEach var="i" begin="1" end="100">
 					       <c:choose>
 					         <c:when test="${memberInfo.member_birth_y==1920+i }">
@@ -75,7 +82,7 @@ table td{
 							</c:choose>
 					   	</c:forEach>
 					</select>년 
-					<select name="member_birth_m" >
+					<select name="member_birth_m" disabled>
 						<c:forEach var="i" begin="1" end="12">
 					       <c:choose>
 					         <c:when test="${memberInfo.member_birth_m==i }">
@@ -88,7 +95,7 @@ table td{
 					   	</c:forEach>
 					</select>월 
 					
-					<select name="member_birth_d">
+					<select name="member_birth_d" disabled>
 							<c:forEach var="i" begin="1" end="31">
 					       <c:choose>
 					         <c:when test="${memberInfo.member_birth_d==i }">
@@ -102,16 +109,15 @@ table td{
 					</select>일 <span style="padding-left:50px"></span>
 					   <c:choose>
 					    <c:when test="${memberInfo.member_birth_gn=='2' }"> 
-					  <input type="radio" name="member_birth_gn" value="2" checked />양력
+					  <input type="radio" name="member_birth_gn" value="2" checkd/>양력
 						<span style="padding-left:20px"></span> 
 						<input type="radio"  name="member_birth_gn" value="1" />음력
 						</c:when>
 						<c:otherwise>
-						  <input type="radio" name="member_birth_gn" value="2" />양력
-						  <input type="radio"  name="member_birth_gn" value="1" checked  />음력
+						  <input type="radio" name="member_birth_gn" value="2" disabled/>양력
+						  <input type="radio"  name="member_birth_gn" value="1" disabled/>음력
 						</c:otherwise>
 						</c:choose>
-					  <input type="button" value="수정하기" onClick="fn_modify_member_info('member_birth')" />
 					</td>
 				</tr>
 				<tr>
@@ -202,7 +208,7 @@ table td{
 				</tr>
 				<tr>
 					<td>주소 &#124;
-					   <input type="text" id="zipcode" name="zipcode" size=5 value="${memberInfo.zipcode }" > <a href="javascript:execDaumPostcode()">우편번호검색</a>
+					   <input type="text" id="zipcode" name="zipcode" size=5 value="${memberInfo.zipcode }" > <a  href="javascript:execDaumPostcode()">우편번호검색</a>
 					  <br>
 					  <p> 
 					   지번 주소:<br><input type="text" id="roadAddress"  name="roadAddress" size="50" value="${memberInfo.roadAddress }"><br><br>
@@ -416,13 +422,13 @@ function fn_modify_member_info(attribute){
 				value:value,
 			},
 			success : function(data, textStatus) {
+
 				if(data.trim()=='mod_success'){
-					alert("회원 정보를 수정했습니다.");
+					alert("수정 완료되었습니다.다시 로그인 해주세요.");
 					window.location.href = '${contextPath}/member/loginForm.do';
 				}else if(data.trim()=='failed'){
 					alert("다시 시도해 주세요.");	
 				}
-				
 			},
 			error : function(data, textStatus) {
 				alert("에러가 발생했습니다."+data);

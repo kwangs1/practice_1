@@ -2,17 +2,22 @@ package com.myspring.Art.common.Reply.Service;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.myspring.Art.Collectible.Controller.CollectibleControllerImpl;
 import com.myspring.Art.common.Reply.DAO.ReplyDAO;
 import com.myspring.Art.common.Reply.VO.ReplyVO;
 
 @Service("replyService")
 @Transactional(propagation = Propagation.REQUIRED)
 public class ReplyServiceImpl implements ReplyService{
+
+	
 	@Autowired
 	private ReplyDAO replyDAO;
 	

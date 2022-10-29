@@ -33,4 +33,13 @@ public class CollectibleServiceImpl implements CollectibleService{
 		return collectibleVO;
 	}
 	
+	@Override
+	public void UpdateLikeCount(int goods_id) throws Exception {
+		collectibleDAO.UpdateLikeCount(goods_id);
+	}
+	
+	@Override
+	public void UpdateReplyCount(int goods_id) throws Exception {
+		collectibleDAO.UpdateReplyCount(goods_id);
+	}
 }

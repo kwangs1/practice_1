@@ -78,6 +78,10 @@ request.setCharacterEncoding("UTF-8");
 	color:#999999;
 	text-decoration:none;
 }
+.likeImg{
+width:15px;
+heigth:15px;
+}
 </style>
 </head>
 <body>
@@ -109,6 +113,7 @@ request.setCharacterEncoding("UTF-8");
 			<div class="collectible">
 			<h1>　</h1>
 					<a href='<c:url value='/collectible/collectibleDetail.do?goods_id=${item.goods_id}
+										&member_id=${memberInfo.member_id }
 										&page=${scri.page }
 	      	 							&perPageNum=${scri.perPageNum }
 	      	 							&searchType=${scri.searchType}
@@ -119,7 +124,10 @@ request.setCharacterEncoding("UTF-8");
 					src="${contextPath}/thumbnails.do?goods_id=${item.goods_id}&fileName=${item.goods_fileName}">
 
 				<div class="color_black">${item.goods_title }</div>
-				<div class="desc">${item.goods_author}</div>
+				<div><img class="likeImg" src="${contextPath}/resources/image/like.png"  id="Like" > ${item.like_count}
+				&nbsp;&nbsp;&nbsp;<img class="likeImg" src="${contextPath}/resources/image/reply.png"  id="Like" > ${item.reply_count}
+				</div>
+				<div class="desc">${item.goods_author} </div>
 			</div>
 		</c:forEach>
 		</c:otherwise>

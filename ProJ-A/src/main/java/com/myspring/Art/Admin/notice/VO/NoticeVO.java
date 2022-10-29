@@ -14,8 +14,16 @@ public class NoticeVO {
 	  private String writer;
 	  private Date regDate;
 	  private int hit;
+	  private int pin;
 	
 	
+	 
+	public int getPin() {
+		return pin;
+	}
+	public void setPin(int pin) {
+		this.pin = pin;
+	}
 	public Date getRegDate() {
 		return regDate;
 	}

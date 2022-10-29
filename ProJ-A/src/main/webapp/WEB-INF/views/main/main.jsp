@@ -14,7 +14,12 @@ request.setCharacterEncoding("UTF-8");
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <link rel="stylesheet" href="${contextPath}/resources/main.css">
-
+<style>
+.likeImg{
+width:15px;
+heigth:15px;
+}
+</style>
 <body>
 <div class="container">
 	<section>
@@ -40,9 +45,8 @@ request.setCharacterEncoding("UTF-8");
 			<div class="card">
 				<div class="card-header text-center">
 					<h5 class="card-title">설전/雪戰</h5>
-					<small class="small text-muted">2022 . 10 . 19 <span
-						class="px-2">-</span> <a href="#" class="text-muted">리뷰
-							카운트(예정)</a>
+					<small class="small text-muted">2022 . 10 . 19 
+					<span class="px-2">최대진</span>
 					</small>
 				</div>
 				<div class="card-body">
@@ -62,8 +66,7 @@ request.setCharacterEncoding("UTF-8");
 					</button>
 					<a
 						href="${contextPath}/collectible/collectibleDetail.do?goods_id=503"
-						class="btn btn-outline-dark btn-sm">READ MORE</a> <a href="#"
-						class="text-dark small text-muted">By : 최대진</a>
+						class="btn btn-outline-dark btn-sm">READ MORE</a>
 				</div>
 			</div>
 		</div>
@@ -83,9 +86,8 @@ request.setCharacterEncoding("UTF-8");
 				</div>
 				<div class="card-body px-0">
 					<h5 class="card-title mb-2">광안대교 3</h5>
-					<small class="small text-muted">2022 . 10 . 19 <span
-						class="px-2">-</span> <a href="#" class="text-muted">34
-							Comments</a>
+					<small class="small text-muted">2022 . 10 . 19 
+					<span class="px-2">강홍구</span>
 					</small>
 					<p class="my-2">강홍구는 디지털 합성 사진을 주된 매체로 하여 주거환경으로서의 도시의 모습을 담아내는
 						작가다. 이 작품은 2002년 제 1회 부산비엔날레 출품작으로 부산을 대표하는 장소인 광안리, 해운대 해수욕장에서
@@ -111,9 +113,8 @@ request.setCharacterEncoding("UTF-8");
 				</div>
 				<div class="card-body px-0">
 					<h5 class="card-title mb-2">광안대교 1</h5>
-					<small class="small text-muted">2020 . 10 . 19 <span
-						class="px-2">-</span> <a href="#" class="text-muted">64
-							Comments</a>
+					<small class="small text-muted">2020 . 10 . 19 
+						<span class="px-2">강홍구</span>
 					</small>
 					<p class="my-2">강홍구는 디지털 합성 사진을 주된 매체로 하여 주거환경으로서의 도시의 모습을 담아내는
 						작가다. 이 작품은 2002년 제 1회 부산비엔날레 출품작으로 부산을 대표하는 장소인 광안리, 해운대 해수욕장에서

@@ -34,4 +34,13 @@ public class CollectibleDAOImpl implements CollectibleDAO{
 		return sqlSession.selectOne("mapper.collectible.selectCollectibleDetail",goods_id);
 	}
 
+	@Override
+	public void UpdateLikeCount(int goods_id)throws DataAccessException{
+		sqlSession.update("mapper.collectible.UpdateLikeCount", goods_id);		
+	}
+	
+	@Override
+	public void UpdateReplyCount(int goods_id)throws DataAccessException{
+		sqlSession.update("mapper.collectible.UpdateReplyCount", goods_id);		
+	}
 }

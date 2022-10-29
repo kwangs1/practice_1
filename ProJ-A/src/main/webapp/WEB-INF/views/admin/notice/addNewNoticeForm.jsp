@@ -26,7 +26,7 @@ table td {
 <body>
 <h1>　</h1>
 	<form method="post"   action="${contextPath}/admin/notice/addNewNotice.do">
-	<table  align="center">
+	<table align="center">
 	   <tr>
 	       <td align="right">제목</td>
 	       <td colspan="2"><input type="text" size="30"  maxlength="500" name="title" /></td>
@@ -39,6 +39,7 @@ table td {
 							<option value="현대미술관">현대미술관</option>
 							<option value="홍보담당관">홍보담당관</option>
 			</select>
+			<input type="checkbox" name="pin" id="pin" value=1>메인공지사항
 			</td>
 	   </tr>
 	   <tr>
