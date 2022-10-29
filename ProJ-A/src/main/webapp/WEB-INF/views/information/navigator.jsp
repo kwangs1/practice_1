@@ -7,7 +7,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script src="http://maps.googleapis.com/maps/api/js"></script><!-- 구글 지도API -->
 <meta charset="UTF-8">
 <title>오시는 길</title>
 <style>
@@ -105,7 +104,7 @@ background-color:#999;
 <div id="content">
 	<h1 class="titPage02">교통안내</h1>
 	<p>주소: 경상남도 김해시 분성로155(외동) 전화 000-000-0000</p>
-	<div id="googleMap" style="width:80%; height:380px;"></div>
+	<div id="map" style="width:100%;height:350px;"></div>
 	
 		<div class="div_box">
 			<div class="divstyle">
@@ -204,29 +203,27 @@ background-color:#999;
 			<li>( 관련 근거  :  장애인· 노인· 임산부 등의 편의증진보장에 관한 법률 및 당해 법률 시행령 )</li>
 		</ul>
 	</div>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=cac279260298fc553c1674a9631a872a"></script>
 <script>
-	function initialize(){
-		var LatLng = new google.maps.LatLng(37.506736, 126.783362);
-		var mapProp ={
-				center: LatLng,
-				zoom:16,
-				mapTypeId:google.maps.MapTypeId.ROADMAP
-		};
-		/*LatLng: 내가 보고싶은 위치 선정
-		  mapProp: 지도 속성을 어떻게 할지 작성
-		  center: 위치 선정 적용
-		  zoom:확대 단계
-		  mapTypeid:맵 타입을 설정*/
-	
-	var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);//맵을 담기 위한 div를 생성 후 mapprop를 통해 맵 적용
-		
-	var marker = new google.maps.Marker({
-		position: LatLng,
-		map: map,
-		//내가 선정한 위치 위에 marker(위치 찍기) , position:내 선정위치, map:내가 생성한맵
-	})	
-}
-	google.maps.event.addDomListener(window, 'load', initialize);//domlistener를 추가하여 페이지 로드시 initalize()함수 실행 시키기
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+mapOption = { 
+    center: new kakao.maps.LatLng(35.231095, 128.863731), // 지도의 중심좌표
+    level: 3 // 지도의 확대 레벨
+};
+
+//지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
+var map = new kakao.maps.Map(mapContainer, mapOption); 
+//마커가 표시될 위치입니다 
+var markerPosition  = new kakao.maps.LatLng(35.231095, 128.863731); 
+
+// 마커를 생성합니다
+var marker = new kakao.maps.Marker({
+    position: markerPosition
+});
+
+// 마커가 지도 위에 표시되도록 설정합니다
+marker.setMap(map);  
+
 </script>
 </body>
 </html>
