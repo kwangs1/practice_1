@@ -14,9 +14,19 @@ request.setCharacterEncoding("UTF-8");
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
-<link rel="stylesheet" href="${contextPath}/resources/board.css">
-
 <style>
+*{
+margin:0 auto;
+}
+table td {
+  padding: 10px;
+  vertical-align: top;
+  border-bottom: 1px solid #ccc;
+  background: #fff;
+  }
+table tr td input{
+	border:none;
+}
   textarea {
     width: 100%;
     height: 6.25em;
@@ -55,6 +65,11 @@ request.setCharacterEncoding("UTF-8");
  .replyList{
  	float: left;
  }
+ #replyBtn{
+ 	padding: 0;
+	border: none;
+	background: none;
+ }
 </style>
 </head>
 <body>
@@ -62,9 +77,8 @@ request.setCharacterEncoding("UTF-8");
 		<h1></h1>
 		<input type="hidden" name="member_id" value="${memberInfo.member_id}" />
 		<div style="text-align: center">
-			<img width="180" height="154" id="myImg"
+			<img width="300" height="154"
 				src="${contextPath}/thumbnails.do?goods_id=${collectible.goods_id}&fileName=${collectible.goods_fileName}">
-			<p style="color: silver;">이미지 클릭 시 원본 이미지를 보실 수 있습니다.</p>
 		</div>
 		<!-- The Modal -->
 		<div id="myModal" class="modal">
@@ -143,22 +157,23 @@ request.setCharacterEncoding("UTF-8");
 				<c:otherwise>
 					<c:forEach var="item" items="${replyList}">
 						<tr>
-							<td>${item.writer}&nbsp;
+							<td>${item.writer}&#10024;
+							&nbsp;
 							<fmt:formatDate value="${item.regdate}"
 									pattern="yyyy-MM-dd" />
-									<br>${item.content}						
+						&nbsp;		
+						<c:if test="${item.writer == memberInfo.member_name }">
+								
+									<button type="button" class="update_reply_btn" id="replyBtn"
+										data-rno='${item.rno}'>▶수정</button>
+									<button type="button"  id="replyBtn"
+										onClick="fn_remove_reply('${contextPath}/reply/removeReply.do?rno=${item.rno }&goods_id=${collectible.goods_id }')">▶삭제</button>
+								
+						</c:if>
+									<br>&nbsp; &#9997; ${item.content}						
 							</td>
 						</tr>
 
-						<c:if test="${item.writer == memberInfo.member_name }">
-							<tr>
-								<td>
-									<button type="button" class="update_reply_btn"
-										data-rno='${item.rno}'>수정</button>
-									<button type="button" style='cursor: pointer;'
-										onClick="fn_remove_reply('${contextPath}/reply/removeReply.do?rno=${item.rno }&goods_id=${collectible.goods_id }')">삭제</button>
-								</td>
-						</c:if>
 					</c:forEach>
 				</c:otherwise>
 			</c:choose>
@@ -169,7 +184,6 @@ request.setCharacterEncoding("UTF-8");
 
 
 	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-	<script src="${contextPath}/resources/board.js"></script>
 	<script type="text/javascript">
 	//좋아요
 	var likeval = ${findLike};
@@ -221,6 +235,75 @@ request.setCharacterEncoding("UTF-8");
 			})	
 	}
 
+		//댓글 작성
+
+		$(document).on("click", ".replyWriteBtn",function(){
+			var Content = $('#content').val();
+			var Writer = $('#writer').val();
+			var goods_id = $('#goods_id').val();
+			
+					if(Writer == ""){
+						alert("로그인 후 댓글 작성이 가능하십니다.!");
+					}			
+					if(Writer != "" && Content == ""){
+						alert("내용을 입력해주세요.");
+					}
+
+					
+					var paramData = JSON.stringify(
+							{"content": Content
+							,"writer" : Writer
+							,"goods_id" : goods_id
+					});
+					var headers = {"Content-Type":"application/json"
+						,"X-HTTP-Method-Override":"POST"};
+					
+					$.ajax({
+						url:"${contextPath}/reply/replyWrite.do"
+						,headers : headers
+						,data : paramData
+						,type : 'POST'
+						,dataType : 'text'
+						,success:function(result){
+							window.location.reload();
+						}
+						,error:function(error){
+							console.log("에러:" + error);
+							console.log(paramData);
+						}
+					});//end ajax
+					
+			});
+
+		//댓글 수정 팝업
+		$(document).on('click', ' .update_reply_btn', function(e){
+			e.preventDefault();
+			
+			var rno = $(this).attr('data-rno');
+			var goods_id = $('#goods_id').val();
+			var name = $('#writer').val();
+			
+			let popUrl = "${contextPath}/collectible/getUpdateReply.do?rno=" + rno + "&goods_id=" + goods_id + "&name=" + name;
+			let popOption = "width = 490px, height=490px, scrollbars=yes" 
+
+				window.open(popUrl,"리뷰 수정",popOption);
+		});
+
+
+		//댓글 삭제
+		function fn_remove_reply(url,rno){
+			 var form = document.createElement("form");
+			 form.setAttribute("method", "post");
+			 form.setAttribute("action", url);
+		    var RnoInput = document.createElement("input");
+		    RnoInput.setAttribute("type","hidden");
+		    RnoInput.setAttribute("name","rno");
+		    RnoInput.setAttribute("value", rno);
+			 
+		    form.appendChild(RnoInput);
+		    document.body.appendChild(form);
+		    form.submit();
+		}
 	</script>
 </body>
 </html>

@@ -15,32 +15,34 @@ public class MemberDAOImpl implements MemberDAO{
 	private SqlSession sqlSession;
 	
 	@Override
-	public MemberVO login(Map loginMap)throws DataAccessException{
-		MemberVO member=(MemberVO)sqlSession.selectOne("mapper.member.login",loginMap);
-		return member;
-}
+	public MemberVO login(MemberVO vo) throws Exception {
+		
+		return sqlSession.selectOne("mapper.member.login", vo);
+	}
 	@Override
 	public void insertNewMember(MemberVO memberVO) throws DataAccessException{
 		sqlSession.insert("mapper.member.insertNewMember",memberVO);
 	}
 
 	@Override
-	public String selectOverlappedID(String id) throws DataAccessException {
-		String result =  sqlSession.selectOne("mapper.member.selectOverlappedID",id);
+	public int idCheck(String id)throws DataAccessException{
+		int result = sqlSession.selectOne("mapper.member.idCheck",id);
 		return result;
 	}
 	
 	@Override
-	public MemberVO selectMemberInfo()throws DataAccessException{
-		return sqlSession.selectOne("mapper.member.selectMemberInfo");
+	public void selectMemberInfo(String member_id)throws DataAccessException{
+		 sqlSession.selectOne("mapper.member.selectMemberInfo",member_id);
+	}
+
+	@Override
+	public void MemberModify(MemberVO memberVO)throws DataAccessException{
+		sqlSession.update("mapper.member.MemberModify",memberVO);
 	}
 	
+	//modify(ºñ¹ø)
 	@Override
-	public void modifyMyInfo(Map memberMap)throws DataAccessException{
-		sqlSession.update("mapper.member.modifyMyInfo",memberMap);
-	}
-	@Override
-	public void selectMemberSearch(MemberVO memberVO)throws DataAccessException{
-		sqlSession.selectOne("mapper.member.selectMemberSearch",memberVO);
+	public void MemberModify_Pw(MemberVO memberVO)throws DataAccessException{
+		sqlSession.update("mapper.member.MemberModify_Pw",memberVO);
 	}
 }

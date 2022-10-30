@@ -6,16 +6,16 @@ import com.myspring.Art.Member.VO.MemberVO;
 
 public interface MemberService {
 
-	MemberVO login(Map loginMap) throws Exception;
-
 	void addMember(MemberVO memberVO) throws Exception;
 
-	String overlapped(String id) throws Exception;
+	int idCheck(String id) throws Exception;
 
-	MemberVO modifyMyInfo(Map memberMap) throws Exception;
+	void MemberModify(MemberVO memberVO) throws Exception;
 
-	MemberVO memberInfo() throws Exception;
+	MemberVO login(MemberVO vo) throws Exception;
 
-	void memberSearch(MemberVO memberVO) throws Exception;
+	void selectMemberInfo(String member_id) throws Exception;
+
+	void MemberModify_Pw(MemberVO memberVO) throws Exception;
 
 }

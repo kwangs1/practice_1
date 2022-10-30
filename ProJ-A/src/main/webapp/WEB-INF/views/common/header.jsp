@@ -25,16 +25,17 @@
             </a>
             <div class="socials">
                 <c:choose>
-                    <c:when test="${isLogOn == true and not empty memberInfo }">
+                    <c:when test="${not empty memberInfo }">
+                    <p>${memberInfo.member_name }님 환영합니다.&#128640;</p>
                         <a href="${contextPath}/member/logout.do" onClick="cookieRemove()">▶로그아웃</a>
-                        <a href="${contextPath}/member/memberInfo.do">▶마이페이지</a>
+                        <a href="${contextPath}/member/memberInfo.do?member_id=${memberInfo.member_id}">▶마이페이지</a>
                     </c:when>
                     <c:otherwise>
                     <a href="${contextPath }/member/loginForm.do">▶로그인</a> 
                     <a href="${contextPath }/member/memberForm.do">▶회원가입</a> 
                     </c:otherwise>
                 </c:choose><br>
-                <c:if test="${isLogOn == true and memberInfo.member_id =='admin' }">
+                <c:if test="${memberInfo.member_id =='admin' }">
                     <a href="${contextPath}/admin/goods/adminGoodsMain.do">▶작품관리</a>
                     <a href="${contextPath}/admin/video/adminVideoMain.do">▶프로그램 관리</a>
                     <a href="${contextPath}/admin/notice/noticeList.do">▶공지사항관리</a>

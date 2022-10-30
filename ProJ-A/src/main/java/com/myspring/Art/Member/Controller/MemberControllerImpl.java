@@ -1,8 +1,5 @@
 package com.myspring.Art.Member.Controller;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -18,7 +15,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.myspring.Art.Member.Service.MemberService;
 import com.myspring.Art.Member.VO.MemberVO;
@@ -30,33 +29,23 @@ public class MemberControllerImpl extends BaseController implements MemberContro
 	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
 	@Autowired
 	private MemberService memberService;
-	@Autowired
-	private MemberVO memberVO;
+
 	
 	//로그인
-	@Override
-	@RequestMapping(value="/login.do" ,method = RequestMethod.POST)
-	public ModelAndView login(@RequestParam Map<String, String> loginMap, //id, pw 를 map에 저장합니다
-							HttpServletRequest request, HttpServletResponse response)throws Exception{
+	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
+	public ModelAndView login(@ModelAttribute MemberVO memberVO,RedirectAttributes rAttr,
+			HttpServletRequest req, RedirectAttributes rttr) throws Exception{
 		ModelAndView mav = new ModelAndView();
-		memberVO = memberService.login(loginMap);//sql문으로 전달
-		if(memberVO !=null && memberVO.getMember_id() != null) {
-			//조회한 회원 정보를 가져와 isLogOn 속성을 true 설정하고 memberInfo 속성으로 회원 정보를 저장
-			HttpSession session = request.getSession();
-			session = request.getSession();
-			session.setAttribute("isLogOn", true);
-			session.setAttribute("memberInfo", memberVO);
-			
-			String action=(String)session.getAttribute("action");
-			if(action!=null && action.equals("/")) {
-				mav.setViewName("redirect:" + action);
-			}else {
-				mav.setViewName("redirect:/main/main.do");
-			}
+		
+		HttpSession session = req.getSession();
+		MemberVO vo = memberService.login(memberVO);		
+		
+		if(vo != null) {
+			session.setAttribute("memberInfo", vo);
+			mav.setViewName("redirect:/main/main.do");
 		}else {
-			String message = "아이디나 비밀번호가 틀립니다. 다시 로그인 해주세요";
-			mav.addObject("message",message);
-			mav.setViewName("/member/loginForm");
+			rttr.addFlashAttribute("result",0); 
+			mav.setViewName("redirect:/member/loginForm.do");
 		}
 		return mav;
 	}
@@ -100,83 +89,63 @@ public class MemberControllerImpl extends BaseController implements MemberContro
 		return resEntity;
 	}
 	
-	//id중복체크
-	@Override
-	@RequestMapping(value= "/overlapped.do", method = RequestMethod.POST)
-	public ResponseEntity overlapped(@RequestParam("id") String id,HttpServletRequest request, HttpServletResponse response) throws Exception{
-		ResponseEntity resEntity = null;
-		String result = memberService.overlapped(id); //id중복검사
-		resEntity = new ResponseEntity(result, HttpStatus.OK);
-		return resEntity;
+
+	//id 중복검사
+	@RequestMapping(value="IdCheck.do" , method = RequestMethod.POST)
+	@ResponseBody
+	public String memberIdChk(String id)throws Exception{
+		/* logger.info("진입"); */
+		
+		int result = memberService.idCheck(id); // memberService.idCheck의 결과를 int형 변수 result에 저장
+		if(result != 0) { //id가 존재하면 '1' , 존재하지 않으면 '0' 반환
+			return "fail";
+		}else {
+			return "success";
+		}
 	}
 	
 	//회원정보 페이지
 	@RequestMapping(value="/memberInfo.do" ,method = RequestMethod.GET)
-	public ModelAndView membefInfo(HttpServletRequest request, HttpServletResponse response)throws Exception{
-		String viewName = (String)request.getAttribute("viewName");
-		memberVO = memberService.memberInfo();
+	public ModelAndView membefInfo(@RequestParam String member_id,
+			HttpServletRequest request, HttpServletResponse response)throws Exception{	
+		
+		String viewName = (String)request.getAttribute("viewName");		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName(viewName);
-		mav.addObject("memberInfo",memberVO);
+		
+		memberService.selectMemberInfo(member_id);
+		
 		return mav;
 	}
 	
-	//회원정보 수정
-	@Override
-	@RequestMapping(value="/modifyMyInfo.do", method= RequestMethod.POST)
-	public ResponseEntity modifyMyInfo(@RequestParam("attribute")String attribute, @RequestParam("value")String value,
-			HttpServletRequest request,HttpServletResponse response)throws Exception{
-		Map<String,String> memberMap = new HashMap<String,String>();
-		String val[]=  null;
+	//수정
+	@RequestMapping(value="/MemberModify.do" , method = RequestMethod.POST)
+	public ModelAndView MemberModify(@RequestParam String member_id,@ModelAttribute MemberVO memberVO,
+			HttpServletRequest request)throws Exception{
 		HttpSession session = request.getSession();
-		memberVO = (MemberVO)session.getAttribute("memberInfo");
-		String member_id = memberVO.getMember_id();
-		if(attribute.equals("member_birth")) {
-			val = value.split(",");
-			memberMap.put("member_birth_y", val[0]);
-			memberMap.put("member_birth_y", val[1]);
-			memberMap.put("member_birth_y", val[2]);
-			memberMap.put("member_birth_gn", val[3]);
-		}else if(attribute.equals("tel")) {
-			val = value.split(",");
-			memberMap.put("tel1", val[0]);
-			memberMap.put("tel2", val[1]);
-			memberMap.put("tel3", val[2]);
-		}else if(attribute.equals("hp")) {
-			val=value.split(",");
-			memberMap.put("hp1",val[0]);
-			memberMap.put("hp2",val[1]);
-			memberMap.put("hp3",val[2]);
-			memberMap.put("smssts_yn", val[3]);
-		}else if(attribute.equals("email")) {
-			val=value.split(",");
-			memberMap.put("email1",val[0]);
-			memberMap.put("email2",val[1]);
-			memberMap.put("emailsts_yn", val[2]);
-		}else if(attribute.equals("address")) {
-			val=value.split(",");
-			memberMap.put("zipcode",val[0]);
-			memberMap.put("roadAddress",val[1]);
-			memberMap.put("jibunAddress", val[2]);
-			memberMap.put("namujiAddress", val[3]);
-		}else {
-			memberMap.put(attribute, value);
-		}
-		memberMap.put("member_id",member_id);
-		
-		memberVO = (MemberVO)memberService.modifyMyInfo(memberMap);
-		session.removeAttribute("memberInfo");
-		session.setAttribute("memberInfo", memberVO);
 
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("redirect:/member/memberInfo.do?member_id=" + memberVO.getMember_id());
 		
-		String message = null;
-		ResponseEntity resEntity = null;
-		HttpHeaders responseHeaders = new HttpHeaders();
-		message = "mod_success";
-		resEntity = new ResponseEntity(message, responseHeaders, HttpStatus.OK);
-		return resEntity;
+		session.setAttribute("memberInfo", memberVO);		
+		
+		memberService.MemberModify(memberVO);
+		
+		return mav;
 	}
 	
+	//modify(비번 post)
+	@RequestMapping(value="/MemberModify_Pw.do" , method = RequestMethod.POST)
+	public ModelAndView MemberModify_Pw(@RequestParam String member_id,
+			@ModelAttribute MemberVO vo, HttpSession session)throws Exception{	
 	
-
+		memberService.MemberModify_Pw(vo);
+		session.setAttribute("memberInfo", vo);
+		session.invalidate();
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("redirect:/member/loginForm.do");
+		
+		return mav;
+	}
 }

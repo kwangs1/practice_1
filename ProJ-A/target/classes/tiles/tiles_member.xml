@@ -18,10 +18,15 @@
          <put-attribute name="body" value="/WEB-INF/views/member/memberInfo.jsp" />
       </definition>
       
-      <definition name="/member/memberSearchForm" extends="baseLayout">
-         <put-attribute name="title" value="ID/PW 찾기 페이지" />
-         <put-attribute name="body" value="/WEB-INF/views/member/memberSearchForm.jsp" />
+      <definition name="/member/MemberModify" extends="baseLayout">
+         <put-attribute name="title" value="회원정보 수정" />
+         <put-attribute name="body" value="/WEB-INF/views/member/Member_Modify.jsp" />
       </definition>
+      
+     <definition name="/member/MemberModify_Pw" extends="baseLayout">
+       <put-attribute name="title" value="회원정보 수정" />
+       <put-attribute name="body" value="/WEB-INF/views/member/MemberModify_pw.jsp" />
+    </definition>
 </tiles-definitions>
 
 

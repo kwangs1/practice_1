@@ -7,249 +7,144 @@
 <html>
 <head>
 <meta charset="utf-8">
+<link rel="stylesheet" href="${contextPath}/resources/joinForm.css">
 <style>
-table{
-	width:40%;
-	margin:auto;
+/* 중복아이디 존재하지 않는경우 */
+.id_input_re_1 {
+	color: green;
+	display: none;
 }
-table td{
-	border-bottom: 1px solid #ccc;
+/* 중복아이디 존재하는 경우 */
+.id_input_re_2 {
+	color: red;
+	display: none;
 }
-a{
-color:black;
+.final_id_ck {
+	display: none;
 }
-a:hover{
-text-decoration-line: underline;
-	color:black;
+/* 비밀번호 확인 일치 유효성검사 */
+.pwck_input_re_1{
+    color : green;
+    display : none;    
+}
+.pwck_input_re_2{
+    color : red;
+	display : none;    
+}
+.final_pw_ck {
+	display: none;
 }
 </style>
 </head>
 <body>
-<h1>　</h1>
-	<form action="${contextPath}/member/addMember.do" method="post" name="frm" onsubmit="return checkAll()">	
-	<div id="detail_table">
-		<table>
-			<tbody>
-				<tr>
-					<td>아이디 &#124;
-					  <input type="text" name="_member_id"  id="_member_id"  size="20" />
-					  <input type="hidden" name="member_id"  id="member_id" />				  
-					  <input type="button"  id="btnOverlapped" value="중복체크" onClick="fn_overlapped()" />
-					</td>
-				</tr>
-				<tr>
-					<td>비밀번호 &#124;
-					<input name="member_pw" id="member_pw" type="password" size="20" />
-					</td>
-				</tr>
-				<tr>
-					<td>이름 &#124;
-					<input name="member_name" id="member_name" type="text" size="20" /></td>
-				</tr>
-				<tr>
-					<td>성별
-					<input type="radio" name="member_gender" id="member_gender" value="102" />
-						여성<span style="padding-left:120px"></span>
-						 <input type="radio" name="member_gender" value="101" checked />남성
-					</td>
-				</tr>
-				<tr>
-					<td>법정생년월일 &#124;
-					<select name="member_birth_y" id="member_birth_y">
-					 
-					     <c:forEach var="year" begin="1" end="180">
-					       <c:choose>
-					         <c:when test="${year==80}">
-							   <option value="${ 1920+year}" selected>${ 1920+year} </option>
-							</c:when>
-							<c:otherwise>
-							  <option value="${ 1920+year}" >${ 1920+year} </option>
-							</c:otherwise>
-							</c:choose>
-					   	</c:forEach> 
-							
-					</select>년 
-					 <select name="member_birth_m" id="member_birth_m">
-					   <c:forEach var="month" begin="1" end="12">
-					       <c:choose>
-					         <c:when test="${month==5 }">
-							   <option value="${month }" selected>${month }</option>
-							</c:when>
-							<c:otherwise>
-							  <option value="${month }">${month}</option>
-							</c:otherwise>
-							</c:choose>
-					   	</c:forEach>
-					</select>월  
-					<select name="member_birth_d" id="member_birth_d">
-							<c:forEach var="day" begin="1" end="31">
-					       <c:choose>
-					         <c:when test="${day==10 }">
-							   <option value="${day}" selected>${day}</option>
-							</c:when>
-							<c:otherwise>
-							  <option value="${day}">${day}</option>
-							</c:otherwise>
-							</c:choose>
-					   	</c:forEach>
-					</select>일 <span style="padding-left:50px"></span>
-					  <input type="radio" name="member_birth_gn" value="2" checked />양력
-						 <span style="padding-left:50px"></span>
-						<input type="radio"  name="member_birth_gn" value="1" />음력
-				  </td>
-				</tr>
-				<tr>
-					<td>전화번호 &#124;
-					<select  name="tel1" id="tel1">
-							<option>없음</option>
-							<option value="02">02</option>
-							<option value="031">031</option>
-							<option value="032">032</option>
-							<option value="033">033</option>
-							<option value="041">041</option>
-							<option value="042">042</option>
-							<option value="043">043</option>
-							<option value="044">044</option>
-							<option value="051">051</option>
-							<option value="052">052</option>
-							<option value="053">053</option>
-							<option value="054">054</option>
-							<option value="055">055</option>
-							<option value="061">061</option>
-							<option value="062">062</option>
-							<option value="063">063</option>
-							<option value="064">064</option>
-							<option value="0502">0502</option>
-							<option value="0503">0503</option>
-							<option value="0505">0505</option>
-							<option value="0506">0506</option>
-							<option value="0507">0507</option>
-							<option value="0508">0508</option>
-							<option value="070">070</option>
-					   </select> - <input  size="10px" type="text" name="tel2" id="tel2"> - <input size="10px"  type="text" name="tel3" id="tel3">
-					</td>
-				</tr>
-				<tr>
-					<td>휴대폰번호 &#124;
-					<select  name="hp1" id="hp1">
-							<option>없음</option>
-							<option selected value="010">010</option>
-							<option value="011">011</option>
-							<option value="016">016</option>
-							<option value="017">017</option>
-							<option value="018">018</option>
-							<option value="019">019</option>
-					</select> - <input size="10px"  type="text" name="hp2" id="hp2"> - <input size="10px"  type="text"name="hp3" id="hp3"><br> <br> 
-					<input type="checkbox"	name="smssts_yn" value="Y" checked /> 쇼핑몰에서 발송하는 SMS 소식을 수신합니다.</td>
-				</tr>
-				<tr>
-					<td>이메일 &#124;<br>(e-mail)
-					<input size="10px"   type="text" name="email1" id="email1"/> @ <input  size="10px"  type="text"name="email2" id="email2"/> 
-						  <select name="email2" id="email2" onChange=""	title="직접입력">
-									<option value="">직접입력</option>
-									<option value="hanmail.net">hanmail.net</option>
-									<option value="naver.com">naver.com</option>
-									<option value="yahoo.co.kr">yahoo.co.kr</option>
-									<option value="hotmail.com">hotmail.com</option>
-									<option value="paran.com">paran.com</option>
-									<option value="nate.com">nate.com</option>
-									<option value="google.com">google.com</option>
-									<option value="gmail.com">gmail.com</option>
-									<option value="empal.com">empal.com</option>
-									<option value="korea.com">korea.com</option>
-									<option value="freechal.com">freechal.com</option>
-							</select><br> <br> <input type="checkbox" name="emailsts_yn" value="Y" checked /> 쇼핑몰에서 발송하는 e-mail을 수신합니다.</td>
-				</tr>
-				<tr>
-					<td>주소 &#124;
-					   <input type="text" id="zipcode" name="zipcode" size="10" > <a href="javascript:execDaumPostcode()">우편번호검색</a>
-					  <br>
-					  <p> 
-					   지번 주소:<br><input type="text" id="roadAddress"  name="roadAddress" size="50"><br><br>
-					  도로명 주소: <input type="text" id="jibunAddress" name="jibunAddress" size="50"><br><br>
-					  나머지 주소: <input type="text"  name="namujiAddress" size="50" />
-					    <span id="guide" style="color:#999"></span>
-					   </p>
-					</td>
-				</tr>
-			</tbody>
-		</table>
+	<form action="${contextPath}/member/addMember.do" method="post" name="frm" class="joinForm">
+	   <div class="header">
+            <p>회원가입</p>
+        </div>
+        
+     
+        <div class="textForm">
+            <input type="text"  name="member_id"  id="member_id" class="id" placeholder="아이디">
+            <span class="id_input_re_1">사용 가능한 아이디입니다.</span>
+			<span class="id_input_re_2">아이디가 이미 존재합니다.</span>
+			<span class="final_id_ck">아이디를 입력해주세요.</span>
+        </div>
+			
+        <div class="textForm">
+            <input type="password" name="member_pw" id="member_pw" class="pw" placeholder="비밀번호">
+            <span class="final_pw_ck">비밀번호를 입력해주세요.</span>
+        </div>
+        <div class="textForm">
+            <input type="password" class="pwck" placeholder="비밀번호 재확인">
+			<span class="pwck_input_re_1">비밀번호가 일치합니다.</span>
+            <span class="pwck_input_re_2">비밀번호가 일치하지 않습니다.</span>
+        </div>
+        <div class="textForm">
+            <input type="text" name="member_name" id="member_name" class="name" placeholder="이름">
+        </div>
+  
+        <div class="textForm">
+            <select  name="member_gender" id="member_gender" class="gender">
+                <option value="choice">성별 선택</option>
+                <option value="man">남자</option>
+                <option value="woman">여자</option>
+            </select>
+        </div>
+        <div class="textForm">      
+            <input type="text" placeholder="이메일" name="email" id="email" class="email" placeholder="이메일">
+        </div>
+        
+        <div class="textForm">
+            <input type="text" class="cellphoneNo" placeholder="전화번호" name="tel" id="tel">
+        </div>
+    
+        <div class="textForm">
+			<input  type="text" id="zipcode" name="zipcode" size="10" > <a
+				href="javascript:execDaumPostcode()" class="zipcode">우편번호검색</a> <br>
+				<input type="text" id="roadAddress" name="roadAddress" class="zipcode" placeholder="지번"><br>
+				<input type="text" id="jibunAddress" name="jibunAddress" class="zipcode" placeholder="도로명"><br>
+				<input type="text" name="namujiAddress" class="zipcode" placeholder="나머지 주소" />
+				<span id="guide" style="color: #999"></span>
 		</div>
-		<div class="clear">
-		<br><br>
-		<table align=center>
-		<tr >
-			<td >
-				<input type="button"  value="회원 가입" onclick="check_onclick()">
-				<input  type="button"  value="취소" onClick="history.go(-1)">
-			</td>
-		</tr>
-	</table>
-	</div>
+        
+        <input type="submit" class="btn" value="J O I N"/>
+        
 </form>	
+    </body>
+			
 
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
-/* 회원가입 시 입력되지 않는 부분이 있으면 그 부분으로 커서가 가게끔 예외처리 함 */
-function check_onclick(){
-	theForm = document.frm;
-	if(theForm.member_id.value==""){
-		alert("아이디 입력해주세요.");
-		return theForm.member_id.focus();
-	}
-	if(theForm.member_pw.value==""){
-		alert("비밀번호를 입력해주세요.");
-		return theForm.member_pw.focus();
-	}
-	if(theForm.member_name.value==""){
-		alert("이름을 입력해주세요.");
-		return theForm.member_name.focus();
-	}
-	if(theForm.tel1.value==""){
-		alert("전화번호를 입력해주세요.");
-		return theForm.tel1.focus();
-	}
-	if(theForm.tel2.value==""){
-		alert("전화번호를 입력해주세요.");
-		return theForm.tel2.focus();
-	}
-	if(theForm.tel3.value==""){
-		alert("전화번호를 입력해주세요.");
-		return theForm.tel3.focus();
-	}
-	if(theForm.hp2.value=="" ){
-		alert("휴대번호를 입력해주세요.");
-		return theForm.hp2.focus();
-	}
-	if(theForm.hp3.value==""){
-		alert("휴대번호를 입력해주세요.");
-		return theForm.hp3.focus();
-	}
-	if(theForm.email1.value==""){
-		alert("이메일을 입력해주세요.");
-		return theForm.email1.focus();
-	}
-	if(theForm.zipcode.value==""){
-		alert("주소를 입력해주세요.");
-		return theForm.zipcode.focus();
-	}
-	if(theForm.roadAddress.value==""){
-		alert("도로명을 입력해주세요.");
-		return theForm.roadAddress.focus();
-	}
-	if(theForm.jibunAddress.value==""){
-		alert("지번주소를 입력해주세요.");
-		return theForm.hp3.focus();
-	}
-	if(theForm.namujiAddress.value==""){
-		alert("나머지 주소를 입력해주세요.");
-		return theForm.hp3.focus();
-	}
-	
-	theForm.submit();
-}
+//유효성 검사 통과유무 변수
+var idCheck = false; //아이디
+var idckCheck = false; //중복검사
+var pwCheck = false; //비번
+var pwckCheck = false;//비번확인
 
+//id 중복검사
+$('.id').on("propertychange change keyup paste input" , function(){
+	/* console.log("keyup test"); */
+	var id = $('.id').val(); //.id_input에 입력되는 값
+	var data = {id : id} //컨트롤러에 넘길 데이터 이름 : 데이터(.id_input에 입력되는 값)
+	
+	$.ajax({
+		type : "POST",
+		url : "${contextPath}/member/IdCheck.do",
+		data : data,
+		success : function(result){
+			//console.log("성공여부:" + result);
+			if(result != 'fail'){
+				$('.id_input_re_1').css("display","inline-block");
+				$('.id_input_re_2').css("display","none");	
+				idchCheck=true;
+			}else{
+				$('.id_input_re_2').css("display","inline-block");
+				$('.id_input_re_1').css("display","none");	
+				idckCheck = false;
+			}
+		}//success 끝
+	});//ajax 끝
+});// function 끝
+
+//pw 확인 일치 유효성 검사
+$('.pwck').on("propertychange change keyup paste input", function(){
+ 
+    var pw = $('.pw').val();
+    var pwck = $('.pwck').val();
+    $('.final_pwck_ck').css('display', 'none');
+ 
+    if(pw == pwck){
+        $('.pwck_input_re_1').css('display','block');
+        $('.pwck_input_re_2').css('display','none');
+        pwckcorCheck = true;
+    }else{
+        $('.pwck_input_re_1').css('display','none');
+        $('.pwck_input_re_2').css('display','block');
+        pwckcorCheck = false;
+    }        
+    
+});  
 /* 우편번호 검색API */
 function execDaumPostcode() {
   new daum.Postcode({
@@ -301,35 +196,6 @@ function execDaumPostcode() {
 
 }
 
-/* ID중복체크 Ajax */ 
-function fn_overlapped(id){
-    var _id=$("#_member_id").val();
-    if(_id==''){
-   	 alert("ID를 입력하세요");
-   	 return;
-    }
-    $.ajax({
-       type:"post",
-       async:false,
-       url:"${contextPath}/member/overlapped.do",
-       dataType:"text",
-       data: {id:_id},//controller에서 RequestParam 어노테이션으로 id준 것에 member_id의 값을 넣기위해 
-       success:function (data,textStatus){
-          if(data=='false'){
-       	    alert("사용할 수 있는 ID입니다.");
-       	    //사용가능 id면 아이디 부분을 비활성화 시킴
-       	    $('#btnOverlapped').prop("disabled", true);
-       	    $('#_member_id').prop("disabled", true);
-       	    $('#member_id').val(_id);
-          }else{
-        	  alert("사용할 수 없는 ID입니다.");
-          }
-       },
-       error:function(data,textStatus){
-          alert("에러가 발생했습니다.");
-       }
-    });  //end ajax	 
- }	
 </script>
 </body>
 </html>

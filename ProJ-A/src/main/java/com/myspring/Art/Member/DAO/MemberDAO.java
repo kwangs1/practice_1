@@ -8,16 +8,16 @@ import com.myspring.Art.Member.VO.MemberVO;
 
 public interface MemberDAO {
 
-	MemberVO login(Map loginMap) throws DataAccessException;
-
 	void insertNewMember(MemberVO memberVO) throws DataAccessException;
 
-	String selectOverlappedID(String id) throws DataAccessException;
+	int idCheck(String id) throws DataAccessException;
 
-	void modifyMyInfo(Map memberMap) throws DataAccessException;
+	void MemberModify(MemberVO memberVO) throws DataAccessException;
+	
+	MemberVO login(MemberVO vo) throws Exception;
 
-	MemberVO selectMemberInfo() throws DataAccessException;
+	void selectMemberInfo(String member_id) throws DataAccessException;
 
-	void selectMemberSearch(MemberVO memberVO) throws DataAccessException;
+	void MemberModify_Pw(MemberVO memberVO) throws DataAccessException;
 
 }

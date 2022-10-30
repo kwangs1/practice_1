@@ -124,7 +124,8 @@ heigth:15px;
 				</div>
 
 				<div class="card-footer p-0 text-center">
-					<a href="#" class="btn btn-outline-dark btn-sm">READ MORE</a>
+					<a href="${contextPath}/collectible/collectibleDetail.do?goods_id=540" 
+					class="btn btn-outline-dark btn-sm">READ MORE</a>
 				</div>
 			</div>
 		</div>

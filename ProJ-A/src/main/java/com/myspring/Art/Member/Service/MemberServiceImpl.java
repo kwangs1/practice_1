@@ -16,9 +16,9 @@ public class MemberServiceImpl implements MemberService{
 	@Autowired
 	private MemberDAO memberDAO;
 
-	@Override
-	public MemberVO login(Map loginMap)throws Exception{
-		return memberDAO.login(loginMap);
+   	@Override
+	public MemberVO login(MemberVO vo) throws Exception {
+		return memberDAO.login(vo);
 	}
 	
 	@Override
@@ -27,25 +27,24 @@ public class MemberServiceImpl implements MemberService{
 	}
 	
 	@Override
-	public String overlapped(String id) throws Exception{
-		return memberDAO.selectOverlappedID(id);
+	public int idCheck(String id)throws Exception{
+		return memberDAO.idCheck(id);
 	}
 	
 	@Override
-	public MemberVO memberInfo()throws Exception{
-		MemberVO vo = memberDAO.selectMemberInfo();
-		return vo;
+	public void selectMemberInfo(String member_id)throws Exception{
+		memberDAO.selectMemberInfo(member_id);
 	}
 	
+	//정보 수정
 	@Override
-	public MemberVO modifyMyInfo(Map memberMap)throws Exception{
-		String member_id = (String)memberMap.get("member_id");
-		memberDAO.modifyMyInfo(memberMap);
-		return memberDAO.selectMemberInfo();
+	public void MemberModify(MemberVO memberVO)throws Exception{
+		memberDAO.MemberModify(memberVO);
 	}
 	
+	//정보 수정(비번)
 	@Override
-	public void memberSearch(MemberVO memberVO)throws Exception{
-		memberDAO.selectMemberSearch(memberVO);
+	public void MemberModify_Pw(MemberVO memberVO)throws Exception{
+		memberDAO.MemberModify_Pw(memberVO);
 	}
 }
