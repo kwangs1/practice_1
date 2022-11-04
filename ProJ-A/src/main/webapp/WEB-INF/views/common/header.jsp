@@ -86,10 +86,7 @@
         </div>
     </nav>
     <!-- End Of Page Second Navigation -->
-    
-        <!-- page-header -->
-    <%-- <header class="page-header" style="background: url(${contextPath }/resources/image/header.jpg) no-repeat center top fixed"></header> --%>
-    <!-- end of page header -->
+  
 
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>

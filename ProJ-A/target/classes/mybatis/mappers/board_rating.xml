@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.rating">
+
+	<resultMap id="RatingResult" type="RatingVO">
+		<result property="brno" column="brno" />
+		<result property="rating" column="rating" />
+		<result property="member_id" column="member_id" />
+		<result property="rating_type" column="rating_type" />
+	</resultMap>
+	
+
+<select id="ratingAvg" resultType="double">
+	<![CDATA[
+		select avg(rating)
+		from board_rating
+	]]>
+</select>
+
+<insert id="RatingCheck" parameterType="RatingVO">
+<![CDATA[
+	insert into board_rating (brno,rating, member_id ,rating_type)
+	values ( (select nvl(max(brno)+1,0) from board_rating),#{rating},#{member_id} , 1)
+]]>
+</insert>
+
+<select id="findRating" resultType="int">
+	<![CDATA[
+		select count(*) from board_rating
+		where rating_type = 1
+	]]>
+</select>
+
+</mapper>
+	

@@ -12,21 +12,35 @@
 <head>
 <meta charset="UTF-8">
 <style>
-*{
-margin:0 auto;
+* {
+	margin: 0 auto;
 }
+
 table td {
-  width:155px;
-  padding: 10px;
-  vertical-align: top;
-  border-bottom: 1px solid #ccc;
-  background: #fff;
-  }
-table tr td input{
-	border:none;
+	width: 155px;
+	padding: 10px;
+	vertical-align: top;
+	border-bottom: 1px solid #ccc;
+	background: #fff;
 }
+
+table tr td input {
+	border: none;
+}
+
 a {
-  text-decoration-line: none;
+	text-decoration-line: none;
+}
+
+.RatingBtn img {
+	width: 30px;
+	height: 30px;
+}
+
+.RatingBtn {
+	padding: 0;
+	border: none;
+	background: none;
 }
 </style>
 </head>
@@ -39,8 +53,7 @@ a {
     <input type=text style="font-size:2.5em; font-weight:700; color:#000;"
     value="${notice.title }" name="title"  disabled />
     
-
-        <c:if test="${isLogOn == true and memberInfo.member_id =='admin' }">
+        <c:if test="${memberInfo.member_id =='admin' }">
    <a style='cursor:pointer; color:black;' onClick="fn_remove_bno" 
    		href='<c:url value="/admin/notice/removeNotice.do?bno=${notice.bno }&page=${scri.page }
    														&perPageNum=${scri.perPageNum }"/>'> ▶삭제</a>      	
@@ -53,26 +66,26 @@ a {
   </tr>
  
   <tr>
-    <td>부서명 &#124; <input type=text value="${notice.department}"  name="department"   disabled /> 
+    <td>부서명 <input type=text value="${notice.department}"  name="department"   disabled /> 
     &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    전화번호 &#124; <input type=text value="${notice.tel }"  name="department"   disabled /></td>
+    전화번호 <input type=text value="${notice.tel }"  name="department"   disabled /></td>
   </tr>
    
    <tr>
-   <td>작성자 &#124; <input type=text value="${notice.writer }"  name="department"   disabled />
+   <td>작성자 <input type=text value="${notice.writer }"  name="department"   disabled />
    &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-   작성일 &#124; <input type=text value="<fmt:formatDate value="${notice.regdate}" />" disabled />
-   조회수 &#124;&nbsp;&nbsp;&nbsp;${notice.hit }
+   작성일 <input type=text value="<fmt:formatDate value="${notice.regdate}" />" disabled />
+   조회수 &nbsp;&nbsp;&nbsp;${notice.hit }
    </td>
    
    </tr>
    
    <tr>
    <td>
-     <textarea rows="20" cols="80"  name="content" disabled >${notice.content }</textarea>
+     <textarea rows="20" cols="80"  name="content" disabled >${notice.content }</textarea>		
    </td>  
    </tr>
-    <tr  id="tr_btn"    >
+    <tr  id="tr_btn" >
 
    <td>
 	      	<a style='cursor:pointer; color:black;' 
@@ -80,9 +93,8 @@ a {
    </td>
   </tr>
   </table>
-  
 
-  </form>
+	</form>
   <form name="readForm" role="form" method="post">
   	<input type="hidden" id="bno" name="bno" value="${notice.bno}" />
   	<input type="hidden" id="page" name="page" value="${scri.page}"> 
@@ -110,7 +122,7 @@ a {
 
      form.submit();
 	}
- }
+ 
  </script>
 </body>
 </html>

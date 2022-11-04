@@ -1,0 +1,127 @@
+@charset "UTF-8";
+
+/* Google Web Font */
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,500&display=swap');
+.container {
+	width: 1200px;
+}
+
+table {
+	border: 0;
+	margin-left:auto; 
+    margin-right:auto;
+}
+
+table caption {
+	display: none;
+}
+
+.bbsList {
+	display: table;
+	clear: both;
+	width: 1200px;
+	border-collapse: collapse;
+}
+
+.bbsList th {
+	border-color: #333333;
+	background: #fcfcfc;
+	padding: 10px 0 10px 0;
+	text-align: center;
+	border-top-width: 2px;
+	border-bottom-width: 1px;
+	border-top-style: solid;
+	border-bottom-style: solid;
+	font-weight: 400;
+}
+
+.bbsList .body td {
+	text-align: center;
+	padding: 5px 9px 5px 9px;
+	border-bottom-color: #eeeeee;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+a {
+	text-decoration-line: none;
+	color:black;
+}
+
+a:hover {
+	text-decoration-line: underline;
+	color:black;
+}
+
+.page_wrap {
+	text-align: center;
+	font-size: 0;
+}
+
+.page_nation {
+	display: inline-block;
+}
+
+.page_nation .none {
+	display: none;
+}
+
+.page_nation a {
+	display: block;
+	margin: 0 3px;
+	float: left;
+	border: 1px solid #e6e6e6;
+	width: 28px;
+	height: 28px;
+	line-height: 28px;
+	text-align: center;
+	background-color: #fff;
+	font-size: 13px;
+	color: #999999;
+	text-decoration: none;
+}
+button{
+    padding: 0;
+	border: none;
+	background: none;
+}
+.rating {
+    width: 900px;
+    background-color: #fff;
+    border-collapse: collapse;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+    border-radius: 5px;
+    overflow: hidden;
+}
+.rating caption {
+    font-size: 20px;
+    margin-bottom: 30px;
+}
+.rating tr {
+    border-bottom: 1px solid #eee;
+}
+.rating tr:last-child {
+    border: none;
+}
+.rating tr:nth-child(odd) {
+    background-color: #ddd;
+}
+.rating th,
+.rating td {
+    padding: 12px;
+    text-align: center; 
+}
+.rating tr th {
+    background-color: #7FFFD4;
+    color: #000;
+}
+.rating tr th:first-child {
+    border-radius: 5px 0 0 0;
+}
+.rating tr th:last-child {
+    border-radius: 0 5px 0 0;
+}
+.rating tr td:last-child {
+    color: black;
+    font-weight: 500;
+}

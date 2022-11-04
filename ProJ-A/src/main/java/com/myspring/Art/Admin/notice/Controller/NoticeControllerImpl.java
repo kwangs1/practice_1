@@ -7,6 +7,8 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -16,28 +18,29 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-
 import com.myspring.Art.Admin.notice.Service.NoticeService;
 import com.myspring.Art.Admin.notice.VO.NoticeVO;
+import com.myspring.Art.common.Rating.Service.RatingService;
+import com.myspring.Art.common.Rating.VO.RatingVO;
 import com.myspring.Art.common.base.BaseController;
 import com.myspring.Art.common.domain.PageMaker;
 import com.myspring.Art.common.domain.SearchCriteria;
 
-
-
 @RequestMapping(value="/admin/notice")
 @Controller("noticeController")
 public class NoticeControllerImpl extends BaseController implements NoticeController{
+	private static final Logger logger = LoggerFactory.getLogger(NoticeController.class);
 	@Autowired
 	private NoticeService noticeService;
 	@Autowired
 	private NoticeVO noticeVO;
-
+	@Autowired
+	private RatingService ratingService;
 	
 	//게시글 목록
 	@Override
 	@RequestMapping(value="/noticeList.do", method = RequestMethod.GET)
-	public ModelAndView NoticeList(@ModelAttribute("scri") SearchCriteria scri,
+	public ModelAndView NoticeList(@ModelAttribute("scri") SearchCriteria scri,@ModelAttribute("rating")RatingVO rating,
 			HttpServletRequest request, HttpServletResponse response)throws Exception{
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(scri);
@@ -49,23 +52,34 @@ public class NoticeControllerImpl extends BaseController implements NoticeContro
 		
 		mav.addObject("list",list);
 		mav.addObject("pageMaker",pageMaker);
+		
+		//평가
+		rating.setRating_type(rating.getRating_type());
+		//평균값
+		mav.addObject("ratingAvg", ratingService.ratingAvg());
+		//평가한 사람 수
+		mav.addObject("findRating", ratingService.findRating(rating.getRating_type()));
+		
 
 		return mav;		
 	}
+	
 	//글 상세보기
 	@Override
 	@RequestMapping(value="NoticeDetail.do", method=RequestMethod.GET)
-	public ModelAndView NoticeDetail(@RequestParam("bno") int bno,@ModelAttribute("scri") SearchCriteria scri,
-				HttpServletRequest request, HttpServletResponse response)throws Exception{
+	public ModelAndView NoticeDetail(@RequestParam("bno") int bno, String member_id ,@ModelAttribute("scri") SearchCriteria scri, 
+			HttpServletRequest request, HttpServletResponse response)throws Exception{
 		String viewName=(String)request.getAttribute("viewName");
-		noticeVO = noticeService.NoticeDetail(bno);
-		ModelAndView mav = new ModelAndView();
+		ModelAndView mav = new ModelAndView();		
 		mav.setViewName(viewName);
+		
+		noticeVO = noticeService.NoticeDetail(bno);
+		
 		mav.addObject("notice",noticeVO);
 		mav.addObject("scri",scri);
 		
-		int result = 0;
 		
+		int result = 0;	
 		
 		//게시글 상세보기를 누를 때 마다 조회수가 올라가지 않기 위해 쿠키를 생성하여 조회수가 계속 올라가는것을 방지하고자 만듬.
 		Cookie viewCookie=null;
@@ -81,7 +95,7 @@ public class NoticeControllerImpl extends BaseController implements NoticeContro
                 
                 //만들어진 쿠키들을 확인하며, 만약 들어온 적 있다면 생성되었을 쿠키가 있는지 확인
 				if(cookies[i].getName().equals("|"+bno+"|")) {
-					System.out.println("if문 쿠키 이름 : "+cookies[i].getName());
+					//System.out.println("if문 쿠키 이름 : "+cookies[i].getName());
 				
                 //찾은 쿠키를 변수에 저장
 					viewCookie=cookies[i];
@@ -96,7 +110,7 @@ public class NoticeControllerImpl extends BaseController implements NoticeContro
 		//만들어진 쿠키가 없음을 확인
 		if(viewCookie==null) {
         
-          	System.out.println("viewCookie 확인 로직 : 쿠키 없습니다");
+          	//System.out.println("viewCookie 확인 로직 : 쿠키 없습니다");
 			
             try {
             
@@ -108,17 +122,18 @@ public class NoticeControllerImpl extends BaseController implements NoticeContro
 				result =noticeService.boardHit(bno);
                 
 			} catch (Exception e) {
-				System.out.println("쿠키 넣을때 오류 나나? : "+e.getMessage());
+				//System.out.println("쿠키 넣을때 오류 나나? : "+e.getMessage());
 				e.getStackTrace();
 
 			}
 		
         //만들어진 쿠키가 있으면 증가로직 진행하지 않음
 		}else {
-			System.out.println("viewCookie 확인 로직 : 쿠키 있습니다");
+			//System.out.println("viewCookie 확인 로직 : 쿠키 있습니다");
 			String value=viewCookie.getValue();
-			System.out.println("viewCookie 확인 로직 : 쿠키 value : "+value);
+			//System.out.println("viewCookie 확인 로직 : 쿠키 value : "+value);
 		}
+		
 		return mav;
 	}
 	

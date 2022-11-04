@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
 <%
@@ -11,91 +12,8 @@ request.setCharacterEncoding("UTF-8");
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
-<style>
-.container {
-	width: 1200px;
-}
 
-table {
-	border: 0;
-	margin-left:auto; 
-    margin-right:auto;
-}
-
-table caption {
-	display: none;
-}
-
-.bbsList {
-	display: table;
-	clear: both;
-	width: 1200px;
-	border-collapse: collapse;
-}
-
-.bbsList th {
-	border-color: #333333;
-	background: #fcfcfc;
-	padding: 10px 0 10px 0;
-	text-align: center;
-	border-top-width: 2px;
-	border-bottom-width: 1px;
-	border-top-style: solid;
-	border-bottom-style: solid;
-	font-weight: 400;
-}
-
-.bbsList .body td {
-	text-align: center;
-	padding: 5px 9px 5px 9px;
-	border-bottom-color: #eeeeee;
-	border-bottom-width: 1px;
-	border-bottom-style: solid;
-}
-
-a {
-	text-decoration-line: none;
-	color:black;
-}
-
-a:hover {
-	text-decoration-line: underline;
-	color:black;
-}
-
-.page_wrap {
-	text-align: center;
-	font-size: 0;
-}
-
-.page_nation {
-	display: inline-block;
-}
-
-.page_nation .none {
-	display: none;
-}
-
-.page_nation a {
-	display: block;
-	margin: 0 3px;
-	float: left;
-	border: 1px solid #e6e6e6;
-	width: 28px;
-	height: 28px;
-	line-height: 28px;
-	text-align: center;
-	background-color: #fff;
-	font-size: 13px;
-	color: #999999;
-	text-decoration: none;
-}
-button{
-    padding: 0;
-	border: none;
-	background: none;
-}
-</style>
+<link rel="stylesheet" href="${contextPath}/resources/noticeList.css">
 
 </head>
 <body>
@@ -116,7 +34,7 @@ button{
 
 
 	     &nbsp; &nbsp; &nbsp; &nbsp;
-    	<c:if test="${isLogOn == true and memberInfo.member_id =='admin' }">
+    	<c:if test="${memberInfo.member_id =='admin' }">
 		<a href="${contextPath }/admin/notice/addNewNoticeForm.do"> ▶작성하기</a>
 	</c:if>
  </div>
@@ -139,7 +57,7 @@ button{
 			<tr align="center">
 		<td>
 		<c:choose>
-			<c:when test="${Notice.pin == 0}"> ● </c:when>
+			<c:when test="${Notice.pin == 0}">○</c:when>
 			<c:when test="${Notice.pin == 1}">
 		<img src="${contextPath}/resources/image/notice.png" alt="공지사항" width="40px" height="40px">
 			</c:when>
@@ -178,16 +96,90 @@ button{
 				</c:if>
 			</div>
 			</div>
-			
+			<br>
+
+<table class="rating">
+   	<tr>
+   		<th>
+   			<strong>이 페이지에서 제공하는 정보에 만족하십니까?</strong>
+   			&nbsp; &nbsp; &nbsp; &nbsp;
+			평균 : <fmt:formatNumber value="${ratingAvg }" pattern="0.0" />점
+			참여 : ${findRating }명
+		</th>
+	</tr>
+	<tr>
+		<td>
+			<input type="radio"  name="rating" value="5" checked/>	
+			<label for="verygood">매우만족</label>
+			&nbsp;
+			<input type="radio"  name="rating" value="4" />
+			<label for="good">만족</label>
+			&nbsp;	
+			<input type="radio" name="rating" value="3" />
+			<label for="soso">보통</label>
+			&nbsp;	
+			<input  type="radio" name="rating" value="2" />
+			<label for="bad">불만</label>
+			&nbsp;	
+			<input  type="radio" name="rating" value="1" />
+			<label for="verybad" >매우불만</label>
+				
+			<input type="submit" class="ratingBtn" value="평점 주기"/>
+		</td>
+	</tr>
+   </table>
 </form>
+
 
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script type="text/javascript">
+/* 페이징 */
 $(function(){
     $('#searchBtn').click(function() {
       self.location = "noticeList.do" + '${pageMaker.makeQuery(1)}' + "&searchType=" + $("select option:selected").val() + "&keyword=" + encodeURIComponent($('#keywordInput').val());
     });
   });   
+  
+//평가하기
+$(document).on('click','.ratingBtn', function(){	
+	
+	var member_id = '${memberInfo.member_id}';
+	var rating = $('input:radio[name=rating]:checked').val();
+	var rating_type = ${rating.rating_type};
+
+	if(member_id == ""){
+		alert("로그인 후 이용 가능합니다.");
+		return ;
+	}else if(rating_type > 1){
+		alert("중복 등록 하실 수 없습니다.");
+		return;
+	}
+
+	var Data = JSON.stringify({
+			"member_id": member_id
+			,"rating" : rating
+			,"rating_type" : rating_type
+	});
+	
+	var headers = {"Content-Type":"application/json"
+		,"X-HTTP-Method-Override":"POST"};
+	
+	$.ajax({
+		url:"${contextPath}/rating/RatingCheck.do"
+		,headers : headers
+		,async:false
+		,data : Data
+		,dataType : 'text'
+		,type : 'POST'
+		,success:function(result){
+			console.log(rating_type);
+		}
+		,error:function(error){
+			console.log("에러:" + error);
+		}
+	});//end ajax
+});//end on
+
 </script>
 </body>
 </html>
