@@ -17,10 +17,10 @@ request.setCharacterEncoding("UTF-8");
 
 </head>
 <body>
-<form role="form" method="get">
 <h1>　</h1>
+
 <div class="search" align="center">
-    <select name="searchType">
+    <select name="searchType">	
       <option value="t"<c:out value="${scri.searchType eq 't' ? 'selected' : ''}"/>>제목</option>
       <option value="c"<c:out value="${scri.searchType eq 'c' ? 'selected' : ''}"/>>내용</option>
       <option value="w"<c:out value="${scri.searchType eq 'w' ? 'selected' : ''}"/>>작성자</option>
@@ -31,13 +31,11 @@ request.setCharacterEncoding("UTF-8");
     	name="keyword" id="keywordInput" value="${scri.keyword}"/>
 
     <button id="searchBtn" type="button">검색</button>
-
-
+ </div>
 	     &nbsp; &nbsp; &nbsp; &nbsp;
     	<c:if test="${memberInfo.member_id =='admin' }">
-		<a href="${contextPath }/admin/notice/addNewNoticeForm.do"> ▶작성하기</a>
+		<a href="${contextPath }/admin/notice/addNewNoticeForm.do">&nbsp;&nbsp;▶작성하기</a>
 	</c:if>
- </div>
  <br>
 
   <div id="container" >
@@ -57,7 +55,7 @@ request.setCharacterEncoding("UTF-8");
 			<tr align="center">
 		<td>
 		<c:choose>
-			<c:when test="${Notice.pin == 0}">○</c:when>
+			<c:when test="${Notice.pin == 0}">ㅇ</c:when>
 			<c:when test="${Notice.pin == 1}">
 		<img src="${contextPath}/resources/image/notice.png" alt="공지사항" width="40px" height="40px">
 			</c:when>
@@ -104,7 +102,7 @@ request.setCharacterEncoding("UTF-8");
    			<strong>이 페이지에서 제공하는 정보에 만족하십니까?</strong>
    			&nbsp; &nbsp; &nbsp; &nbsp;
 			평균 : <fmt:formatNumber value="${ratingAvg }" pattern="0.0" />점
-			참여 : ${findRating }명
+			참여 : ${getRating }명
 		</th>
 	</tr>
 	<tr>
@@ -123,13 +121,14 @@ request.setCharacterEncoding("UTF-8");
 			&nbsp;	
 			<input  type="radio" name="rating" value="1" />
 			<label for="verybad" >매우불만</label>
-				
+			
+		<c:if test="${memberInfo.member_id != 'admin' }">
 			<input type="submit" class="ratingBtn" value="평점 주기"/>
-		</td>
+		</c:if>	
+			
+	</td>
 	</tr>
    </table>
-</form>
-
 
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script type="text/javascript">
@@ -143,14 +142,15 @@ $(function(){
 //평가하기
 $(document).on('click','.ratingBtn', function(){	
 	
+	var type = ${findRating};
 	var member_id = '${memberInfo.member_id}';
 	var rating = $('input:radio[name=rating]:checked').val();
-	var rating_type = ${rating.rating_type};
-
+	
 	if(member_id == ""){
 		alert("로그인 후 이용 가능합니다.");
-		return ;
-	}else if(rating_type > 1){
+		location.href = '${contextPath}/member/loginForm.do';
+		return;
+	}else if(type > 0){
 		alert("중복 등록 하실 수 없습니다.");
 		return;
 	}
@@ -158,7 +158,6 @@ $(document).on('click','.ratingBtn', function(){
 	var Data = JSON.stringify({
 			"member_id": member_id
 			,"rating" : rating
-			,"rating_type" : rating_type
 	});
 	
 	var headers = {"Content-Type":"application/json"
@@ -167,12 +166,11 @@ $(document).on('click','.ratingBtn', function(){
 	$.ajax({
 		url:"${contextPath}/rating/RatingCheck.do"
 		,headers : headers
-		,async:false
 		,data : Data
 		,dataType : 'text'
 		,type : 'POST'
 		,success:function(result){
-			console.log(rating_type);
+			window.location.reload();
 		}
 		,error:function(error){
 			console.log("에러:" + error);

@@ -4,9 +4,12 @@ import com.myspring.Art.common.Rating.VO.RatingVO;
 
 public interface RatingService {
 
-	int RatingCheck(RatingVO rating) throws Exception;
-
 	double ratingAvg();
 
-	int findRating(int rating_type);
+	int getRating(int rating_type);
+
+	int findRating(int rating_type,String id);
+
+	int RatingCheck(RatingVO rating) throws Exception;
+
 }

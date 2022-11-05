@@ -12,5 +12,7 @@ public interface RatingDAO {
 
 	Double ratingAvg();
 
-	int findRating(Map<String, Object>data) throws DataAccessException;
+	int getRating(Map<String, Object>data) throws DataAccessException;
+
+	int findRating(Map<String, Object> data) throws DataAccessException;
 }

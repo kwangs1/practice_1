@@ -20,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.myspring.Art.Admin.notice.Service.NoticeService;
 import com.myspring.Art.Admin.notice.VO.NoticeVO;
+import com.myspring.Art.Member.VO.MemberVO;
 import com.myspring.Art.common.Rating.Service.RatingService;
 import com.myspring.Art.common.Rating.VO.RatingVO;
 import com.myspring.Art.common.base.BaseController;
@@ -40,7 +41,7 @@ public class NoticeControllerImpl extends BaseController implements NoticeContro
 	//게시글 목록
 	@Override
 	@RequestMapping(value="/noticeList.do", method = RequestMethod.GET)
-	public ModelAndView NoticeList(@ModelAttribute("scri") SearchCriteria scri,@ModelAttribute("rating")RatingVO rating,
+	public ModelAndView NoticeList(@ModelAttribute("scri") SearchCriteria scri,String id,@ModelAttribute("rating") RatingVO rating,
 			HttpServletRequest request, HttpServletResponse response)throws Exception{
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(scri);
@@ -53,14 +54,16 @@ public class NoticeControllerImpl extends BaseController implements NoticeContro
 		mav.addObject("list",list);
 		mav.addObject("pageMaker",pageMaker);
 		
-		//평가
-		rating.setRating_type(rating.getRating_type());
+		/* 평가 */
+		rating.setMember_id(id);
+		logger.info("평가 했? : " + rating.getRating_type());
 		//평균값
 		mav.addObject("ratingAvg", ratingService.ratingAvg());
 		//평가한 사람 수
-		mav.addObject("findRating", ratingService.findRating(rating.getRating_type()));
+		mav.addObject("getRating", ratingService.getRating(rating.getRating_type()));
+		//평가 했는가 체크
+		mav.addObject("findRating",ratingService.findRating(rating.getRating_type(),id));
 		
-
 		return mav;		
 	}
 	

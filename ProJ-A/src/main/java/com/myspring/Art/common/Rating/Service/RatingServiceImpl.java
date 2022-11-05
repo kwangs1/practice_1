@@ -32,9 +32,18 @@ public class RatingServiceImpl implements RatingService{
 	}	
 	
 	@Override
-	public int findRating(int rating_type) {
+	public int getRating(int rating_type) {
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("rating_type", rating_type);
+		
+		return ratingDAO.getRating(map);
+	}
+	
+	@Override
+	public int findRating(int rating_type,String id) {
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("id", id);
+		map.put("rating_type" ,rating_type);
 		
 		return ratingDAO.findRating(map);
 	}

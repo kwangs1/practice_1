@@ -27,8 +27,12 @@ public class RatingDAOImpl implements RatingDAO{
 	}
 	
 	@Override
+	public int getRating(Map<String, Object>data)throws DataAccessException{
+		 return  session.selectOne("mapper.rating.getRating",data);
+	}
+	@Override
 	public int findRating(Map<String, Object>data)throws DataAccessException{
-		 return  session.selectOne("mapper.rating.findRating",data);
+		return  session.selectOne("mapper.rating.findRating",data);
 	}
 	
 }

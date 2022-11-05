@@ -12,7 +12,6 @@
 
 <link rel="stylesheet" href="${contextPath}/resources/main.css">
 
-<title>header</title>
 </head>
 	
 <body data-spy="scroll" data-target=".navbar" data-offset="40" id="home">
@@ -79,7 +78,7 @@
                         <a href="${contextPath}/collectible/collectibleList.do" class="nav-link">소장품</a>
                     </li>
                     <li class="nav-item">
-                        <a href="${contextPath}/admin/notice/noticeList.do" class="nav-link">공지사항</a>
+                        <a href="${contextPath}/admin/notice/noticeList.do?id=${memberInfo.member_id}" class="nav-link">공지사항</a>
                     </li>
                 </ul>
             </div>
