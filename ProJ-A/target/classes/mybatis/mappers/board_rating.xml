@@ -20,7 +20,7 @@
 	]]>
 </select>
 
-<insert id="RatingCheck" parameterType="RatingVO">
+<insert id="RatingCheck">
 <![CDATA[
 	insert into board_rating (brno,rating, member_id ,rating_type)
 	values ( (select nvl(max(brno)+1,1) from board_rating),#{rating},#{member_id} , #{rating_type})
@@ -37,7 +37,7 @@
 <select id="findRating" resultType="int">
 	<![CDATA[
 		select count(*) from board_rating
-		where brno = #{brno} and member_id = #{member_id}
+		where rating_type = 1 and member_id = #{member_id}
 	]]>
 </select>
 

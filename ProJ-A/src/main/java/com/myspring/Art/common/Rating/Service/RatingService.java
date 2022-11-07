@@ -8,8 +8,8 @@ public interface RatingService {
 
 	int getRating(int rating_type);
 
-	int findRating(int rating_type,String id);
+	void RatingCheck(RatingVO rating) throws Exception;
 
-	int RatingCheck(RatingVO rating) throws Exception;
+	int findRating(int rating_type, String member_id);
 
 }

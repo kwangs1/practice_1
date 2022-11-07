@@ -58,6 +58,7 @@
 
 a {
 	text-decoration-line: none;
+	color:black;
 }
 
 a:hover {

@@ -14,6 +14,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet" />
 <style>
 *{
 margin:0 auto;
@@ -30,14 +31,17 @@ table tr td input{
 }
 a {
   text-decoration-line: none;
+  color:black;
 }
 .note{
 background-color:transparent;
  border: none;
+ font-weight: 700;
 }
 .note:focus{
 outline: none;
 }
+
 </style>
 </head>
 <body>
@@ -57,7 +61,8 @@ outline: none;
     title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; 
     		encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
     </iframe>
-     <textarea class="note" rows="20" cols="80"  name="v_note"  disabled>${video.v_note }</textarea>
+    
+    <textarea class="note" rows="20" cols="80"  name="v_note"  disabled>${video.v_note }</textarea>
      </td>
 </tr>
 

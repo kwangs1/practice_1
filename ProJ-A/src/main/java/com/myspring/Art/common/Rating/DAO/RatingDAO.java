@@ -8,7 +8,7 @@ import com.myspring.Art.common.Rating.VO.RatingVO;
 
 public interface RatingDAO {
 
-	int RatingCheck(RatingVO rating) throws DataAccessException;
+	void RatingCheck(RatingVO rating) throws DataAccessException;
 
 	Double ratingAvg();
 

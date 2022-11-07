@@ -13,6 +13,10 @@
 <head>
 <meta charset="UTF-8">
 <style>
+*{
+magin:0 auto;
+padding:0 auto;
+}
 .video .list{
 	background-position: right; 
 	border-image: none; 
@@ -21,9 +25,6 @@
 	text-align: center; 
 	float: left; 
 	background-repeat: repeat-y;
-	margin-left: 10px;
-	margin-bottom: 10px;
-	display: block;
 }
 .video .list:hover {
 	-webkit-transform: scale(1.2);
@@ -51,7 +52,7 @@
 	text-align:center;
 	font-size:0;
 	position : absolute;
-	bottom : 0;
+	bottom : 0px;
  }
 .page_nation {
 	display:inline-block;

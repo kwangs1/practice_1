@@ -20,7 +20,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.myspring.Art.Admin.notice.Service.NoticeService;
 import com.myspring.Art.Admin.notice.VO.NoticeVO;
-import com.myspring.Art.Member.VO.MemberVO;
 import com.myspring.Art.common.Rating.Service.RatingService;
 import com.myspring.Art.common.Rating.VO.RatingVO;
 import com.myspring.Art.common.base.BaseController;
@@ -54,15 +53,15 @@ public class NoticeControllerImpl extends BaseController implements NoticeContro
 		mav.addObject("list",list);
 		mav.addObject("pageMaker",pageMaker);
 		
-		/* 평가 */
+		/* 평가 */		
 		rating.setMember_id(id);
-		logger.info("평가 했? : " + rating.getRating_type());
+		rating.setRating_type(1);
 		//평균값
 		mav.addObject("ratingAvg", ratingService.ratingAvg());
 		//평가한 사람 수
 		mav.addObject("getRating", ratingService.getRating(rating.getRating_type()));
-		//평가 했는가 체크
-		mav.addObject("findRating",ratingService.findRating(rating.getRating_type(),id));
+		//유저가 평가를 했는지 확인
+		mav.addObject("findRating",ratingService.findRating(rating.getBrno(),rating.getMember_id()));
 		
 		return mav;		
 	}

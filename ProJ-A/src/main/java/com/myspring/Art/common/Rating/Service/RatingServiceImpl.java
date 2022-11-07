@@ -27,8 +27,9 @@ public class RatingServiceImpl implements RatingService{
 	}
 	
 	@Override
-	public int RatingCheck(RatingVO rating)throws Exception{
-		return ratingDAO.RatingCheck(rating);
+	public void RatingCheck(RatingVO rating)throws Exception{
+		
+		ratingDAO.RatingCheck(rating);
 	}	
 	
 	@Override
@@ -40,10 +41,10 @@ public class RatingServiceImpl implements RatingService{
 	}
 	
 	@Override
-	public int findRating(int rating_type,String id) {
+	public int findRating(int rating_type,String member_id) {
 		Map<String,Object> map = new HashMap<String,Object>();
-		map.put("id", id);
-		map.put("rating_type" ,rating_type);
+		map.put("rating_type", rating_type);
+		map.put("member_id", member_id);
 		
 		return ratingDAO.findRating(map);
 	}

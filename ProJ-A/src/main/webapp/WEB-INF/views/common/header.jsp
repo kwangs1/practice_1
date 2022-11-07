@@ -27,7 +27,9 @@
                     <c:when test="${not empty memberInfo }">
                     <p>${memberInfo.member_name }님 환영합니다.&#128640;</p>
                         <a href="${contextPath}/member/logout.do" onClick="cookieRemove()">▶로그아웃</a>
-                        <a href="${contextPath}/member/memberInfo.do?member_id=${memberInfo.member_id}">▶마이페이지</a>
+                  		<c:if test="${memberInfo.member_id !='admin' }">
+                        	<a href="${contextPath}/member/memberInfo.do?member_id=${memberInfo.member_id}">▶마이페이지</a>
+                    	</c:if>
                     </c:when>
                     <c:otherwise>
                     <a href="${contextPath }/member/loginForm.do">▶로그인</a> 

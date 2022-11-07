@@ -13,6 +13,9 @@
 	margin: 40px auto;
 	width: 100%;
 }
+a{
+color:black;
+}
 </style>
 </head>
 
@@ -22,9 +25,9 @@
 <form:form commandName="videoVO" name="videoVO" method="post" enctype="multipart/form-data" 
 	action="${contextPath}/admin/video/youtube/addAction.do" onsubmit="return frm_check();" >
  
+ <h1></h1>
 <div class="bbs_write">
 <table class="tb_write">
-<caption>게시글 등록</caption>
 <colgroup>
     <col style="width:25%;">
     <col style="width:75%;">
@@ -60,7 +63,7 @@
  </br></br>
 <div class="mt_20 t_r" align="center">
 <input type="submit" class="tb_btn blueM"  value="등록" />
-<a href="${contextPath}/admin/video/adminVideoMain.do"  class="tb_btn whiteM">목록</a>
+<a href="${contextPath}/admin/video/adminVideoMain.do"  class="tb_btn whiteM">▶목록으로</a>
 </div>
 </form:form>
 </div>

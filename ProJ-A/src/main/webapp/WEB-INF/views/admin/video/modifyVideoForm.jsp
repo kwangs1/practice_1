@@ -15,6 +15,14 @@
 	margin: 40px auto;
 	width: 100%;
 }
+a{
+color:black;
+}
+input{	
+    padding: 0;
+	border: none;
+	background: none;
+}
 </style>
 </head>
 
@@ -51,20 +59,27 @@ enctype="multipart/form-data" >
 </div>    
  </br></br>
 <div class="mt_20 t_r" align="center">
-<input type=button value="수정반영하기" style='cursor:pointer;' onClick="fn_enable(this.form)">
+<input type=button value="▶수정반영하기" style='cursor:pointer;' onClick="fn_enable(this.form)">
 <a style='cursor:pointer;'
 	      	 href='<c:url value='/admin/video/adminVideoMain.do?page=${scri.page }
 	      	 							&perPageNum=${scri.perPageNum }
 	      	 							&searchType=${scri.searchType}
-	      	 							&keyword=${scri.keyword}'/>'>수정취소</a>
+	      	 							&keyword=${scri.keyword}'/>'>▶목록으로</a>
 </div>
 </div>
 </form>
 <script src="https://code.jquery.com/jquery-2.2.1.js"></script>
 <script type="text/javaScript">
 function fn_enable(obj){
+	var UpdConfirm = confirm('수정 하시겠습니까?');
+	
+	if(UpdConfirm){	
+		alert("수정 되었습니다.");
+	}else{
+		alert("수정 취소 되었습니다.");
+		return;
+	}
 	 document.getElementById("v_title").disabled=false;
-	 document.getElementById("v_addr").disabled=false;
 	 document.getElementById("v_note").disabled=false;
 
 	 obj.submit();

@@ -187,6 +187,7 @@ function fn_modify_goods(goods_id, attribute){
 		success : function(data, textStatus) {
 			if(data.trim()=='mod_success'){
 				alert("상품 정보를 수정했습니다.");
+				window.location.reload();
 			}else if(data.trim()=='failed'){
 				alert("다시 시도해 주세요.");	
 			}

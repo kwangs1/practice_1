@@ -14,9 +14,15 @@ request.setCharacterEncoding("UTF-8");
 <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
 
 <link rel="stylesheet" href="${contextPath}/resources/noticeList.css">
-
+<style>
+.write{
+	position:absolute;
+	left:20%;
+}
+</style>
 </head>
 <body>
+<form method="get" action="${contextPath}/admin/notice/noticeList.do">
 <h1>　</h1>
 
 <div class="search" align="center">
@@ -32,10 +38,6 @@ request.setCharacterEncoding("UTF-8");
 
     <button id="searchBtn" type="button">검색</button>
  </div>
-	     &nbsp; &nbsp; &nbsp; &nbsp;
-    	<c:if test="${memberInfo.member_id =='admin' }">
-		<a href="${contextPath }/admin/notice/addNewNoticeForm.do">&nbsp;&nbsp;▶작성하기</a>
-	</c:if>
  <br>
 
   <div id="container" >
@@ -94,8 +96,10 @@ request.setCharacterEncoding("UTF-8");
 				</c:if>
 			</div>
 			</div>
+	<c:if test="${memberInfo.member_id =='admin' }">
+		<a class="write" href="${contextPath }/admin/notice/addNewNoticeForm.do">▶작성하기</a>
+	</c:if>
 			<br>
-
 <table class="rating">
    	<tr>
    		<th>
@@ -123,13 +127,13 @@ request.setCharacterEncoding("UTF-8");
 			<label for="verybad" >매우불만</label>
 			
 		<c:if test="${memberInfo.member_id != 'admin' }">
-			<input type="submit" class="ratingBtn" value="평점 주기"/>
+			<input type="button" class="ratingBtn" value="평점 주기"/>
 		</c:if>	
 			
 	</td>
 	</tr>
    </table>
-
+</form>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script type="text/javascript">
 /* 페이징 */
@@ -143,8 +147,11 @@ $(function(){
 $(document).on('click','.ratingBtn', function(){	
 	
 	var type = ${findRating};
-	var member_id = '${memberInfo.member_id}';
-	var rating = $('input:radio[name=rating]:checked').val();
+	
+	let member_id = '${memberInfo.member_id}';
+	let rating = $('input:radio[name=rating]:checked').val();
+	let rating_type = ${rating.rating_type};
+
 	
 	if(member_id == ""){
 		alert("로그인 후 이용 가능합니다.");
@@ -153,21 +160,18 @@ $(document).on('click','.ratingBtn', function(){
 	}else if(type > 0){
 		alert("중복 등록 하실 수 없습니다.");
 		return;
-	}
+	} 
 
-	var Data = JSON.stringify({
-			"member_id": member_id
-			,"rating" : rating
-	});
-	
-	var headers = {"Content-Type":"application/json"
-		,"X-HTTP-Method-Override":"POST"};
+	var Data = {
+		 "brno" : ${rating.brno}
+		,"member_id": member_id
+		,"rating" : rating
+		,"rating_type" : rating_type
+	};
 	
 	$.ajax({
 		url:"${contextPath}/rating/RatingCheck.do"
-		,headers : headers
 		,data : Data
-		,dataType : 'text'
 		,type : 'POST'
 		,success:function(result){
 			window.location.reload();
@@ -180,4 +184,4 @@ $(document).on('click','.ratingBtn', function(){
 
 </script>
 </body>
-</html>
+</html>             

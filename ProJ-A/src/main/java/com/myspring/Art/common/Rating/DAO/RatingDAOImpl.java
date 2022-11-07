@@ -19,11 +19,9 @@ public class RatingDAOImpl implements RatingDAO{
 		return session.selectOne("mapper.rating.ratingAvg");
 	}
 
-	
 	@Override
-	public int RatingCheck(RatingVO rating)throws DataAccessException{
-		int result = session.insert("mapper.rating.RatingCheck",rating);
-		return result;
+	public void RatingCheck(RatingVO rating)throws DataAccessException{
+		session.insert("mapper.rating.RatingCheck",rating);
 	}
 	
 	@Override
