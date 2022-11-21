@@ -105,8 +105,7 @@ a {
  <script  src="http://code.jquery.com/jquery-latest.min.js"></script> 
  <script type="text/javascript">
 
- function fn_remove_bno(url,bno){
-	
+ function fn_remove_bno(url,bno){	
 	 var form = document.createElement("form");
 		 	form.setAttribute("method", "get");
 	 		form.setAttribute("action", url);

@@ -180,6 +180,17 @@ a:hover {
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
 function fn_remove_goods(url,goods_id){
+	var DelConfirm = confirm('삭제 하시겠습니까?');
+	
+	
+	var paramData = {"goods_id" : goods_id};
+
+	if(DelConfirm){	
+		alert("삭제 되었습니다.");
+	}else{
+		alert("삭제가 취소 되었습니다.");
+		return;
+	}
 	 var form = document.createElement("form");
 	 form.setAttribute("method", "post");
 	 form.setAttribute("action", url);
